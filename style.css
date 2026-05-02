@@ -39,6 +39,28 @@ body {
   overflow-x: hidden;
 }
 
+/* Print Styles - Crucial for "Download PDF" simulation */
+@media print {
+    body * { visibility: hidden; }
+    #resume-preview, #resume-preview * { visibility: visible; }
+    #resume-preview {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: auto !important;
+        overflow: visible !important;
+        box-shadow: none !important;
+        padding: 0 !important;
+    }
+    /* Resume specific print styling */
+    #resume-preview h1 { font-size: 24pt !important; margin-bottom: 5pt !important; }
+    #resume-preview h2 { font-size: 14pt !important; border-bottom: 1pt solid #ccc !important; margin-top: 15pt !important; }
+    #resume-preview .experience-title { font-weight: bold !important; margin-top: 10pt !important; display: block !important; }
+    #resume-preview ul { margin-left: 15pt !important; }
+    #resume-preview li { margin-bottom: 3pt !important; page-break-inside: avoid; }
+}
+
 /* Typography */
 h1 { font-size: 3.5rem; font-weight: 800; letter-spacing: -0.02em; line-height: 1.1; }
 h2 { font-size: 1.5rem; font-weight: 600; color: var(--text-secondary); }
