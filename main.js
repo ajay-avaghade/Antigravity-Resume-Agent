@@ -234,20 +234,23 @@ refineBtn.addEventListener('click', async () => {
 downloadBtn.addEventListener('click', () => {
     addLog("> Initializing PDF Engine...");
     
+    // Target the inner container which has full height (no scroll)
+    const element = resumeContent.querySelector('.resume-container');
+    
     const opt = {
-        margin:       [0, 0, 0, 0],
+        margin:       [10, 10, 10, 10], // Standard margins
         filename:     'Ajay_Avaghade_Antigravity_Resume.pdf',
         image:        { type: 'jpeg', quality: 0.98 },
-        html2canvas:  { scale: 3, useCORS: true, letterRendering: true },
+        html2canvas:  { 
+            scale: 2, 
+            useCORS: true, 
+            letterRendering: true,
+            scrollY: 0, // CRITICAL: Reset scroll offset
+            scrollX: 0,
+            windowWidth: 800 // Consistent width for rendering
+        },
         jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait' }
     };
-
-    // Use a wrapper to ensure padding is included in the PDF
-    const element = document.createElement('div');
-    element.innerHTML = resumeContent.innerHTML;
-    element.style.padding = "15mm";
-    element.style.background = "white";
-    element.style.width = "210mm";
 
     html2pdf().set(opt).from(element).save().then(() => {
         addLog("> SUCCESS: PDF downloaded to your computer.");
@@ -257,3 +260,4 @@ downloadBtn.addEventListener('click', () => {
         window.print();
     });
 });
+
