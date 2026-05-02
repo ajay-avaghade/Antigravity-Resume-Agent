@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Antigravity | Multi-Agent Resume Pipeline</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=JetBrains+Mono&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body>
+    <nav class="container">
+        <div class="logo">ANTIGRAVITY</div>
+        <div class="nav-links">
+            <button class="theme-toggle" id="theme-toggle">
+                <i data-lucide="sun" id="sun-icon" style="display: none;"></i>
+                <i data-lucide="moon" id="moon-icon"></i>
+            </button>
+        </div>
+    </nav>
+
+    <main class="container">
+        <section class="hero">
+            <h1>Engineered for <span style="color: var(--accent);">Maximum Impact</span></h1>
+            <p>A multi-agent autonomous pipeline that generates >90 ATS-scored resumes by bridging the gap between your portfolio and the job description.</p>
+        </section>
+
+        <section class="playground">
+            <div class="card">
+                <h2>The Input Engine</h2>
+                <p style="margin-bottom: 2rem;">Upload your background or paste a JD to start the pipeline.</p>
+                
+                <div class="input-group">
+                    <label>Job Description URL</label>
+                    <input type="text" id="jd-url" placeholder="https://www.linkedin.com/jobs/view/...">
+                </div>
+
+                <div class="input-group">
+                    <label>Portfolio / Resume</label>
+                    <div class="upload-area" id="upload-area">
+                        <i data-lucide="upload-cloud" style="margin-bottom: 1rem;"></i>
+                        <p>Drop your resume or click to upload</p>
+                        <span style="font-size: 0.8rem; color: var(--text-secondary);">Supports PDF, MD, TXT</span>
+                    </div>
+                </div>
+
+                <div class="input-group">
+                    <label>Quick Work Summary (Optional)</label>
+                    <textarea id="work-summary" rows="4" placeholder="Briefly describe your key projects..."></textarea>
+                </div>
+
+                <button class="btn" id="start-pipeline">RUN MULTI-AGENT PIPELINE</button>
+            </div>
+
+            <div class="card">
+                <h2>Orchestration Logs</h2>
+                <p style="margin-bottom: 2rem;">Real-time execution of Agents 1-6.</p>
+                <div class="logs" id="log-terminal">
+                    <div class="log-entry">> Initializing Antigravity Orchestrator...</div>
+                    <div class="log-entry">> Awaiting input trigger...</div>
+                </div>
+            </div>
+        </section>
+
+        <section class="architecture">
+            <h2 style="text-align: center; margin-bottom: 1rem; color: var(--text-primary);">Pipeline Architecture</h2>
+            <p style="text-align: center; color: var(--text-secondary);">Six specialized agents working in parallel to ensure design hygiene and strategic alignment.</p>
+            
+            <div class="agent-grid">
+                <div class="agent-card">
+                    <i data-lucide="search" style="color: #60a5fa;"></i>
+                    <h3>The Harvester</h3>
+                    <p>Agent 1: Scrapes JD, extracts company culture, and ingests the hardcoded master portfolio.</p>
+                </div>
+                <div class="agent-card">
+                    <i data-lucide="brain" style="color: #a78bfa;"></i>
+                    <h3>The Synthesizer</h3>
+                    <p>Agent 2: Maps achievements to JD using strategic keyword injection and creative narrative framing.</p>
+                </div>
+                <div class="agent-card">
+                    <i data-lucide="layout" style="color: #fbbf24;"></i>
+                    <h3>The Architect</h3>
+                    <p>Agent 3: Compiles strategy into rigid, ATS-friendly Markdown with CSS pagination hygiene.</p>
+                </div>
+                <div class="agent-card">
+                    <i data-lucide="shield-check" style="color: #34d399;"></i>
+                    <h3>The Ensemble</h3>
+                    <p>Agent 4: Simulates 5 independent industry-standard ATS parsers to verify score > 90.</p>
+                </div>
+                <div class="agent-card">
+                    <i data-lucide="eye" style="color: #f87171;"></i>
+                    <h3>The Validator</h3>
+                    <p>Agent 6: Simulates PDF export and inspects layout for orphaned headers and hygiene issues.</p>
+                </div>
+                <div class="agent-card">
+                    <i data-lucide="mail" style="color: #818cf8;"></i>
+                    <h3>The Specialist</h3>
+                    <p>Agent 5: Generates tailored outreach materials (Cover Letter, LinkedIn, Referral Emails).</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2026 Ajay Avaghade. Built with Antigravity Multi-Agent System.</p>
+        </div>
+    </footer>
+
+    <script src="main.js"></script>
+</body>
+</html>
