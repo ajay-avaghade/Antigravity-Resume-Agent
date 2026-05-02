@@ -231,33 +231,56 @@ refineBtn.addEventListener('click', async () => {
 });
 
 // Real PDF Download via html2pdf
-downloadBtn.addEventListener('click', () => {
+downloadBtn.addEventListener('click', async () => {
     addLog("> Initializing PDF Engine...");
     
-    // Target the inner container which has full height (no scroll)
-    const element = resumeContent.querySelector('.resume-container');
+    // 1. Create a temporary 'shadow' element for PDF rendering
+    // This avoids all scroll/offset issues by rendering in a clean, full-height container
+    const printElement = document.createElement('div');
+    printElement.innerHTML = resumeContent.innerHTML;
+    
+    // Apply styling to ensure it renders exactly like an A4 page
+    Object.assign(printElement.style, {
+        position: 'absolute',
+        left: '-9999px',
+        top: '0',
+        width: '210mm',
+        height: 'auto',
+        padding: '15mm',
+        background: 'white',
+        color: '#333',
+        fontSize: '11pt',
+        lineHeight: '1.4',
+        fontFamily: "'Inter', sans-serif"
+    });
+    
+    document.body.appendChild(printElement);
     
     const opt = {
-        margin:       [10, 10, 10, 10], // Standard margins
+        margin:       0, // Padding is already in printElement
         filename:     'Ajay_Avaghade_Antigravity_Resume.pdf',
         image:        { type: 'jpeg', quality: 0.98 },
         html2canvas:  { 
-            scale: 2, 
+            scale: 3, // Higher resolution
             useCORS: true, 
             letterRendering: true,
-            scrollY: 0, // CRITICAL: Reset scroll offset
-            scrollX: 0,
-            windowWidth: 800 // Consistent width for rendering
+            scrollY: 0,
+            scrollX: 0
         },
         jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait' }
     };
 
-    html2pdf().set(opt).from(element).save().then(() => {
+    try {
+        await html2pdf().set(opt).from(printElement).save();
         addLog("> SUCCESS: PDF downloaded to your computer.");
-    }).catch(err => {
-        console.error(err);
+    } catch (err) {
+        console.error("PDF Export Error:", err);
         addLog("> ERROR: PDF generation failed. Using browser fallback...");
         window.print();
-    });
+    } finally {
+        // Cleanup
+        document.body.removeChild(printElement);
+    }
 });
+
 
