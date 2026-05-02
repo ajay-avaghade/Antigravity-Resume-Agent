@@ -51,20 +51,37 @@
                     </div>
                 </div>
 
-                <div class="input-group">
-                    <label>Quick Work Summary (Optional)</label>
-                    <textarea id="work-summary" rows="4" placeholder="Briefly describe your key projects..."></textarea>
-                </div>
-
                 <button class="btn" id="start-pipeline">RUN MULTI-AGENT PIPELINE</button>
             </div>
 
-            <div class="card">
+            <div class="card" id="output-card">
                 <h2>Orchestration Logs</h2>
                 <p style="margin-bottom: 2rem;">Real-time execution of Agents 1-6.</p>
                 <div class="logs" id="log-terminal">
                     <div class="log-entry">> Initializing Antigravity Orchestrator...</div>
                     <div class="log-entry">> Awaiting input trigger...</div>
+                </div>
+
+                <div id="result-actions" style="display: none; margin-top: 2rem; border-top: 1px solid var(--card-border); padding-top: 2rem;">
+                    <div style="display: flex; gap: 1rem; margin-bottom: 1.5rem;">
+                        <button class="btn" style="flex: 1;" id="download-pdf">
+                            <i data-lucide="download" style="width: 18px; vertical-align: middle; margin-right: 8px;"></i>
+                            DOWNLOAD PDF
+                        </button>
+                        <button class="btn" style="flex: 1; background: var(--bg-secondary); color: var(--text-primary); border: 1px solid var(--card-border);" id="view-markdown">
+                            VIEW MARKDOWN
+                        </button>
+                    </div>
+
+                    <div class="input-group">
+                        <label>Refine Draft through LLM</label>
+                        <div style="display: flex; gap: 0.5rem;">
+                            <input type="text" id="refine-input" placeholder="e.g. Make it more leadership focused...">
+                            <button class="btn" style="width: auto; padding: 0 1.5rem;" id="refine-btn">
+                                <i data-lucide="sparkles" style="width: 18px;"></i>
+                            </button>
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>
