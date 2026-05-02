@@ -232,55 +232,61 @@ refineBtn.addEventListener('click', async () => {
 
 // Real PDF Download via html2pdf
 downloadBtn.addEventListener('click', async () => {
-    addLog("> Initializing PDF Engine...");
+    addLog("> Initializing High-Fidelity PDF Engine...");
     
-    // 1. Create a temporary 'shadow' element for PDF rendering
-    // This avoids all scroll/offset issues by rendering in a clean, full-height container
-    const printElement = document.createElement('div');
-    printElement.innerHTML = resumeContent.innerHTML;
+    // Save current scroll and jump to top to lock coordinate system
+    const scrollPos = window.scrollY;
+    window.scrollTo(0, 0);
     
-    // Apply styling to ensure it renders exactly like an A4 page
-    Object.assign(printElement.style, {
-        position: 'absolute',
-        left: '-9999px',
+    // 1. Create the Ultimate Print Wrapper
+    const printWrapper = document.createElement('div');
+    printWrapper.innerHTML = resumeContent.innerHTML;
+    
+    // Use fixed positioning to isolate from page flow but stay in the rendering context
+    Object.assign(printWrapper.style, {
+        position: 'fixed',
         top: '0',
+        left: '0',
         width: '210mm',
         height: 'auto',
         padding: '15mm',
         background: 'white',
         color: '#333',
-        fontSize: '11pt',
-        lineHeight: '1.4',
-        fontFamily: "'Inter', sans-serif"
+        zIndex: '10000',
+        fontFamily: "'Inter', sans-serif",
+        boxSizing: 'border-box'
     });
     
-    document.body.appendChild(printElement);
+    document.body.appendChild(printWrapper);
     
     const opt = {
-        margin:       0, // Padding is already in printElement
+        margin:       0,
         filename:     'Ajay_Avaghade_Antigravity_Resume.pdf',
-        image:        { type: 'jpeg', quality: 0.98 },
+        image:        { type: 'jpeg', quality: 1.0 },
         html2canvas:  { 
-            scale: 3, // Higher resolution
+            scale: 2, // 2x is more stable than 3x for large layouts
             useCORS: true, 
             letterRendering: true,
             scrollY: 0,
-            scrollX: 0
+            y: 0, // Explicitly anchor to top
+            removeContainer: true
         },
         jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait' }
     };
 
     try {
-        await html2pdf().set(opt).from(printElement).save();
-        addLog("> SUCCESS: PDF downloaded to your computer.");
+        await html2pdf().set(opt).from(printWrapper).save();
+        addLog("> SUCCESS: High-fidelity PDF downloaded.");
     } catch (err) {
-        console.error("PDF Export Error:", err);
-        addLog("> ERROR: PDF generation failed. Using browser fallback...");
+        console.error("PDF Final Error:", err);
+        addLog("> ERROR: PDF generation failed. Using print fallback...");
         window.print();
     } finally {
-        // Cleanup
-        document.body.removeChild(printElement);
+        // Cleanup and Restore
+        document.body.removeChild(printWrapper);
+        window.scrollTo(0, scrollPos);
     }
 });
+
 
 
