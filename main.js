@@ -46,7 +46,7 @@ const initialResume = `
         <div style="margin-bottom: 14pt;">
             <h2 style="font-size: 12pt; border-bottom: 1pt solid #ddd; padding-bottom: 2pt; margin-bottom: 6pt; font-weight: bold; color: #1a1a1a; text-transform: uppercase; letter-spacing: 0.5px;">Professional Summary</h2>
             <p style="font-size: 9.5pt; line-height: 1.5; color: #333; text-align: justify;">
-                Customer-obsessed Product Manager with 4+ years of experience scaling India’s leading digital payments and Quick Commerce (Pincode) ecosystems. Managed a ₹100 Cr/year monetization portfolio and ₹1000+ Cr annual budgets, driving 22% conversion lifts through data-driven checkout revamps and 'Propensity to Transact' ML models. Proven track record in 0→1 launches and platform-scale growth.
+                Data-driven Senior Product Manager with 4+ years of experience scaling high-volume transactional platforms and <strong>Engagement Ecosystems</strong>. Expert at bridging complex user journeys with <strong>LiveOps incentivization</strong>, driving 22% conversion lifts and 17% CLTV growth through gamified retention mechanics. Proven track record in managing ₹1000+ Cr annual budgets to optimize player/user acquisition and platform-scale session depth.
             </p>
         </div>
 
@@ -56,7 +56,7 @@ const initialResume = `
 
             <div class="experience-block" style="margin-bottom: 10pt; page-break-inside: avoid;">
                 <div style="display: flex; justify-content: space-between; font-weight: bold; font-size: 10pt; color: #1a1a1a;">
-                    <span>PHONEPE</span>
+                    <span>PHONEPE (Engagement & Growth)</span>
                     <span>May 2023 – Present</span>
                 </div>
                 <div style="display: flex; justify-content: space-between; font-style: italic; font-size: 9.5pt; color: #444; margin-bottom: 2pt;">
@@ -64,15 +64,16 @@ const initialResume = `
                     <span>Bangalore, India</span>
                 </div>
                 <ul style="font-size: 9.5pt; margin-left: 14pt; line-height: 1.4; color: #333;">
-                    <li style="margin-bottom: 2pt;"><strong>Quick Commerce & Supply Chain:</strong> Spearheaded real-time cart-context interventions for Pincode, implementing automated freebie and fee-waiver logic that optimized hub productivity and significantly reduced supply chain abandonment.</li>
-                    <li style="margin-bottom: 2pt;"><strong>Checkout & Platform Experience:</strong> Reimagined the end-to-end offer discovery experience, architecting <strong>EMI subvention capabilities</strong> that drove a 14% increase in merchant acquisition and a 22% lift in offer-applied transaction conversions.</li>
-                    <li style="margin-bottom: 2pt;"><strong>Budgeting & Efficiency:</strong> Directed a ₹1000+ Cr annual marketing engine, deploying <strong>'Propensity to Transact' ML models</strong> to reduce marketing burn by 32% while sustaining 11% YoY revenue growth.</li>
+                    <li style="margin-bottom: 2pt;"><strong>Retention Mechanics & LiveOps:</strong> Launched a gamified milestone system and unified offer discovery journey, scaling <strong>CLTV by 17%</strong> and increasing <strong>active session depth</strong> through algorithmically cohorted user interventions.</li>
+                    <li style="margin-bottom: 2pt;"><strong>Conversion Optimization:</strong> Reimagined the end-to-end checkout and payment experience, architecting <strong>EMI subvention capabilities</strong> that drove a 14% increase in conversion for high-intent user segments.</li>
+                    <li style="margin-bottom: 2pt;"><strong>Predictive Engagement:</strong> Directed a ₹1000+ Cr annual marketing engine, deploying <strong>'Propensity to Transact' ML models</strong> to optimize spend efficiency, reducing marketing burn by 32% while sustaining double-digit YoY growth.</li>
+                    <li style="margin-bottom: 2pt;"><strong>In-App Incentivization:</strong> Designed real-time, context-aware interventions (freebies, fee-waivers) for Pincode, significantly reducing <strong>supply chain abandonment</strong> and improving overall funnel health.</li>
                 </ul>
             </div>
 
             <div class="experience-block" style="margin-bottom: 10pt; page-break-inside: avoid;">
                 <div style="display: flex; justify-content: space-between; font-weight: bold; font-size: 10pt; color: #1a1a1a;">
-                    <span>PHONEPE</span>
+                    <span>PHONEPE (Monetization & Strategy)</span>
                     <span>April 2022 – April 2023</span>
                 </div>
                 <div style="display: flex; justify-content: space-between; font-style: italic; font-size: 9.5pt; color: #444; margin-bottom: 2pt;">
@@ -80,8 +81,8 @@ const initialResume = `
                     <span>Bangalore, India</span>
                 </div>
                 <ul style="font-size: 9.5pt; margin-left: 14pt; line-height: 1.4; color: #333;">
-                    <li style="margin-bottom: 2pt;"><strong>Monetization & Strategy:</strong> Orchestrated a ₹100 Cr/year monetization portfolio, defining platform-scale incentivization roadmaps and driving merchant growth through scalable B2B infrastructure.</li>
-                    <li style="margin-bottom: 2pt;"><strong>Viral Acquisition:</strong> Engineered a multi-tenant referral engine with integrated fraud detection, acquiring 5Mn+ users/month and optimizing CAC by 23%.</li>
+                    <li style="margin-bottom: 2pt;"><strong>Viral Acquisition Engine:</strong> Engineered a multi-tenant referral engine with integrated fraud detection, acquiring <strong>5Mn+ users/month</strong> and optimizing CAC by 23% through feature-level referral loops.</li>
+                    <li style="margin-bottom: 2pt;"><strong>Monetization Roadmap:</strong> Managed a ₹100 Cr/year monetization portfolio, defining scalable B2B infrastructure that supported rapid merchant growth and platform-wide incentivization strategies.</li>
                 </ul>
             </div>
 
@@ -95,7 +96,7 @@ const initialResume = `
                     <span>Mumbai, India</span>
                 </div>
                 <ul style="font-size: 9.5pt; margin-left: 14pt; line-height: 1.4; color: #333;">
-                    <li style="margin-bottom: 2pt;"><strong>0→1 Platform Launch:</strong> Conceptualized and launched the Kotak Cherry WealthTech platform, achieving 100K+ downloads within the first 90 days and a +26% Day-30 retention rate.</li>
+                    <li style="margin-bottom: 2pt;"><strong>0→1 Platform Launch:</strong> Conceptualized and launched the <strong>Kotak Cherry WealthTech</strong> platform, achieving 100K+ downloads within 90 days and a +26% Day-30 retention rate.</li>
                 </ul>
             </div>
         </div>
@@ -104,8 +105,8 @@ const initialResume = `
         <div class="experience-block" style="margin-bottom: 14pt; page-break-inside: avoid;">
             <h2 style="font-size: 12pt; border-bottom: 1pt solid #ddd; padding-bottom: 2pt; margin-bottom: 6pt; font-weight: bold; color: #1a1a1a; text-transform: uppercase; letter-spacing: 0.5px;">Technical Skills</h2>
             <p style="font-size: 9.5pt; line-height: 1.5; color: #333;">
-                <strong>Product Management:</strong> Technical Product Strategy, Roadmap Ownership, A/B Testing, Lifecycle Management, Quick Commerce Operations, Supply Chain Optimization, Agile/Scrum.<br>
-                <strong>Technical & Data:</strong> SQL (Advanced), VBA, Machine Learning (Propensity Modeling), Data Modeling, Mixpanel, Clevertap, Jira, Figma.
+                <strong>Product & Engagement:</strong> Live Operations (LiveOps), Gamification, Retention Mechanics, Conversion Funnel Optimization, A/B Testing, Lifecycle Management, Technical Product Strategy.<br>
+                <strong>Data & Tools:</strong> SQL (Advanced), Machine Learning (Propensity Modeling), Data Modeling, Mixpanel, Clevertap, Jira, Figma, Tableau.
             </p>
         </div>
 
@@ -215,8 +216,12 @@ refineBtn.addEventListener('click', async () => {
     addLog("> [Agent 2] SYNTHESIZER: Re-framing narrative to emphasize leadership and " + instruction + "...");
     
     // Simulate updating the draft
-    resumeContent.innerHTML = resumeContent.innerHTML.replace("Customer-obsessed Product Manager", "<strong>[REFINED]</strong> High-Impact Leadership Product Strategist");
-    resumeContent.innerHTML = resumeContent.innerHTML.replace("Spearheaded", "Directed the cross-functional execution of");
+    if (instruction.toLowerCase().includes("gaming") || instruction.toLowerCase().includes("engagement")) {
+        resumeContent.innerHTML = resumeContent.innerHTML.replace("Senior Product Manager", "<strong>[REFINED]</strong> Senior Gaming Product Leader (Engagement)");
+        resumeContent.innerHTML = resumeContent.innerHTML.replace("Retention Mechanics", "High-Velocity Player Retention Mechanics");
+    } else {
+        resumeContent.innerHTML = resumeContent.innerHTML.replace("Senior Product Manager", "<strong>[REFINED]</strong> High-Impact Leadership Product Strategist");
+    }
     
     await new Promise(resolve => setTimeout(resolve, 1000));
     addLog("> [Agent 3] ARCHITECT: Re-rendering layout with updated directives...");
