@@ -39,10 +39,14 @@ body {
   overflow-x: hidden;
 }
 
-/* Print Styles - Crucial for "Download PDF" simulation */
+/* Print Styles - Native Browser PDF Export */
 @media print {
+    /* Hide everything by default */
     body * { visibility: hidden; }
+    
+    /* Show only the resume content and its parents */
     #resume-preview, #resume-preview * { visibility: visible; }
+    
     #resume-preview {
         position: absolute;
         left: 0;
@@ -50,25 +54,20 @@ body {
         width: 100%;
         height: auto !important;
         overflow: visible !important;
-        box-shadow: none !important;
         padding: 0 !important;
+        margin: 0 !important;
+        box-shadow: none !important;
         background: white !important;
     }
+
+    /* Prevent orphaned headers and ensure clean breaks */
+    h2 { page-break-after: avoid; border-bottom: 1px solid #eee !important; }
+    .experience-block { page-break-inside: avoid; margin-bottom: 15pt !important; }
     
-    .resume-container {
-        padding: 15mm !important;
-        width: 210mm; /* A4 Width */
-        margin: 0 auto;
-    }
-
-    h2 {
-        page-break-after: avoid;
-    }
-
-    .experience-block, li, p {
-        page-break-inside: avoid;
-    }
+    /* Ensure links are visible/blue in print */
+    a { color: #007bff !important; text-decoration: none !important; }
 }
+
 
 
 /* Typography */

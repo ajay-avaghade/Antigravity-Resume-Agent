@@ -230,46 +230,17 @@ refineBtn.addEventListener('click', async () => {
     refineBtn.disabled = false;
 });
 
-// Real PDF Download via html2pdf
-downloadBtn.addEventListener('click', async () => {
-    addLog("> Initializing High-Fidelity PDF Engine...");
+// Native PDF Download via Browser Print Engine (VS Code Style)
+downloadBtn.addEventListener('click', () => {
+    addLog("> Initializing Native Print Engine...");
+    addLog("> [TIP] Select 'Save as PDF' in the destination dropdown.");
     
-    // 1. Prepare the preview for full-height capture
-    const preview = document.getElementById('resume-preview');
-    const originalStyle = preview.style.cssText;
+    // Native print is 100% reliable for text-based resumes
+    window.print();
     
-    // Temporarily force full height and remove scrollbars for capture
-    preview.style.height = 'auto';
-    preview.style.overflow = 'visible';
-    preview.style.position = 'relative';
-    
-    const element = resumeContent.querySelector('.resume-container');
-    
-    const opt = {
-        margin:       10,
-        filename:     'Ajay_Avaghade_Antigravity_Resume.pdf',
-        image:        { type: 'jpeg', quality: 0.98 },
-        html2canvas:  { 
-            scale: 2, 
-            useCORS: true, 
-            letterRendering: true,
-            scrollY: -window.scrollY // Offset for current scroll
-        },
-        jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait' }
-    };
-
-    try {
-        await html2pdf().set(opt).from(element).save();
-        addLog("> SUCCESS: High-fidelity PDF downloaded.");
-    } catch (err) {
-        console.error("PDF Final Error:", err);
-        addLog("> ERROR: PDF generation failed. Using print fallback...");
-        window.print();
-    } finally {
-        // Restore original preview styling
-        preview.style.cssText = originalStyle;
-    }
+    addLog("> SUCCESS: Print dialog opened. PDF ready for export.");
 });
+
 
 
 
