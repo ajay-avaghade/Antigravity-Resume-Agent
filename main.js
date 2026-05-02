@@ -138,6 +138,15 @@ const initialResume = `
             </div>
         </div>
 
+        <!-- AI & Open Source Projects -->
+        <div class="experience-block" style="margin-bottom: 14pt; page-break-inside: avoid;">
+            <h2 style="font-size: 12pt; border-bottom: 1pt solid #ddd; padding-bottom: 2pt; margin-bottom: 8pt; font-weight: bold; color: #1a1a1a; text-transform: uppercase; letter-spacing: 0.5px;">AI & Open Source Projects</h2>
+            <div style="margin-bottom: 6pt;">
+                <div style="font-weight: bold; font-size: 10pt; color: #1a1a1a;">AI Mock Product Manager Interviewer</div>
+                <p style="font-size: 9.5pt; line-height: 1.4; color: #333;">Architected a real-time voice conversational agent using LLMs and speech-to-text to conduct PM mock interviews, providing instant scorecards and feedback.</p>
+            </div>
+        </div>
+
         <!-- Achievements -->
         <div class="experience-block" style="page-break-inside: avoid;">
             <h2 style="font-size: 12pt; border-bottom: 1pt solid #ddd; padding-bottom: 2pt; margin-bottom: 6pt; font-weight: bold; color: #1a1a1a; text-transform: uppercase; letter-spacing: 0.5px;">Key Achievements</h2>
