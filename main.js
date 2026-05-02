@@ -234,59 +234,43 @@ refineBtn.addEventListener('click', async () => {
 downloadBtn.addEventListener('click', async () => {
     addLog("> Initializing High-Fidelity PDF Engine...");
     
-    // Save current scroll and jump to top to lock coordinate system
-    const scrollPos = window.scrollY;
-    window.scrollTo(0, 0);
+    // 1. Prepare the preview for full-height capture
+    const preview = document.getElementById('resume-preview');
+    const originalStyle = preview.style.cssText;
     
-    // 1. Create the Ultimate Print Wrapper
-    const printWrapper = document.createElement('div');
-    printWrapper.innerHTML = resumeContent.innerHTML;
+    // Temporarily force full height and remove scrollbars for capture
+    preview.style.height = 'auto';
+    preview.style.overflow = 'visible';
+    preview.style.position = 'relative';
     
-    // Use fixed positioning to isolate from page flow but stay in the rendering context
-    Object.assign(printWrapper.style, {
-        position: 'fixed',
-        top: '0',
-        left: '0',
-        width: '210mm',
-        height: 'auto',
-        padding: '15mm',
-        background: 'white',
-        color: '#333',
-        zIndex: '10000',
-        fontFamily: "'Inter', sans-serif",
-        boxSizing: 'border-box'
-    });
-    
-    document.body.appendChild(printWrapper);
+    const element = resumeContent.querySelector('.resume-container');
     
     const opt = {
-        margin:       0,
+        margin:       10,
         filename:     'Ajay_Avaghade_Antigravity_Resume.pdf',
-        image:        { type: 'jpeg', quality: 1.0 },
+        image:        { type: 'jpeg', quality: 0.98 },
         html2canvas:  { 
-            scale: 2, // 2x is more stable than 3x for large layouts
+            scale: 2, 
             useCORS: true, 
             letterRendering: true,
-            scrollY: 0,
-            y: 0, // Explicitly anchor to top
-            removeContainer: true
+            scrollY: -window.scrollY // Offset for current scroll
         },
         jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait' }
     };
 
     try {
-        await html2pdf().set(opt).from(printWrapper).save();
+        await html2pdf().set(opt).from(element).save();
         addLog("> SUCCESS: High-fidelity PDF downloaded.");
     } catch (err) {
         console.error("PDF Final Error:", err);
         addLog("> ERROR: PDF generation failed. Using print fallback...");
         window.print();
     } finally {
-        // Cleanup and Restore
-        document.body.removeChild(printWrapper);
-        window.scrollTo(0, scrollPos);
+        // Restore original preview styling
+        preview.style.cssText = originalStyle;
     }
 });
+
 
 
 
