@@ -52,35 +52,46 @@
                 </div>
 
                 <button class="btn" id="start-pipeline">RUN MULTI-AGENT PIPELINE</button>
+
+                <div class="card" id="output-card" style="margin-top: 2rem; padding: 1.5rem; background: var(--bg-secondary); border: 1px dashed var(--card-border);">
+                    <h3 style="font-size: 0.9rem; text-transform: uppercase; margin-bottom: 1rem; color: var(--text-secondary);">Orchestration Logs</h3>
+                    <div class="logs" id="log-terminal" style="height: 200px;">
+                        <div class="log-entry">> Initializing Antigravity Orchestrator...</div>
+                        <div class="log-entry">> Awaiting input trigger...</div>
+                    </div>
+                </div>
             </div>
 
-            <div class="card" id="output-card">
-                <h2>Orchestration Logs</h2>
-                <p style="margin-bottom: 2rem;">Real-time execution of Agents 1-6.</p>
-                <div class="logs" id="log-terminal">
-                    <div class="log-entry">> Initializing Antigravity Orchestrator...</div>
-                    <div class="log-entry">> Awaiting input trigger...</div>
+            <div class="card" id="preview-card" style="opacity: 0.5; pointer-events: none;">
+                <h2>Resume Draft</h2>
+                <p style="margin-bottom: 2rem;">Live visibility of the Agent 3 (Architect) output.</p>
+                
+                <div id="resume-preview" style="background: white; color: #333; padding: 2rem; border-radius: 8px; font-family: 'Inter', sans-serif; font-size: 0.75rem; height: 500px; overflow-y: auto; box-shadow: inset 0 2px 10px rgba(0,0,0,0.1);">
+                    <div style="text-align: center; border-bottom: 1px solid #eee; padding-bottom: 1rem; margin-bottom: 1rem;">
+                        <h1 style="font-size: 1.2rem; color: #1a1a1a; margin-bottom: 0.2rem;">AJAY AVAGHADE</h1>
+                        <p>Bangalore, India | +91 95615 58439</p>
+                    </div>
+                    <div id="resume-content">
+                        <p style="color: #666; font-style: italic; text-align: center;">Draft will appear here after pipeline execution...</p>
+                    </div>
                 </div>
 
                 <div id="result-actions" style="display: none; margin-top: 2rem; border-top: 1px solid var(--card-border); padding-top: 2rem;">
-                    <div style="display: flex; gap: 1rem; margin-bottom: 1.5rem;">
-                        <button class="btn" style="flex: 1;" id="download-pdf">
-                            <i data-lucide="download" style="width: 18px; vertical-align: middle; margin-right: 8px;"></i>
-                            DOWNLOAD PDF
-                        </button>
-                        <button class="btn" style="flex: 1; background: var(--bg-secondary); color: var(--text-primary); border: 1px solid var(--card-border);" id="view-markdown">
-                            VIEW MARKDOWN
-                        </button>
-                    </div>
-
-                    <div class="input-group">
-                        <label>Refine Draft through LLM</label>
+                    <div class="input-group" style="margin-bottom: 1.5rem;">
+                        <label>Refine with AI (Agent 2 Loop)</label>
                         <div style="display: flex; gap: 0.5rem;">
                             <input type="text" id="refine-input" placeholder="e.g. Make it more leadership focused...">
                             <button class="btn" style="width: auto; padding: 0 1.5rem;" id="refine-btn">
                                 <i data-lucide="sparkles" style="width: 18px;"></i>
                             </button>
                         </div>
+                    </div>
+
+                    <div style="display: flex; gap: 1rem;">
+                        <button class="btn" style="flex: 1;" id="download-pdf">
+                            <i data-lucide="download" style="width: 18px; vertical-align: middle; margin-right: 8px;"></i>
+                            DOWNLOAD PDF
+                        </button>
                     </div>
                 </div>
             </div>
