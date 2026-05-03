@@ -158,17 +158,17 @@ const logMessages = [
     { text: "> SUCCESS: High-fidelity draft generated and verified.", delay: 500 }
 ];
 
-// UI Elements
-const startBtn = document.getElementById('start-pipeline');
-const terminal = document.getElementById('log-terminal');
-const resultActions = document.getElementById('result-actions');
-const previewCard = document.getElementById('preview-card');
-const resumeContent = document.getElementById('resume-content');
-const downloadBtn = document.getElementById('download-pdf');
-const downloadBtnDirect = document.getElementById('download-pdf-direct');
-const navDownload = document.getElementById('nav-download');
-const refineBtn = document.getElementById('refine-btn');
-const refineInput = document.getElementById('refine-input');
+// UI Elements (already declared above)
+// const startBtn = document.getElementById('start-pipeline');
+// const terminal = document.getElementById('log-terminal');
+// const resultActions = document.getElementById('result-actions');
+// const previewCard = document.getElementById('preview-card');
+// const resumeContent = document.getElementById('resume-content');
+// const downloadBtn = document.getElementById('download-pdf');
+// const downloadBtnDirect = document.getElementById('download-pdf-direct');
+// const navDownload = document.getElementById('nav-download');
+// const refineBtn = document.getElementById('refine-btn');
+// const refineInput = document.getElementById('refine-input');
 
 // Settings Modal
 const settingsModal = document.getElementById('settings-modal');
