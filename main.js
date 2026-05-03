@@ -164,8 +164,9 @@ const resumes = {
             <!-- Education -->
             <div style="margin-bottom: 14pt;">
                 <h2 style="font-size: 12pt; border-bottom: 1pt solid #ddd; padding-bottom: 2pt; margin-bottom: 8pt; font-weight: bold; color: #1a1a1a; text-transform: uppercase; letter-spacing: 0.5px;">Education</h2>
-                <div style="font-size: 9.5pt; color: #333;">
+                <div style="font-size: 9.5pt; color: #333; line-height: 1.6;">
                     <strong>IIM Indore</strong> | MBA | 2022<br>
+                    <strong>Neoma Business School, France</strong> | Student Exchange (MBA) | 2021<br>
                     <strong>VNIT Nagpur</strong> | B.Tech in Computer Science | 2020
                 </div>
             </div>
@@ -269,11 +270,9 @@ startBtn.addEventListener('click', async () => {
     const jdText = document.getElementById('jd-text').value;
     const apiKey = localStorage.getItem('gemini_api_key');
     
-    let selectedResume = resumes.default;
-    let companyName = "Target Company";
-    let keywords = [];
-
-    // Improved Identification logic
+    // Enhanced Identification logic
+    const textToScan = (jdText + " " + jdUrl).toLowerCase();
+    
     if (jdUrl.toLowerCase().includes('amazon')) {
         selectedResume = resumes.amazon;
         companyName = "Amazon";
@@ -283,17 +282,19 @@ startBtn.addEventListener('click', async () => {
     } else if (jdUrl.toLowerCase().includes('skillz')) {
         selectedResume = resumes.skillz;
         companyName = "Skillz";
-    } else if (jdUrl || jdText) {
-        // Try to find company name in text if URL is a job board
-        const textToScan = (jdText + " " + jdUrl).toLowerCase();
-        if (textToScan.includes('vyapar')) companyName = "Vyapar";
-        else if (textToScan.includes('swiggy')) companyName = "Swiggy";
-        else if (textToScan.includes('zomato')) companyName = "Zomato";
-        else if (jdUrl && !jdUrl.includes('linkedin') && !jdUrl.includes('indeed')) {
-             companyName = jdUrl.split('.')[1] || "Target";
-        }
-        keywords = extractKeywords(jdText || jdUrl);
+    } else if (textToScan.includes('vyapar')) {
+        companyName = "Vyapar";
+    } else if (textToScan.includes('swiggy')) {
+        companyName = "Swiggy";
+    } else if (textToScan.includes('zomato')) {
+        companyName = "Zomato";
+    } else if (jdUrl && !jdUrl.includes('linkedin') && !jdUrl.includes('indeed')) {
+        companyName = jdUrl.split('.')[1] || "Target Company";
+    } else {
+        companyName = "Target Company";
     }
+    
+    keywords = extractKeywords(jdText || jdUrl);
 
     startBtn.disabled = true;
     startBtn.textContent = "EXECUTING PIPELINE...";
@@ -434,16 +435,23 @@ downloadBtn.addEventListener('click', () => {
 
 // Direct PDF Download via html2pdf.js
 async function downloadDirect() {
-    addLog("> Initializing Direct PDF Generation (Agent 6 Validator)...");
+    addLog("> Initializing Direct PDF Generation...");
     
-    const element = document.getElementById('resume-preview');
+    // Use the content div itself, not the scrolling container, to avoid blank pages/clipping
+    const element = document.getElementById('resume-content');
+    
     const opt = {
-        margin: 0,
+        margin: [10, 10], // mm
         filename: 'Ajay_Avaghade_Resume.pdf',
         image: { type: 'jpeg', quality: 0.98 },
-        html2canvas: { scale: 2, useCORS: true, letterRendering: true },
-        jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' },
-        pagebreak: { mode: ['avoid-all', 'css', 'legacy'] }
+        html2canvas: { 
+            scale: 2, 
+            useCORS: true, 
+            logging: false,
+            letterRendering: true,
+            windowWidth: 800 // Ensure a consistent width for rendering
+        },
+        jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
     };
 
     try {
