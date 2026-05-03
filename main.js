@@ -112,7 +112,7 @@ const resumes = {
             <div style="margin-bottom: 14pt;">
                 <h2 style="font-size: 12pt; border-bottom: 1pt solid #ddd; padding-bottom: 2pt; margin-bottom: 6pt; font-weight: bold; color: #1a1a1a; text-transform: uppercase; letter-spacing: 0.5px;">Professional Summary</h2>
                 <p style="font-size: 9.5pt; line-height: 1.5; color: #333; text-align: justify;">
-                    Data-driven Senior Product Manager with 4+ years of experience scaling high-volume transactional platforms and <strong>Engagement Ecosystems</strong>. Expert at bridging complex user journeys with <strong>LiveOps incentivization</strong>, driving 22% conversion lifts and 17% CLTV growth through gamified retention mechanics. Proven track record in managing ₹1000+ Cr annual budgets to optimize player/user acquisition and platform-scale session depth.
+                    Data-driven Senior Product Manager with 4+ years of experience scaling high-volume transactional platforms and <span id="dynamic-domain">digital ecosystems</span>. Expert at bridging complex user journeys with <span id="dynamic-specialty">strategic product interventions</span>, driving 22% conversion lifts and 17% growth through <span id="dynamic-mechanic">optimized product mechanics</span>. Proven track record in managing ₹1000+ Cr annual budgets to optimize acquisition and platform-scale session depth.
                 </p>
             </div>
     
@@ -231,18 +231,24 @@ function addLog(text) {
     terminal.scrollTop = terminal.scrollHeight;
 }
 
-// Simple Keyword Extractor for "Universal" Adaptation simulation
+// Professional Keyword Extractor (Filters out common PM verbs and filler)
 function extractKeywords(text) {
     if (!text) return [];
-    const commonWords = new Set(['the', 'and', 'for', 'with', 'that', 'this', 'from', 'your', 'will', 'our', 'are', 'was', 'were']);
+    const stopWords = new Set([
+        'the', 'and', 'for', 'with', 'that', 'this', 'from', 'your', 'will', 'our', 'are', 'was', 'were', 
+        'work', 'features', 'manage', 'products', 'drive', 'working', 'ability', 'experience', 'company',
+        'years', 'role', 'team', 'highly', 'successfully', 'using', 'using', 'knowledge', 'understanding',
+        'skills', 'focused', 'across', 'within', 'related', 'impact', 'leading', 'proven', 'track', 'record'
+    ]);
     const words = text.toLowerCase().match(/\b(\w+)\b/g);
     const freq = {};
     words.forEach(w => {
-        if (w.length > 3 && !commonWords.has(w)) {
+        if (w.length > 4 && !stopWords.has(w)) { // Focus on longer, more specific terms
             freq[w] = (freq[w] || 0) + 1;
         }
     });
-    return Object.entries(freq).sort((a, b) => b[1] - a[1]).slice(0, 8).map(e => e[0]);
+    // Return top 6 high-signal keywords
+    return Object.entries(freq).sort((a, b) => b[1] - a[1]).slice(0, 6).map(e => e[0]);
 }
 
 async function callGemini(prompt) {
@@ -372,14 +378,22 @@ startBtn.addEventListener('click', async () => {
     }
 
     if (!adaptationSuccessful && keywords.length > 0) {
-        // Fallback: Smart Keyword Injection
-        addLog("> [Agent 2] SYNTHESIZER: Executing Semantic Keyword Injection...");
-        const keywordString = keywords.slice(0, 3).map(k => `<strong>${k}</strong>`).join(', ');
-        finalContent = finalContent.replace(/Professional Summary/g, `Professional Summary (Optimized for ${companyName})`);
-        finalContent = finalContent.replace(/Engagement Ecosystems/g, `Engagement Ecosystems (Focus: ${keywordString})`);
+        // Fallback: Smart Semantic Adaptation (No LLM)
+        addLog("> [Agent 2] SYNTHESIZER: Executing Semantic Narrative Re-framing...");
         
-        // Inject keywords into Skills
-        const skillInjection = `<div style="margin-top: 8pt; font-size: 9pt; color: #555;"><strong>JD Alignment:</strong> ${keywords.join(', ')}</div>`;
+        const topKeyword = keywords[0].toUpperCase();
+        const keywordString = keywords.slice(0, 3).map(k => `<strong>${k}</strong>`).join(', ');
+        
+        // Update Title and Domain markers
+        finalContent = finalContent.replace(/Professional Summary/g, `Professional Summary | OPTIMIZED FOR ${companyName.toUpperCase()}`);
+        finalContent = finalContent.replace(/digital ecosystems/g, `<strong>${topKeyword}</strong> ecosystems`);
+        finalContent = finalContent.replace(/strategic product interventions/g, `${keywords[1] || 'strategic'} solutions and ${keywords[2] || 'scale'} operations`);
+        finalContent = finalContent.replace(/optimized product mechanics/g, `data-driven ${topKeyword} strategies`);
+
+        // Inject keywords into Skills without the "JD Alignment" prefix
+        const skillInjection = `<div style="margin-top: 8pt; font-size: 9.5pt; color: #1a1a1a; border-top: 1px dashed #ddd; padding-top: 4pt;">
+            <strong>Targeted Competencies:</strong> ${keywords.join(' &bull; ')}
+        </div>`;
         finalContent = finalContent.replace("Technical Skills</h2>", `Technical Skills</h2>${skillInjection}`);
     }
 
