@@ -272,6 +272,9 @@ startBtn.addEventListener('click', async () => {
     
     // Enhanced Identification logic
     const textToScan = (jdText + " " + jdUrl).toLowerCase();
+    let selectedResume = resumes.default;
+    let companyName = "Target Company";
+    let keywords = [];
     
     if (jdUrl.toLowerCase().includes('amazon')) {
         selectedResume = resumes.amazon;
@@ -290,8 +293,6 @@ startBtn.addEventListener('click', async () => {
         companyName = "Zomato";
     } else if (jdUrl && !jdUrl.includes('linkedin') && !jdUrl.includes('indeed')) {
         companyName = jdUrl.split('.')[1] || "Target Company";
-    } else {
-        companyName = "Target Company";
     }
     
     keywords = extractKeywords(jdText || jdUrl);
