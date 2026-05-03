@@ -35,7 +35,12 @@ const resumes = {
         <div class="resume-container" style="color: #333; line-height: 1.5; font-family: 'Inter', sans-serif; padding: 0;">
             <div style="text-align: center; border-bottom: 2px solid #1a1a1a; padding-bottom: 10pt; margin-bottom: 12pt;">
                 <h1 style="font-size: 24pt; color: #1a1a1a; margin-bottom: 2pt; font-weight: 800; text-transform: uppercase;">AJAY AVAGHADE</h1>
-                <p style="font-size: 10pt;">Bangalore, India | +91 95615 58439 | avaghadeajay009@gmail.com</p>
+                <p style="font-size: 10pt; margin-bottom: 2pt;">Bangalore, India | +91 95615 58439 | <a href="mailto:avaghadeajay009@gmail.com" style="color: #333; text-decoration: none;">avaghadeajay009@gmail.com</a></p>
+                <p style="font-size: 10pt; font-weight: 600;">
+                    <a href="https://linkedin.com/in/ajay-avaghade" style="color: #007bff; text-decoration: none;">LinkedIn</a> | 
+                    <a href="https://ajay-avaghade.github.io/Portfolio/" style="color: #007bff; text-decoration: none;">Portfolio</a> | 
+                    <a href="https://github.com/ajay-avaghade" style="color: #007bff; text-decoration: none;">GitHub</a>
+                </p>
             </div>
             <h2 style="font-size: 12pt; border-bottom: 1pt solid #ddd; padding-bottom: 2pt; margin-bottom: 6pt; font-weight: bold; text-transform: uppercase;">Professional Summary (Amazon Optimized)</h2>
             <p style="font-size: 9.5pt; text-align: justify; margin-bottom: 14pt;"><strong>Customer-obsessed</strong> Product Manager with 4+ years of experience scaling India’s leading digital payments and Quick Commerce ecosystems. Managed a ₹100 Cr/year monetization portfolio and ₹1000+ Cr annual budgets, driving 22% conversion lifts through data-driven checkout revamps. Focused on supply chain optimization and retail tech verticals.</p>
@@ -55,7 +60,12 @@ const resumes = {
         <div class="resume-container" style="color: #333; line-height: 1.5; font-family: 'Inter', sans-serif; padding: 0;">
             <div style="text-align: center; border-bottom: 2px solid #1a1a1a; padding-bottom: 10pt; margin-bottom: 12pt;">
                 <h1 style="font-size: 24pt; color: #1a1a1a; margin-bottom: 2pt; font-weight: 800; text-transform: uppercase;">AJAY AVAGHADE</h1>
-                <p style="font-size: 10pt;">Bangalore, India | +91 95615 58439 | avaghadeajay009@gmail.com</p>
+                <p style="font-size: 10pt; margin-bottom: 2pt;">Bangalore, India | +91 95615 58439 | <a href="mailto:avaghadeajay009@gmail.com" style="color: #333; text-decoration: none;">avaghadeajay009@gmail.com</a></p>
+                <p style="font-size: 10pt; font-weight: 600;">
+                    <a href="https://linkedin.com/in/ajay-avaghade" style="color: #007bff; text-decoration: none;">LinkedIn</a> | 
+                    <a href="https://ajay-avaghade.github.io/Portfolio/" style="color: #007bff; text-decoration: none;">Portfolio</a> | 
+                    <a href="https://github.com/ajay-avaghade" style="color: #007bff; text-decoration: none;">GitHub</a>
+                </p>
             </div>
             <h2 style="font-size: 12pt; border-bottom: 1pt solid #ddd; padding-bottom: 2pt; margin-bottom: 6pt; font-weight: bold; text-transform: uppercase;">Professional Summary (Sabre Optimized)</h2>
             <p style="font-size: 9.5pt; text-align: justify; margin-bottom: 14pt;"><strong>Strategic</strong> Product Manager with 4+ years of experience scaling high-volume <strong>monetization and media-centric</strong> product ecosystems. Expertise in architecting multi-tenant ad-tech infrastructure and conversion tracking capabilities for travel and fintech platforms.</p>
