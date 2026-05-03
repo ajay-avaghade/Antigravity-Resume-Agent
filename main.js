@@ -111,8 +111,8 @@ const resumes = {
             <!-- Summary -->
             <div style="margin-bottom: 14pt;">
                 <h2 style="font-size: 12pt; border-bottom: 1pt solid #ddd; padding-bottom: 2pt; margin-bottom: 6pt; font-weight: bold; color: #1a1a1a; text-transform: uppercase; letter-spacing: 0.5px;">Professional Summary</h2>
-                <p style="font-size: 9.5pt; line-height: 1.5; color: #333; text-align: justify;">
-                    Data-driven Senior Product Manager with 4+ years of experience scaling high-volume transactional platforms and <span id="dynamic-domain">digital ecosystems</span>. Expert at bridging complex user journeys with <span id="dynamic-specialty">strategic product interventions</span>, driving 22% conversion lifts and 17% growth through <span id="dynamic-mechanic">optimized product mechanics</span>. Proven track record in managing ₹1000+ Cr annual budgets to optimize acquisition and platform-scale session depth.
+                <p id="resume-summary" style="font-size: 9.5pt; line-height: 1.5; color: #333; text-align: justify;">
+                    Data-driven Senior Product Manager with 4+ years of experience scaling high-volume transactional platforms and <strong>digital ecosystems</strong>. Expert at bridging complex user journeys with <strong>strategic product interventions</strong>, driving 22% conversion lifts and 17% growth through <strong>optimized product mechanics</strong>. Proven track record in managing ₹1000+ Cr annual budgets to optimize acquisition and platform-scale session depth.
                 </p>
             </div>
     
@@ -378,20 +378,34 @@ startBtn.addEventListener('click', async () => {
     }
 
     if (!adaptationSuccessful && keywords.length > 0) {
-        // Fallback: Smart Semantic Adaptation (No LLM)
-        addLog("> [Agent 2] SYNTHESIZER: Executing Semantic Narrative Re-framing...");
+        // Strategic Domain-Aware Positioning
+        addLog("> [Agent 2] SYNTHESIZER: Executing Strategic Narrative Shift...");
         
-        const topKeyword = keywords[0].toUpperCase();
-        const keywordString = keywords.slice(0, 3).map(k => `<strong>${k}</strong>`).join(', ');
-        
-        // Update Title and Domain markers
-        finalContent = finalContent.replace(/Professional Summary/g, `Professional Summary | OPTIMIZED FOR ${companyName.toUpperCase()}`);
-        finalContent = finalContent.replace(/digital ecosystems/g, `<strong>${topKeyword}</strong> ecosystems`);
-        finalContent = finalContent.replace(/strategic product interventions/g, `${keywords[1] || 'strategic'} solutions and ${keywords[2] || 'scale'} operations`);
-        finalContent = finalContent.replace(/optimized product mechanics/g, `data-driven ${topKeyword} strategies`);
+        let domain = "Fintech";
+        if (textToScan.includes('vyapar') || textToScan.includes('saas') || textToScan.includes('business') || textToScan.includes('accounting')) domain = "SaaS";
+        else if (textToScan.includes('gaming') || textToScan.includes('skillz') || textToScan.includes('engagement')) domain = "Gaming";
+        else if (textToScan.includes('travel') || textToScan.includes('sabre') || textToScan.includes('enterprise')) domain = "Enterprise";
 
-        // Natural Skill Integration (Append to end of existing list instead of new block)
-        const skillAppend = ` &bull; ${keywords.join(' &bull; ')}`;
+        addLog(`> [Agent 2] SYNTHESIZER: Re-positioning candidate as ${domain} Specialist...`);
+
+        const summaryEl = document.getElementById('resume-summary');
+        const topKeyword = keywords[0].charAt(0).toUpperCase() + keywords[0].slice(1);
+
+        // Positioning Logic
+        if (domain === "SaaS") {
+            summaryEl.innerHTML = `Data-driven Senior Product Manager specializing in <strong>${topKeyword} SaaS</strong> and B2B scale. Expert at optimizing complex business workflows and ${keywords[1] || 'operational'} efficiency, driving 22% growth through <strong>integrated product mechanics</strong>. Proven track record in managing ₹1000+ Cr budgets to drive high-intent user acquisition and long-term platform value for ${companyName}.`;
+            finalContent = finalContent.replace("Retention Mechanics & LiveOps", "Workflow Optimization & Scale");
+            finalContent = finalContent.replace("scaling CLTV by 17%", "increasing operational throughput by 17%");
+        } else if (domain === "Gaming") {
+            summaryEl.innerHTML = `Data-driven Senior Product Manager with 4+ years of experience scaling <strong>Engagement Ecosystems</strong> and gamified platforms. Expert at bridging user journeys with <strong>LiveOps incentivization</strong>, driving 22% conversion lifts and 17% CLTV growth through <strong>player-centric mechanics</strong>. Managed ₹1000+ Cr budgets to optimize retention and session depth for ${companyName}.`;
+            finalContent = finalContent.replace("digital ecosystems", "Engagement Ecosystems");
+            finalContent = finalContent.replace("strategic product interventions", "LiveOps incentivization");
+        } else {
+            summaryEl.innerHTML = summaryEl.innerHTML.replace("digital ecosystems", `<strong>${topKeyword}</strong> ecosystems`);
+        }
+
+        // Clean Skill Integration (Natural appending)
+        const skillAppend = ` &bull; ${keywords.slice(0, 4).join(' &bull; ')}`;
         finalContent = finalContent.replace("Funnel Optimization, A/B Testing.", `Funnel Optimization, A/B Testing.${skillAppend}`);
     }
 
