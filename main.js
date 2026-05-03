@@ -130,8 +130,24 @@ const resumes = {
                         <span>Bangalore, India</span>
                     </div>
                     <ul style="font-size: 9.5pt; margin-left: 14pt; line-height: 1.4; color: #333;">
-                        <li style="margin-bottom: 2pt;"><strong>Retention Mechanics & LiveOps:</strong> Launched a gamified milestone system and unified offer discovery journey, scaling <strong>CLTV by 17%</strong>.</li>
+                        <li style="margin-bottom: 2pt;"><strong>Retention Mechanics & LiveOps:</strong> Launched a gamified milestone system and unified offer discovery journey, scaling <strong>CLTV by 17%</strong> and increasing <strong>active session depth</strong>.</li>
                         <li style="margin-bottom: 2pt;"><strong>Conversion Optimization:</strong> Reimagined end-to-end checkout, architecting <strong>EMI subvention capabilities</strong> driving 14% increase in conversion.</li>
+                        <li style="margin-bottom: 2pt;"><strong>Predictive Engagement:</strong> Directed a ₹1000+ Cr marketing engine, deploying <strong>ML models</strong> to reduce marketing burn by 32%.</li>
+                    </ul>
+                </div>
+
+                <div class="experience-block" style="margin-bottom: 10pt; page-break-inside: avoid;">
+                    <div style="display: flex; justify-content: space-between; font-weight: bold; font-size: 10pt; color: #1a1a1a;">
+                        <span>PHONEPE (Monetization & Strategy)</span>
+                        <span>April 2022 – April 2023</span>
+                    </div>
+                    <div style="display: flex; justify-content: space-between; font-style: italic; font-size: 9.5pt; color: #444; margin-bottom: 2pt;">
+                        <span>Associate Product Manager</span>
+                        <span>Bangalore, India</span>
+                    </div>
+                    <ul style="font-size: 9.5pt; margin-left: 14pt; line-height: 1.4; color: #333;">
+                        <li style="margin-bottom: 2pt;"><strong>Viral Acquisition Engine:</strong> Engineered referral loops acquiring <strong>5Mn+ users/month</strong> and optimizing CAC by 23%.</li>
+                        <li style="margin-bottom: 2pt;"><strong>Monetization Roadmap:</strong> Managed a ₹100 Cr/year portfolio, defining scalable B2B infrastructure for merchant growth.</li>
                     </ul>
                 </div>
             </div>
@@ -140,9 +156,28 @@ const resumes = {
             <div class="experience-block" style="margin-bottom: 14pt; page-break-inside: avoid;">
                 <h2 style="font-size: 12pt; border-bottom: 1pt solid #ddd; padding-bottom: 2pt; margin-bottom: 6pt; font-weight: bold; color: #1a1a1a; text-transform: uppercase; letter-spacing: 0.5px;">Technical Skills</h2>
                 <p style="font-size: 9.5pt; line-height: 1.5; color: #333;">
-                    <strong>Product & Engagement:</strong> Live Operations (LiveOps), Gamification, Retention Mechanics, Conversion Funnel Optimization.<br>
-                    <strong>Data & Tools:</strong> SQL (Advanced), Machine Learning, Mixpanel, Clevertap, Jira, Figma.
+                    <strong>Product & Engagement:</strong> Live Operations (LiveOps), Gamification, Retention Mechanics, Funnel Optimization, A/B Testing.<br>
+                    <strong>Data & Tools:</strong> SQL (Advanced), Machine Learning, Mixpanel, Clevertap, Jira, Figma, Tableau.
                 </p>
+            </div>
+
+            <!-- Education -->
+            <div style="margin-bottom: 14pt;">
+                <h2 style="font-size: 12pt; border-bottom: 1pt solid #ddd; padding-bottom: 2pt; margin-bottom: 8pt; font-weight: bold; color: #1a1a1a; text-transform: uppercase; letter-spacing: 0.5px;">Education</h2>
+                <div style="font-size: 9.5pt; color: #333;">
+                    <strong>IIM Indore</strong> | MBA | 2022<br>
+                    <strong>VNIT Nagpur</strong> | B.Tech in Computer Science | 2020
+                </div>
+            </div>
+
+            <!-- Projects & Awards -->
+            <div style="margin-bottom: 14pt;">
+                <h2 style="font-size: 12pt; border-bottom: 1pt solid #ddd; padding-bottom: 2pt; margin-bottom: 8pt; font-weight: bold; color: #1a1a1a; text-transform: uppercase; letter-spacing: 0.5px;">Projects & Awards</h2>
+                <ul style="font-size: 9.5pt; margin-left: 14pt; line-height: 1.4; color: #333;">
+                    <li><strong>AI Mock PM Interviewer:</strong> Voice conversational agent using LLMs and speech-to-text.</li>
+                    <li><strong>Campus Winner:</strong> Asian Paints Canvas B-School Competition.</li>
+                    <li><strong>District Topper:</strong> Education Minister Award (10th & 12th).</li>
+                </ul>
             </div>
         </div>
     `
