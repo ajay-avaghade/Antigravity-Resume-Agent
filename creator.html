@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Antigravity | Professional Resume Creator</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=JetBrains+Mono&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <style>
+        .creator-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            height: calc(100vh - 120px);
+            margin-top: 20px;
+        }
+        .editor-pane {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+        #markdown-input {
+            flex: 1;
+            background: #000;
+            color: #d1d5db;
+            font-family: 'JetBrains Mono', monospace;
+            padding: 1.5rem;
+            border-radius: 12px;
+            border: 1px solid var(--card-border);
+            resize: none;
+            font-size: 0.9rem;
+            line-height: 1.6;
+        }
+        #markdown-input:focus {
+            border-color: var(--accent);
+            outline: none;
+        }
+        .preview-pane {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+        .preview-pane {
+            background: #e5e7eb; /* Light grey background for the 'workspace' */
+            border-radius: 12px;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 2rem;
+            overflow-y: auto;
+        }
+        #resume-render {
+            background: white;
+            width: 210mm;
+            min-height: 297mm;
+            padding: 20mm; /* Professional 0.75in-1in margin */
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            color: #333;
+            font-family: 'Inter', sans-serif;
+            font-size: 11pt; /* Standard resume font size */
+            line-height: 1.5;
+        }
+        .toolbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+        /* Markdown Content Styling for Professional Look */
+        #resume-render h1 { font-size: 24pt; margin-bottom: 0.2em; text-transform: uppercase; font-weight: 800; border: none; text-align: center; }
+        #resume-render h2 { font-size: 14pt; margin-top: 1.5em; margin-bottom: 0.5em; border-bottom: 1px solid #333; padding-bottom: 0.2em; text-transform: uppercase; font-weight: 700; color: #333 !important; }
+        #resume-render h3 { font-size: 12pt; margin-top: 1.2em; margin-bottom: 0.3em; text-transform: uppercase; border: none; color: #333 !important; }
+        #resume-render p { margin-bottom: 0.5em; text-align: justify; }
+        #resume-render ul { margin-bottom: 1em; padding-left: 1.2em; }
+        #resume-render li { margin-bottom: 0.3em; }
+        #resume-render hr { border: none; border-top: 1px solid #ddd; margin: 1.5em 0; }
+        #resume-render blockquote { border-left: 3px solid #ddd; padding-left: 1em; color: #666; font-style: italic; }
+        
+        .contact-info-grid {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            font-size: 10pt;
+            margin-bottom: 1.5rem;
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+    <nav class="container">
+        <div class="logo">ANTIGRAVITY <span style="font-size: 0.8rem; font-weight: 400; opacity: 0.7;">| CREATOR</span></div>
+        <div class="nav-links">
+            <button class="btn-secondary" id="nav-download">
+                <i data-lucide="download" style="width: 18px; margin-right: 8px;"></i>
+                DOWNLOAD PDF
+            </button>
+            <a href="index.html" class="btn-secondary" style="text-decoration: none;">VIEW DEMO</a>
+            <button class="theme-toggle" id="theme-toggle">
+                <i data-lucide="sun" id="sun-icon" style="display: none;"></i>
+                <i data-lucide="moon" id="moon-icon"></i>
+            </button>
+        </div>
+    </nav>
+
+    <main class="container">
+        <div class="creator-container">
+            <div class="editor-pane">
+                <div class="toolbar">
+                    <h2 style="font-size: 1.2rem; color: var(--text-primary);">Markdown Editor</h2>
+                    <div style="display: flex; gap: 0.5rem;">
+                        <button class="btn-secondary" style="padding: 0.4rem 0.8rem; font-size: 0.75rem;" id="load-sample">LOAD LATEST</button>
+                    </div>
+                </div>
+                <textarea id="markdown-input" placeholder="Paste your Markdown resume here..."></textarea>
+            </div>
+            
+            <div class="preview-pane">
+                <div id="resume-render">
+                    <!-- Rendered content goes here -->
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script src="creator.js"></script>
+</body>
+</html>

@@ -59,19 +59,17 @@ Agent 3: ATS Architect Rules (The Formatter)
 Objective: Strict, zero-variance formatting.
 Directives:
 
-Use standard, universally recognized ATS headers: Professional Summary, Experience, Skills, Education.
+Use standard, universally recognized ATS headers: Professional Summary, Experience, Skills, Education. Gracefully handle and format any additional sections present in the input (e.g., AI & Open Source Projects, Key Achievements) using the exact same standard header and structural formatting.
 
 Do not use tables, columns, or complex Markdown elements.
 
 Ensure bullet points follow the exact phrasing dictated by Agent 2. Do not creatively reword keywords, as this breaks the ATS match.
 
-Zero-Bloat Header Rule: Do not include Table of Contents, section hyperlinks, or navigational links at the top of the resume. The first element must be the candidate's name or contact info. Ensure the output is print-ready and distraction-free. The output must NOT contain any automated Markdown navigation blocks (e.g., [Section](#section)).
+Zero-Bloat Header Rule: Do not include Table of Contents, section hyperlinks, or navigational links at the top of the resume. Explicitly avoid using any Markdown tags (like [toc]) that trigger automatic TOC generation in VS Code extensions.
 
-Pagination Hygiene Rule: Use CSS (`page-break-after: avoid`) in the output to ensure that section headers (h1, h2) and company/role titles are never orphaned at the last line of a page. They must always stay attached to at least two lines of following content.
+Pagination Hygiene Rule: Ensure the output includes embedded CSS (`<style>`) to ensure that section headers (h1, h2, h3) and company/role titles are never orphaned at the last line of a page. Use `page-break-after: avoid` for headers and `page-break-inside: avoid` for experience blocks.
 
-Hyperlink Integrity Rule: All contact information (Email, LinkedIn, Portfolio, GitHub) must be explicitly hyperlinked using HTML `<a>` tags (e.g., `<a href="...">Text</a>`) to ensure full interactivity in the final PDF output.
-
-Output clean, unstyled Markdown text.
+Output clean, unstyled Markdown text with an embedded `<style>` block at the top for PDF rendering control.
 ---
 
 Agent 4: The ATS Ensemble Rules

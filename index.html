@@ -15,6 +15,18 @@
     <nav class="container">
         <div class="logo">ANTIGRAVITY</div>
         <div class="nav-links">
+            <button class="btn-secondary" id="nav-download" style="display: none;">
+                <i data-lucide="download" style="width: 18px; margin-right: 8px;"></i>
+                DOWNLOAD PDF
+            </button>
+            <button class="btn-secondary" id="open-settings">
+                <i data-lucide="settings" style="width: 18px; margin-right: 8px;"></i>
+                API SETTINGS
+            </button>
+            <a href="creator.html" class="btn-secondary" style="text-decoration: none;">
+                <i data-lucide="edit-3" style="width: 18px; margin-right: 8px;"></i>
+                RESUME CREATOR
+            </a>
             <button class="theme-toggle" id="theme-toggle">
                 <i data-lucide="sun" id="sun-icon" style="display: none;"></i>
                 <i data-lucide="moon" id="moon-icon"></i>
@@ -36,6 +48,12 @@
                 <div class="input-group">
                     <label>Job Description URL</label>
                     <input type="text" id="jd-url" placeholder="https://www.linkedin.com/jobs/view/...">
+                    <p style="font-size: 0.7rem; color: var(--text-secondary); margin-top: 0.5rem;">Note: Direct URL scraping may be limited by CORS. Use the text area below for 100% reliability.</p>
+                </div>
+
+                <div class="input-group">
+                    <label>OR Paste Job Description Text</label>
+                    <textarea id="jd-text" placeholder="Paste the JD here for deep analysis..." style="height: 100px;"></textarea>
                 </div>
 
                 <div class="input-group">
@@ -85,9 +103,13 @@
                     </div>
 
                     <div style="display: flex; gap: 1rem;">
-                        <button class="btn" style="flex: 1;" id="download-pdf">
+                        <button class="btn" style="flex: 1; background: var(--accent-gradient);" id="download-pdf">
                             <i data-lucide="download" style="width: 18px; vertical-align: middle; margin-right: 8px;"></i>
-                            DOWNLOAD PDF
+                            EXPORT AS PDF (PRINT)
+                        </button>
+                        <button class="btn" style="flex: 1; background: #10b981;" id="download-pdf-direct">
+                            <i data-lucide="file-down" style="width: 18px; vertical-align: middle; margin-right: 8px;"></i>
+                            DOWNLOAD PDF (DIRECT)
                         </button>
                     </div>
                 </div>
@@ -138,6 +160,19 @@
             <p>&copy; 2026 Ajay Avaghade. Built with Antigravity Multi-Agent System.</p>
         </div>
     </footer>
+
+    <div id="settings-modal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); z-index: 1000; justify-content: center; align-items: center;">
+        <div class="card" style="width: 400px; position: relative;">
+            <button id="close-settings" style="position: absolute; top: 1rem; right: 1rem; background: none; border: none; color: var(--text-secondary); cursor: pointer;"><i data-lucide="x"></i></button>
+            <h3>API Settings</h3>
+            <p style="font-size: 0.8rem; color: var(--text-secondary); margin-bottom: 1.5rem;">Enter your Gemini API Key to enable universal JD parsing and adaptation.</p>
+            <div class="input-group">
+                <label>Gemini API Key</label>
+                <input type="password" id="api-key" placeholder="AIzaSy...">
+            </div>
+            <button class="btn" id="save-settings">SAVE & CLOSE</button>
+        </div>
+    </div>
 
     <script src="main.js"></script>
 </body>
