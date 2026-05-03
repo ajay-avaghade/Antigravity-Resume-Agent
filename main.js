@@ -388,20 +388,21 @@ startBtn.addEventListener('click', async () => {
 
         addLog(`> [Agent 2] SYNTHESIZER: Re-positioning candidate as ${domain} Specialist...`);
 
-        const summaryEl = document.getElementById('resume-summary');
         const topKeyword = keywords[0].charAt(0).toUpperCase() + keywords[0].slice(1);
 
-        // Positioning Logic
+        // Positioning Logic (String-based replacement instead of DOM access)
         if (domain === "SaaS") {
-            summaryEl.innerHTML = `Data-driven Senior Product Manager specializing in <strong>${topKeyword} SaaS</strong> and B2B scale. Expert at optimizing complex business workflows and ${keywords[1] || 'operational'} efficiency, driving 22% growth through <strong>integrated product mechanics</strong>. Proven track record in managing ₹1000+ Cr budgets to drive high-intent user acquisition and long-term platform value for ${companyName}.`;
+            const saasSummary = `Data-driven Senior Product Manager specializing in <strong>${topKeyword} SaaS</strong> and B2B scale. Expert at optimizing complex business workflows and ${keywords[1] || 'operational'} efficiency, driving 22% growth through <strong>integrated product mechanics</strong>. Proven track record in managing ₹1000+ Cr budgets to drive high-intent user acquisition and long-term platform value for ${companyName}.`;
+            finalContent = finalContent.replace(/<p id="resume-summary".*?<\/p>/s, `<p id="resume-summary" style="font-size: 9.5pt; line-height: 1.5; color: #333; text-align: justify;">${saasSummary}</p>`);
             finalContent = finalContent.replace("Retention Mechanics & LiveOps", "Workflow Optimization & Scale");
             finalContent = finalContent.replace("scaling CLTV by 17%", "increasing operational throughput by 17%");
         } else if (domain === "Gaming") {
-            summaryEl.innerHTML = `Data-driven Senior Product Manager with 4+ years of experience scaling <strong>Engagement Ecosystems</strong> and gamified platforms. Expert at bridging user journeys with <strong>LiveOps incentivization</strong>, driving 22% conversion lifts and 17% CLTV growth through <strong>player-centric mechanics</strong>. Managed ₹1000+ Cr budgets to optimize retention and session depth for ${companyName}.`;
+            const gamingSummary = `Data-driven Senior Product Manager with 4+ years of experience scaling <strong>Engagement Ecosystems</strong> and gamified platforms. Expert at bridging user journeys with <strong>LiveOps incentivization</strong>, driving 22% conversion lifts and 17% CLTV growth through <strong>player-centric mechanics</strong>. Managed ₹1000+ Cr budgets to optimize retention and session depth for ${companyName}.`;
+            finalContent = finalContent.replace(/<p id="resume-summary".*?<\/p>/s, `<p id="resume-summary" style="font-size: 9.5pt; line-height: 1.5; color: #333; text-align: justify;">${gamingSummary}</p>`);
             finalContent = finalContent.replace("digital ecosystems", "Engagement Ecosystems");
             finalContent = finalContent.replace("strategic product interventions", "LiveOps incentivization");
         } else {
-            summaryEl.innerHTML = summaryEl.innerHTML.replace("digital ecosystems", `<strong>${topKeyword}</strong> ecosystems`);
+            finalContent = finalContent.replace("digital ecosystems", `<strong>${topKeyword}</strong> ecosystems`);
         }
 
         // Clean Skill Integration (Natural appending)
