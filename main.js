@@ -351,9 +351,36 @@ RULES:
     resultActions.style.display = 'block';
     if (navDownload) navDownload.style.display = 'flex';
 
+    // Enable inline editing
+    resumeContent.contentEditable = 'true';
+    resumeContent.style.outline = 'none';
+    const editHint = document.getElementById('edit-hint');
+    const toggleEdit = document.getElementById('toggle-edit');
+    if (editHint) editHint.style.display = 'block';
+    if (toggleEdit) toggleEdit.style.display = 'flex';
+
     addLog("\n> FINAL ATS SCORE: 96/100 | Evaluated across 5 models.");
+    addLog("> TIP: Click on the resume to edit text directly before downloading.");
     lucide.createIcons();
 });
+
+// ============================================================
+// Edit Mode Toggle
+// ============================================================
+let editMode = true;
+const toggleEditBtn = document.getElementById('toggle-edit');
+if (toggleEditBtn) {
+    toggleEditBtn.addEventListener('click', () => {
+        editMode = !editMode;
+        resumeContent.contentEditable = editMode ? 'true' : 'false';
+        toggleEditBtn.innerHTML = editMode
+            ? '<i data-lucide="lock" style="width: 14px; margin-right: 6px;"></i>LOCK DRAFT'
+            : '<i data-lucide="edit-2" style="width: 14px; margin-right: 6px;"></i>EDIT MODE';
+        const editHint = document.getElementById('edit-hint');
+        if (editHint) editHint.textContent = editMode ? '\u270f\ufe0f Click on the resume to edit text directly' : '\ud83d\udd12 Draft locked — ready for download';
+        lucide.createIcons();
+    });
+}
 
 // ============================================================
 // Refinement
@@ -383,21 +410,46 @@ downloadBtn.addEventListener('click', () => {
 
 async function downloadDirect() {
     addLog("> Initializing Direct PDF Generation...");
+
+    // Temporarily disable editing
+    resumeContent.contentEditable = 'false';
+
+    // Remove scroll container height so html2pdf captures the FULL content
+    const previewEl = document.getElementById('resume-preview');
+    const savedHeight = previewEl.style.height;
+    const savedOverflow = previewEl.style.overflowY;
+    previewEl.style.height = 'auto';
+    previewEl.style.overflowY = 'visible';
+
     const element = document.getElementById('resume-content');
     const opt = {
-        margin: [10, 10],
+        margin: [15, 15, 15, 15],
         filename: 'Ajay_Avaghade_Resume.pdf',
         image: { type: 'jpeg', quality: 0.98 },
-        html2canvas: { scale: 2, useCORS: true, logging: false, letterRendering: true, windowWidth: 800 },
-        jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
+        html2canvas: {
+            scale: 2,
+            useCORS: true,
+            logging: false,
+            letterRendering: true,
+            scrollY: 0,
+            scrollX: 0,
+            windowWidth: 794
+        },
+        jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' },
+        pagebreak: { mode: ['avoid-all', 'css'] }
     };
     try {
         await html2pdf().set(opt).from(element).save();
-        addLog("> SUCCESS: PDF downloaded.");
+        addLog("> SUCCESS: Full PDF downloaded.");
     } catch (err) {
         addLog("> ERROR: Direct PDF failed. Opening print dialog...");
         console.error(err);
         window.print();
+    } finally {
+        // Restore scroll container
+        previewEl.style.height = savedHeight;
+        previewEl.style.overflowY = savedOverflow;
+        resumeContent.contentEditable = editMode ? 'true' : 'false';
     }
 }
 
