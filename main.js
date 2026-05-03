@@ -98,8 +98,8 @@ const masterResume = `
     <div style="margin-bottom: 14pt; page-break-inside: avoid;">
         <h2 style="font-size: 12pt; border-bottom: 1pt solid #ddd; padding-bottom: 2pt; margin-bottom: 6pt; font-weight: bold; color: #1a1a1a; text-transform: uppercase;">Technical Skills</h2>
         <p style="font-size: 9.5pt; line-height: 1.5; color: #333;">
-            <strong>Product & Strategy:</strong> Product Roadmapping, A/B Testing, Lifecycle Management, Funnel Optimization, Technical Product Strategy.<br>
-            <strong>Data & Tools:</strong> SQL (Advanced), Machine Learning (Propensity Modeling), Mixpanel, Clevertap, Jira, Figma, Tableau.
+            <strong>Product & Engagement:</strong> Live Operations (LiveOps), Gamification, Retention Mechanics, Conversion Funnel Optimization, A/B Testing, Lifecycle Management, Technical Product Strategy.<br>
+            <strong>Data & Tools:</strong> SQL (Advanced), Machine Learning (Propensity Modeling), Data Modeling, Mixpanel, Clevertap, Jira, Figma, Tableau.
         </p>
     </div>
 
@@ -113,11 +113,18 @@ const masterResume = `
     </div>
 
     <div style="margin-bottom: 14pt;">
-        <h2 style="font-size: 12pt; border-bottom: 1pt solid #ddd; padding-bottom: 2pt; margin-bottom: 8pt; font-weight: bold; color: #1a1a1a; text-transform: uppercase;">Projects & Achievements</h2>
+        <h2 style="font-size: 12pt; border-bottom: 1pt solid #ddd; padding-bottom: 2pt; margin-bottom: 8pt; font-weight: bold; color: #1a1a1a; text-transform: uppercase;">AI & Open Source Projects</h2>
         <ul style="font-size: 9.5pt; margin-left: 14pt; line-height: 1.4; color: #333;">
-            <li><strong>AI Mock PM Interviewer:</strong> Voice conversational agent using LLMs and speech-to-text for real-time PM mock interviews.</li>
+            <li><strong>AI Mock Product Manager Interviewer</strong> (<a href="https://huggingface.co/spaces/ajay-avaghade/AI-Mock-Product-Manager-Interviewer" style="color: #007bff; text-decoration: none;">Live Demo</a>): Architected a real-time voice conversational agent using LLMs and speech-to-text to conduct PM mock interviews, providing instant scorecards and feedback.</li>
+        </ul>
+    </div>
+
+    <div style="margin-bottom: 14pt;">
+        <h2 style="font-size: 12pt; border-bottom: 1pt solid #ddd; padding-bottom: 2pt; margin-bottom: 8pt; font-weight: bold; color: #1a1a1a; text-transform: uppercase;">Key Achievements</h2>
+        <ul style="font-size: 9.5pt; margin-left: 14pt; line-height: 1.4; color: #333;">
             <li><strong>Campus Winner:</strong> Asian Paints Canvas B-School Competition.</li>
-            <li><strong>District Topper:</strong> Education Minister Award (10th & 12th).</li>
+            <li><strong>National Finalist:</strong> ITC Interrobang.</li>
+            <li><strong>Academic Excellence:</strong> Education Minister Award – District Topper (10th & 12th).</li>
         </ul>
     </div>
 </div>
@@ -219,7 +226,7 @@ async function callGemini(prompt) {
     const apiKey = localStorage.getItem('gemini_api_key');
     if (!apiKey) return null;
     try {
-        const response = await fetch(`https://generativelanguage.googleapis.com/v1/models/gemini-pro:generateContent?key=${apiKey}`, {
+        const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${apiKey}`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ contents: [{ parts: [{ text: prompt }] }] })
@@ -411,19 +418,20 @@ downloadBtn.addEventListener('click', () => {
 async function downloadDirect() {
     addLog("> Initializing Direct PDF Generation...");
 
-    // Temporarily disable editing
-    resumeContent.contentEditable = 'false';
+    // Clone the resume content into a temporary off-screen container
+    // This avoids all scroll/height issues with the preview panel
+    const clone = document.getElementById('resume-content').cloneNode(true);
+    clone.removeAttribute('contenteditable');
+    clone.style.width = '210mm';
+    clone.style.padding = '20mm';
+    clone.style.background = 'white';
+    clone.style.position = 'absolute';
+    clone.style.left = '-9999px';
+    clone.style.top = '0';
+    document.body.appendChild(clone);
 
-    // Remove scroll container height so html2pdf captures the FULL content
-    const previewEl = document.getElementById('resume-preview');
-    const savedHeight = previewEl.style.height;
-    const savedOverflow = previewEl.style.overflowY;
-    previewEl.style.height = 'auto';
-    previewEl.style.overflowY = 'visible';
-
-    const element = document.getElementById('resume-content');
     const opt = {
-        margin: [15, 15, 15, 15],
+        margin: 0, // margins are baked into the clone's padding
         filename: 'Ajay_Avaghade_Resume.pdf',
         image: { type: 'jpeg', quality: 0.98 },
         html2canvas: {
@@ -432,24 +440,20 @@ async function downloadDirect() {
             logging: false,
             letterRendering: true,
             scrollY: 0,
-            scrollX: 0,
-            windowWidth: 794
+            scrollX: 0
         },
         jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' },
         pagebreak: { mode: ['avoid-all', 'css'] }
     };
     try {
-        await html2pdf().set(opt).from(element).save();
+        await html2pdf().set(opt).from(clone).save();
         addLog("> SUCCESS: Full PDF downloaded.");
     } catch (err) {
         addLog("> ERROR: Direct PDF failed. Opening print dialog...");
         console.error(err);
         window.print();
     } finally {
-        // Restore scroll container
-        previewEl.style.height = savedHeight;
-        previewEl.style.overflowY = savedOverflow;
-        resumeContent.contentEditable = editMode ? 'true' : 'false';
+        document.body.removeChild(clone);
     }
 }
 
