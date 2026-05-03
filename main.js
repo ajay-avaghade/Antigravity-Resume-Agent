@@ -390,11 +390,9 @@ startBtn.addEventListener('click', async () => {
         finalContent = finalContent.replace(/strategic product interventions/g, `${keywords[1] || 'strategic'} solutions and ${keywords[2] || 'scale'} operations`);
         finalContent = finalContent.replace(/optimized product mechanics/g, `data-driven ${topKeyword} strategies`);
 
-        // Inject keywords into Skills without the "JD Alignment" prefix
-        const skillInjection = `<div style="margin-top: 8pt; font-size: 9.5pt; color: #1a1a1a; border-top: 1px dashed #ddd; padding-top: 4pt;">
-            <strong>Targeted Competencies:</strong> ${keywords.join(' &bull; ')}
-        </div>`;
-        finalContent = finalContent.replace("Technical Skills</h2>", `Technical Skills</h2>${skillInjection}`);
+        // Natural Skill Integration (Append to end of existing list instead of new block)
+        const skillAppend = ` &bull; ${keywords.join(' &bull; ')}`;
+        finalContent = finalContent.replace("Funnel Optimization, A/B Testing.", `Funnel Optimization, A/B Testing.${skillAppend}`);
     }
 
     startBtn.disabled = false;
