@@ -301,18 +301,27 @@ function detectDomain(jdText, companyName) {
 // ============================================================
 // Gemini API
 // ============================================================
-async function callGemini(prompt) {
+async function callGemini(prompt, retryCount = 0) {
     const apiKey = localStorage.getItem('gemini_api_key');
     if (!apiKey) return null;
+    
     try {
         const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${apiKey}`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ contents: [{ parts: [{ text: prompt }] }] })
         });
+        
+        if (response.status === 503 && retryCount < 2) {
+            addLog(`> [SYSTEM] API Busy (503). Retrying in ${2 * (retryCount + 1)}s...`);
+            await new Promise(r => setTimeout(r, 2000 * (retryCount + 1)));
+            return callGemini(prompt, retryCount + 1);
+        }
+
         const data = await response.json();
         if (data.error) {
             console.error("Gemini API Error:", data.error.message);
+            if (data.error.code === 429) addLog("> ERROR: Rate limit exceeded. Please wait a minute.");
             return null;
         }
         return data.candidates?.[0]?.content?.parts?.[0]?.text || null;
@@ -451,7 +460,7 @@ STRUCTURAL RULES:
             adapted = true;
             addLog("> [Agent 2] SYNTHESIZER: Deep LLM Adaptation SUCCESS.");
         } else {
-            addLog("> [Agent 2] SYNTHESIZER: LLM response unusable. Applying local positioning...");
+            addLog("> [Agent 2] SYNTHESIZER: LLM unavailable or timeout. Applying domain-aware fallback...");
         }
     }
 
