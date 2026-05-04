@@ -106,7 +106,7 @@
                         </div>
                     </div>
 
-                    <div style="display: flex; gap: 1rem;">
+                    <div style="display: flex; gap: 1rem; margin-bottom: 2rem;">
                         <button class="btn" style="flex: 1; background: var(--accent-gradient);" id="download-pdf">
                             <i data-lucide="download" style="width: 18px; vertical-align: middle; margin-right: 8px;"></i>
                             EXPORT AS PDF (PRINT)
@@ -117,6 +117,76 @@
                         </button>
                     </div>
                 </div>
+            </div>
+        </section>
+
+        <!-- Agent 5: Outreach Specialist (Standalone Section) -->
+        <section class="outreach-standalone" id="outreach-section">
+            <div class="card">
+                <div class="outreach-header">
+                    <div class="outreach-title">
+                        <i data-lucide="mail" style="width: 22px; color: var(--accent);"></i>
+                        <h2 style="font-size: 1.3rem; color: var(--text-primary);">Outreach Specialist <span class="outreach-badge">Agent 5</span></h2>
+                    </div>
+                    <p class="outreach-subtitle">Generate optional application materials powered by AI. Run the pipeline first, then select what you need.</p>
+                </div>
+
+                <div class="outreach-grid">
+                    <label class="outreach-toggle" for="opt-cover-letter">
+                        <input type="checkbox" id="opt-cover-letter">
+                        <div class="toggle-track"><div class="toggle-thumb"></div></div>
+                        <div class="toggle-label">
+                            <i data-lucide="file-text" style="width: 16px;"></i>
+                            <div>
+                                <span class="toggle-name">Cover Letter</span>
+                                <span class="toggle-desc">Tailored narrative, different from resume. Under 300 words.</span>
+                            </div>
+                        </div>
+                    </label>
+
+                    <label class="outreach-toggle" for="opt-hm-email">
+                        <input type="checkbox" id="opt-hm-email">
+                        <div class="toggle-track"><div class="toggle-thumb"></div></div>
+                        <div class="toggle-label">
+                            <i data-lucide="send" style="width: 16px;"></i>
+                            <div>
+                                <span class="toggle-name">Email to Hiring Manager</span>
+                                <span class="toggle-desc">3-paragraph direct outreach with engaging subject line.</span>
+                            </div>
+                        </div>
+                    </label>
+
+                    <label class="outreach-toggle" for="opt-referral-msg">
+                        <input type="checkbox" id="opt-referral-msg">
+                        <div class="toggle-track"><div class="toggle-thumb"></div></div>
+                        <div class="toggle-label">
+                            <i data-lucide="message-circle" style="width: 16px;"></i>
+                            <div>
+                                <span class="toggle-name">LinkedIn Referral Message</span>
+                                <span class="toggle-desc">Punchy connection note — strict 200 character limit.</span>
+                            </div>
+                        </div>
+                    </label>
+
+                    <label class="outreach-toggle" for="opt-hr-questions">
+                        <input type="checkbox" id="opt-hr-questions">
+                        <div class="toggle-track"><div class="toggle-thumb"></div></div>
+                        <div class="toggle-label">
+                            <i data-lucide="help-circle" style="width: 16px;"></i>
+                            <div>
+                                <span class="toggle-name">HR Questions Prep</span>
+                                <span class="toggle-desc">&ldquo;Why this company?&rdquo;, &ldquo;Why this role?&rdquo; — bulleted talking points.</span>
+                            </div>
+                        </div>
+                    </label>
+                </div>
+
+                <button class="btn outreach-generate-btn" id="generate-outreach" disabled>
+                    <i data-lucide="zap" style="width: 18px; vertical-align: middle; margin-right: 8px;"></i>
+                    GENERATE OUTREACH MATERIALS
+                </button>
+
+                <div id="outreach-output" class="outreach-output" style="display: none;"></div>
             </div>
         </section>
 

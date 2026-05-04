@@ -187,16 +187,44 @@ function extractKeywords(text) {
 // Detect company name from JD text or URL
 function detectCompany(jdText, jdUrl) {
     const combined = (jdText + ' ' + jdUrl).toLowerCase();
-    const brands = ['vyapar','swiggy','zomato','amazon','flipkart','phonepe','razorpay',
-                     'cred','meesho','dream11','paytm','groww','zerodha','ola','uber',
-                     'google','microsoft','meta','apple','netflix','spotify','sabre','skillz'];
+    const brands = [
+        // Fintech & Payments
+        'phonepe','razorpay','paytm','groww','zerodha','cred','jupiter','fi','slice','bharatpe',
+        'stripe','square','plaid','revolut','wise','klarna','affirm','chime','robinhood','coinbase',
+        // E-commerce & Marketplace
+        'flipkart','amazon','meesho','myntra','nykaa','ajio','tata','jiomart','shopify','etsy',
+        // Food & Delivery
+        'swiggy','zomato','blinkit','zepto','dunzo','doordash','uber eats','instacart',
+        // Ride & Mobility
+        'ola','uber','rapido','bounce','yulu',
+        // SaaS & Enterprise
+        'vyapar','zoho','freshworks','browserstack','postman','chargebee','leadsquared','clevertap',
+        'salesforce','hubspot','notion','figma','canva','atlassian','slack','asana','monday',
+        // Gaming & Entertainment
+        'dream11','mpl','winzo','games24x7','nazara','skillz','roblox','epic','supercell','zynga',
+        // Travel & Hospitality
+        'makemytrip','goibibo','oyo','cleartrip','ixigo','booking','airbnb','expedia','sabre','amadeus',
+        // Social & Content
+        'sharechat','koo','dailyhunt','inmobi','truecaller','snap','tiktok','reddit','discord','linkedin',
+        // EdTech
+        'byju','unacademy','upgrad','vedantu','physicswallah','coursera','udemy','duolingo',
+        // HealthTech
+        'practo','pharmeasy','tata 1mg','healthkart','cure.fit','niramai',
+        // Logistics & Supply Chain
+        'delhivery','shiprocket','locus','rivigo','ecom express','fedex',
+        // Big Tech
+        'google','microsoft','meta','apple','netflix','spotify','twitter','openai','anthropic',
+        // Snabbit and other startups
+        'snabbit','gojek','grab','careem','bolt'
+    ];
     for (const brand of brands) {
         if (combined.includes(brand)) {
-            return brand.charAt(0).toUpperCase() + brand.slice(1);
+            // Handle multi-word brands
+            return brand.split(' ').map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(' ');
         }
     }
     // Try domain from non-job-board URLs
-    if (jdUrl && !jdUrl.includes('linkedin') && !jdUrl.includes('indeed') && !jdUrl.includes('naukri')) {
+    if (jdUrl && !jdUrl.includes('linkedin') && !jdUrl.includes('indeed') && !jdUrl.includes('naukri') && !jdUrl.includes('lever.co') && !jdUrl.includes('greenhouse')) {
         try {
             const hostname = new URL(jdUrl).hostname;
             const parts = hostname.split('.');
@@ -206,17 +234,63 @@ function detectCompany(jdText, jdUrl) {
     return null;
 }
 
-// Detect domain category from JD text
-function detectDomain(jdText) {
-    const t = jdText.toLowerCase();
-    if (t.includes('saas') || t.includes('accounting') || t.includes('erp') || t.includes('crm') || t.includes('workflow')) return 'SaaS';
-    if (t.includes('gaming') || t.includes('liveops') || t.includes('player') || t.includes('esport')) return 'Gaming';
-    if (t.includes('travel') || t.includes('hospitality') || t.includes('airline') || t.includes('booking')) return 'Travel';
-    if (t.includes('ecommerce') || t.includes('e-commerce') || t.includes('marketplace') || t.includes('retail')) return 'Ecommerce';
-    if (t.includes('fintech') || t.includes('payments') || t.includes('banking') || t.includes('lending')) return 'Fintech';
-    if (t.includes('health') || t.includes('medical') || t.includes('pharma')) return 'HealthTech';
-    if (t.includes('edtech') || t.includes('education') || t.includes('learning')) return 'EdTech';
-    return 'Fintech'; // safe default given candidate background
+// Detect domain category from JD text (weighted scoring for accuracy)
+function detectDomain(jdText, companyName) {
+    const t = (jdText || '').toLowerCase();
+
+    // Company-to-domain override for known brands
+    const companyDomainMap = {
+        'phonepe': 'Fintech', 'razorpay': 'Fintech', 'paytm': 'Fintech', 'groww': 'Fintech',
+        'zerodha': 'Fintech', 'cred': 'Fintech', 'stripe': 'Fintech', 'plaid': 'Fintech',
+        'flipkart': 'Ecommerce', 'amazon': 'Ecommerce', 'meesho': 'Ecommerce', 'myntra': 'Ecommerce',
+        'shopify': 'Ecommerce', 'nykaa': 'Ecommerce',
+        'swiggy': 'QuickCommerce', 'zomato': 'QuickCommerce', 'blinkit': 'QuickCommerce',
+        'zepto': 'QuickCommerce', 'dunzo': 'QuickCommerce', 'instacart': 'QuickCommerce',
+        'ola': 'Mobility', 'uber': 'Mobility', 'rapido': 'Mobility',
+        'dream11': 'Gaming', 'mpl': 'Gaming', 'skillz': 'Gaming', 'winzo': 'Gaming',
+        'vyapar': 'SaaS', 'zoho': 'SaaS', 'freshworks': 'SaaS', 'salesforce': 'SaaS',
+        'makemytrip': 'Travel', 'oyo': 'Travel', 'booking': 'Travel', 'airbnb': 'Travel', 'sabre': 'Travel',
+        'byju': 'EdTech', 'unacademy': 'EdTech', 'coursera': 'EdTech', 'duolingo': 'EdTech',
+        'practo': 'HealthTech', 'pharmeasy': 'HealthTech',
+        'google': 'BigTech', 'microsoft': 'BigTech', 'meta': 'BigTech', 'apple': 'BigTech',
+        'snabbit': 'Hyperlocal', 'delhivery': 'Logistics', 'shiprocket': 'Logistics',
+    };
+
+    if (companyName && companyDomainMap[companyName.toLowerCase()]) {
+        return companyDomainMap[companyName.toLowerCase()];
+    }
+
+    // Weighted keyword scoring
+    const domainKeywords = {
+        Fintech: ['fintech','payments','banking','lending','credit','debit','upi','wallet','neobank','insurance','wealth','trading','investment','kyc','compliance','regulatory','aml','fraud detection','risk management','underwriting','collections','disbursement','emi','subvention','checkout','transaction'],
+        Ecommerce: ['ecommerce','e-commerce','marketplace','retail','seller','catalog','inventory','fulfillment','cart','checkout','logistics','warehouse','listing','sku','supply chain','merchandising','pricing','assortment','dropship'],
+        QuickCommerce: ['quick commerce','q-commerce','dark store','hyperlocal','delivery','grocery','last mile','order management','dispatch','rider','fleet','slot','express delivery','instant delivery','food delivery'],
+        SaaS: ['saas','b2b','enterprise','crm','erp','accounting','workflow','automation','dashboard','analytics platform','self-serve','onboarding','customer success','integration','api','platform','subscription','multi-tenant'],
+        Gaming: ['gaming','liveops','player','esport','in-game','virtual currency','matchmaking','leaderboard','tournament','guild','season pass','battle pass','engagement loop','retention','session depth','daily active','monetization loop'],
+        Travel: ['travel','hospitality','airline','booking','hotel','flight','itinerary','gds','ota','reservation','check-in','tourism','accommodation','experience platform'],
+        Mobility: ['ride','cab','driver','fleet','mobility','transport','route','eta','surge','pool','rental','scooter','bike','autonomous'],
+        HealthTech: ['health','medical','pharma','telemedicine','patient','clinical','diagnostic','wellness','fitness','mental health','healthcare','hospital','doctor','prescription','lab test'],
+        EdTech: ['edtech','education','learning','course','student','teacher','assessment','curriculum','lms','tutoring','certification','skill development','upskilling','cohort'],
+        Logistics: ['logistics','supply chain','warehouse','shipping','freight','tracking','courier','3pl','route optimization','demand planning','inventory management'],
+        BigTech: ['cloud','infrastructure','platform','operating system','search','advertising','machine learning','artificial intelligence','data center','developer tools','open source'],
+        Hyperlocal: ['hyperlocal','local services','on-demand','home services','urban','city','neighborhood','gig economy','service marketplace','task','errand'],
+        ContentSocial: ['social','content','creator','feed','engagement','viral','community','user generated','moderation','recommendation','algorithm','discovery','notification','retention loop'],
+        ProductOps: ['product operations','product ops','experimentation','feature flag','rollout','release management','product analytics','instrumentation','data pipeline','observability'],
+    };
+
+    let bestDomain = 'Fintech';
+    let bestScore = 0;
+    for (const [domain, keywords] of Object.entries(domainKeywords)) {
+        let score = 0;
+        for (const kw of keywords) {
+            if (t.includes(kw)) score++;
+        }
+        if (score > bestScore) {
+            bestScore = score;
+            bestDomain = domain;
+        }
+    }
+    return bestDomain;
 }
 
 // ============================================================
@@ -254,7 +328,7 @@ startBtn.addEventListener('click', async () => {
     // Only extract keywords from actual JD text, never from URLs
     const keywords = extractKeywords(jdText);
     const companyName = detectCompany(jdText, jdUrl);
-    const domain = detectDomain(jdText);
+    const domain = detectDomain(jdText, companyName);
 
     startBtn.disabled = true;
     startBtn.textContent = "EXECUTING PIPELINE...";
@@ -302,26 +376,64 @@ startBtn.addEventListener('click', async () => {
     // Path 1: Gemini API (only if we have actual JD text)
     if (apiKey && jdText) {
         addLog("> [Agent 2] SYNTHESIZER: Sending payload to Gemini Pro...");
-        const prompt = `You are a resume adaptation agent. Rewrite this HTML resume to match the Job Description below.
+        const prompt = `You are a SENIOR HR MANAGER and ATS OPTIMIZATION SPECIALIST reviewing resumes for a ${companyName ? companyName + ' ' : ''}Product Manager role.
+
+YOUR TASK: Rewrite this resume HTML so it would score 95+ on any ATS system while reading naturally to a human recruiter.
+
+═══════════════════════════════════════
+STEP 1: COMPANY & ROLE INTELLIGENCE
+═══════════════════════════════════════
+From the Job Description below, extract:
+- Company's CORE VALUES and MISSION (what do they care about?)
+- The BIGGEST PROBLEM they're hiring this PM to solve
+- Their DOMAIN VOCABULARY (specific terms/jargon they use)
+- The TOP 5 HARD SKILLS and TOP 3 SOFT SKILLS they prioritize
+- Seniority signals (are they looking for strategic thinking? Execution? Both?)
 
 JOB DESCRIPTION:
 ${jdText}
 
+═══════════════════════════════════════
+STEP 2: CANDIDATE MATERIAL
+═══════════════════════════════════════
 ORIGINAL RESUME HTML:
 ${masterResume}
 
-RULES:
-1. Rewrite the Professional Summary to naturally align with the JD's domain and priorities. Do NOT put the company name in the summary.
-2. Reframe bullet points to emphasize the skills the JD cares about. Keep all metrics intact.
-3. Keep ALL sections (Experience, Education with all 3 entries, Skills, Projects).
-4. Keep the EXACT same HTML structure and inline styles.
-5. Return ONLY the HTML. No markdown fences, no explanation.`;
+═══════════════════════════════════════
+STEP 3: STRATEGIC REWRITE RULES
+═══════════════════════════════════════
+
+PROFESSIONAL SUMMARY (3 sentences):
+- Sentence 1: State years of experience + the DOMAIN this company operates in (use their vocabulary, not generic terms). Mirror the JD's language.
+- Sentence 2: Highlight the candidate's strongest metric that directly addresses the company's biggest problem.
+- Sentence 3: State a unique differentiator (e.g., the fintech + risk duality, or the scale of budget managed).
+- Do NOT mention the company name in the summary.
+- Do NOT start with "Data-driven" — use a more distinctive opening that reflects the company's values.
+
+EXPERIENCE BULLETS:
+- REFRAME each bullet's lead-in label to use terminology from the JD (e.g., if JD says "growth loops" instead of "retention", use "growth loops").
+- Keep ALL numerical metrics exactly as they are — never change numbers.
+- FRONT-LOAD impact metrics: start every bullet with the outcome, not the action.
+- If the JD emphasizes a skill the candidate has but it's buried, ELEVATE it by rephrasing the bullet to lead with that skill.
+- Add domain-specific context: if it's a gaming company, frame "gamified milestone system" differently than for a SaaS company.
+
+SKILLS SECTION:
+- REORDER skills to put JD-mentioned skills first.
+- ADD skills from the JD that are genuinely applicable (e.g., if JD mentions "experimentation" and the candidate does A/B testing, add "Experimentation Frameworks").
+- Remove skills that are irrelevant to this specific role.
+
+STRUCTURAL RULES:
+- Keep ALL sections: Summary, Experience (all 3 roles), Skills, Education (all 3 entries), AI Projects, Key Achievements.
+- Keep the EXACT same HTML structure and inline styles.
+- Do NOT add any new sections or remove existing ones.
+- Return ONLY the HTML. No markdown fences, no backticks, no explanation.
+- Every hyperlink must remain intact and functional.`;
 
         const result = await callGemini(prompt);
         if (result && result.length > 500) {
             finalContent = result.replace(/```html|```markdown|```/g, "").trim();
             adapted = true;
-            addLog("> [Agent 2] SYNTHESIZER: LLM Adaptation SUCCESS.");
+            addLog("> [Agent 2] SYNTHESIZER: Deep LLM Adaptation SUCCESS.");
         } else {
             addLog("> [Agent 2] SYNTHESIZER: LLM response unusable. Applying local positioning...");
         }
@@ -331,15 +443,22 @@ RULES:
     if (!adapted && jdText) {
         addLog(`> [Agent 2] SYNTHESIZER: Applying ${domain} narrative positioning...`);
 
-        // Rewrite the summary based on domain
+        // Rewrite the summary based on domain — 14 categories
         const domainSummaries = {
-            SaaS: `Data-driven Senior Product Manager with 4+ years of experience scaling high-volume <strong>B2B SaaS platforms</strong> and business workflow ecosystems. Expert at optimizing complex user journeys through <strong>product-led growth</strong> and conversion funnel engineering, driving 22% conversion lifts and 17% retention growth. Proven track record managing ₹1000+ Cr budgets to drive acquisition and long-term platform value.`,
-            Gaming: `Data-driven Senior Product Manager with 4+ years of experience scaling <strong>engagement ecosystems</strong> and gamified platforms. Expert at bridging player journeys with <strong>LiveOps incentivization</strong>, driving 22% conversion lifts and 17% CLTV growth through player-centric retention mechanics. Managed ₹1000+ Cr budgets to optimize session depth and player lifetime value.`,
-            Travel: `Data-driven Senior Product Manager with 4+ years of experience scaling high-volume <strong>transactional platforms</strong> and enterprise ecosystems. Expert at architecting multi-tenant infrastructure and conversion optimization, driving 22% conversion lifts through data-driven product revamps. Proven track record managing ₹1000+ Cr budgets across complex B2B and B2C verticals.`,
-            Ecommerce: `Data-driven Senior Product Manager with 4+ years of experience scaling <strong>high-volume commerce platforms</strong> and marketplace ecosystems. Expert at optimizing end-to-end checkout experiences and supply chain workflows, driving 22% conversion lifts and 17% growth. Proven track record managing ₹1000+ Cr budgets to drive user acquisition and platform-scale operations.`,
-            Fintech: `Data-driven Senior Product Manager with 4+ years of experience scaling <strong>high-volume fintech platforms</strong> and digital payment ecosystems. Expert at bridging complex user journeys with strategic product interventions, driving 22% conversion lifts and 17% growth. Proven track record managing ₹1000+ Cr annual budgets to optimize acquisition and platform-scale depth.`,
-            HealthTech: `Data-driven Senior Product Manager with 4+ years of experience scaling <strong>high-volume digital platforms</strong> and health-tech ecosystems. Expert at optimizing complex user workflows and compliance-driven product experiences, driving 22% conversion lifts and 17% growth. Proven track record managing ₹1000+ Cr budgets to drive user acquisition and platform value.`,
-            EdTech: `Data-driven Senior Product Manager with 4+ years of experience scaling <strong>high-volume digital platforms</strong> and learning ecosystems. Expert at optimizing user engagement and retention through product-led growth mechanics, driving 22% conversion lifts and 17% growth. Proven track record managing ₹1000+ Cr budgets to drive learner acquisition and platform depth.`,
+            SaaS: `Results-oriented Senior Product Manager with 4+ years of experience scaling high-volume <strong>B2B SaaS platforms</strong> and enterprise workflow ecosystems. Expert at driving <strong>product-led growth</strong> through conversion funnel engineering and self-serve onboarding optimization, delivering 22% conversion lifts and 17% retention growth. Proven ability to manage ₹1000+ Cr budgets while building scalable multi-tenant infrastructure that drives long-term platform value.`,
+            Gaming: `Engagement-first Senior Product Manager with 4+ years of experience scaling <strong>LiveOps-driven platforms</strong> and gamified engagement ecosystems. Expert at designing <strong>player retention mechanics</strong> and session-depth optimization, driving 22% conversion lifts and 17% CLTV growth through algorithmically cohorted user interventions. Managed ₹1000+ Cr budgets to optimize player acquisition, monetization loops, and platform-scale engagement depth.`,
+            Travel: `Scale-focused Senior Product Manager with 4+ years of experience building high-volume <strong>transactional platforms</strong> and multi-tenant enterprise ecosystems. Expert at architecting <strong>end-to-end booking and checkout experiences</strong>, driving 22% conversion lifts through data-driven product revamps. Proven track record managing ₹1000+ Cr budgets across complex B2B and B2C verticals with cross-border operational complexity.`,
+            Ecommerce: `Growth-oriented Senior Product Manager with 4+ years of experience scaling <strong>high-volume commerce platforms</strong> and marketplace ecosystems. Expert at optimizing <strong>end-to-end checkout experiences, supply chain workflows, and seller-side tools</strong>, driving 22% conversion lifts and 17% growth. Proven track record managing ₹1000+ Cr budgets to drive user acquisition, catalog depth, and platform-scale operations.`,
+            QuickCommerce: `Operations-savvy Senior Product Manager with 4+ years of experience scaling <strong>high-frequency transactional platforms</strong> and last-mile delivery ecosystems. Expert at optimizing <strong>order fulfillment, dispatch logic, and real-time supply-demand matching</strong>, driving 22% conversion lifts and 17% growth. Proven track record managing ₹1000+ Cr budgets to balance unit economics with hyper-growth at city-level scale.`,
+            Fintech: `Impact-driven Senior Product Manager with 4+ years of experience scaling <strong>high-volume fintech platforms</strong> and digital payment ecosystems. Expert at bridging complex user journeys with <strong>strategic product interventions and risk-aware growth mechanics</strong>, driving 22% conversion lifts and 17% growth. Proven track record managing ₹1000+ Cr annual budgets to optimize acquisition, compliance, and platform-scale depth.`,
+            Mobility: `Platform-scale Senior Product Manager with 4+ years of experience building <strong>high-frequency transactional systems</strong> and real-time marketplace ecosystems. Expert at optimizing <strong>supply-demand matching, dynamic pricing, and rider/driver experience loops</strong>, driving 22% conversion lifts and 17% growth. Proven track record managing ₹1000+ Cr budgets across complex multi-sided platform operations.`,
+            HealthTech: `User-first Senior Product Manager with 4+ years of experience scaling <strong>high-volume digital platforms</strong> and health-tech ecosystems. Expert at optimizing <strong>complex user workflows, compliance-driven product experiences, and trust-building mechanisms</strong>, driving 22% conversion lifts and 17% growth. Proven track record managing ₹1000+ Cr budgets to drive user acquisition and platform value in regulated environments.`,
+            EdTech: `Engagement-focused Senior Product Manager with 4+ years of experience scaling <strong>high-volume digital platforms</strong> and learning ecosystems. Expert at optimizing <strong>learner engagement, retention loops, and cohort-based product mechanics</strong>, driving 22% conversion lifts and 17% growth. Proven track record managing ₹1000+ Cr budgets to drive learner acquisition, completion rates, and platform depth.`,
+            Logistics: `Operations-minded Senior Product Manager with 4+ years of experience scaling <strong>high-volume transactional platforms</strong> and supply chain ecosystems. Expert at optimizing <strong>warehouse operations, route planning, and demand forecasting systems</strong>, driving 22% conversion lifts and 17% operational efficiency gains. Proven track record managing ₹1000+ Cr budgets to balance throughput with cost optimization at scale.`,
+            BigTech: `Technically versatile Senior Product Manager with 4+ years of experience scaling <strong>platform-level products</strong> serving millions of users. Expert at bridging <strong>infrastructure complexity with user-facing product simplicity</strong>, driving 22% conversion lifts and 17% growth through data-driven experimentation. Proven track record managing ₹1000+ Cr budgets with a strong technical foundation (B.Tech CS, VNIT) and cross-functional leadership.`,
+            Hyperlocal: `Builder-mindset Senior Product Manager with 4+ years of experience scaling <strong>high-frequency transactional platforms</strong> and hyperlocal service ecosystems. Expert at <strong>structuring ambiguous problem spaces into scalable product systems</strong>, driving 22% conversion lifts and 17% growth through rapid experimentation. Proven track record managing ₹1000+ Cr budgets while maintaining unit economics discipline across city-level rollouts.`,
+            ContentSocial: `Growth-obsessed Senior Product Manager with 4+ years of experience scaling <strong>engagement-driven platforms</strong> and content ecosystems. Expert at designing <strong>viral acquisition loops, algorithmic content discovery, and retention-first product mechanics</strong>, driving 22% conversion lifts and 17% CLTV growth. Proven track record managing ₹1000+ Cr budgets to optimize creator-consumer flywheels at platform scale.`,
+            ProductOps: `Systems-thinking Senior Product Manager with 4+ years of experience scaling <strong>high-volume platform operations</strong> and experimentation infrastructure. Expert at <strong>bringing structure to complex, ambiguous systems through data-driven frameworks and cross-functional alignment</strong>, driving 22% conversion lifts and 17% growth. Proven track record managing ₹1000+ Cr budgets with deep expertise in instrumentation, A/B testing, and release management.`,
         };
 
         const newSummary = domainSummaries[domain] || domainSummaries.Fintech;
@@ -459,3 +578,251 @@ async function downloadDirect() {
 
 downloadBtnDirect.addEventListener('click', downloadDirect);
 if (navDownload) navDownload.addEventListener('click', downloadDirect);
+
+// ============================================================
+// Agent 5: Outreach Specialist
+// ============================================================
+const outreachCheckboxes = document.querySelectorAll('#outreach-section input[type="checkbox"]');
+const generateOutreachBtn = document.getElementById('generate-outreach');
+const outreachOutput = document.getElementById('outreach-output');
+
+// Enable/disable generate button based on checkbox state
+outreachCheckboxes.forEach(cb => {
+    cb.addEventListener('change', () => {
+        const anyChecked = Array.from(outreachCheckboxes).some(c => c.checked);
+        generateOutreachBtn.disabled = !anyChecked;
+    });
+});
+
+// Outreach prompts for Gemini
+function buildOutreachPrompt(type, resumeHtml, jdText, companyName) {
+    const base = `You are Agent 5 (The Outreach Specialist) in a multi-agent resume pipeline.
+RESUME (for context only, do NOT repeat bullet points):
+${resumeHtml}
+
+JOB DESCRIPTION:
+${jdText || 'Not provided'}
+
+TARGET COMPANY: ${companyName || 'Unknown'}
+`;
+
+    switch (type) {
+        case 'cover-letter':
+            return base + `
+TASK: Write a compelling Cover Letter.
+RULES:
+1. It MUST be different from the resume — do NOT repeat bullet points.
+2. Focus on WHY (passion for the company's mission) and the unique fintech/risk duality.
+3. Keep it under 300 words.
+4. Use a professional but warm tone.
+5. Return ONLY the cover letter text, no subject line, no explanation.`;
+
+        case 'hm-email':
+            return base + `
+TASK: Write a direct Email to the Hiring Manager.
+RULES:
+1. Include an engaging Subject Line on the first line (format: "Subject: ...").
+2. Write exactly 3 short paragraphs:
+   - The hook (a relevant zero-to-one or scale metric)
+   - The fit (tying background to the JD's biggest problem)
+   - The close (clear call to action)
+3. Keep it concise and professional.
+4. Return ONLY the email text.`;
+
+        case 'referral-msg':
+            return base + `
+TASK: Write a LinkedIn referral/connection request message.
+RULES:
+1. It MUST be STRICTLY UNDER 200 CHARACTERS (including spaces). This is NON-NEGOTIABLE.
+2. Be punchy and direct.
+3. Mention a mutual professional interest based on the JD.
+4. Include a clear, low-friction call to action.
+5. Return ONLY the message text, nothing else. Count your characters carefully.`;
+
+        case 'hr-questions':
+            return base + `
+TASK: Generate customized, bulleted talking points for 3 standard HR questions:
+1. "Why this company?"
+2. "Why this role?"
+3. "How does your background translate to this product role?"
+
+RULES:
+1. Base answers entirely on the intersection of the candidate's resume and the company's values.
+2. Use bullet points for each answer.
+3. Be specific, not generic.
+4. Return formatted text with clear headers for each question.`;
+    }
+}
+
+// Fallback local content when no API key
+function getLocalOutreach(type, companyName) {
+    const company = companyName || 'the company';
+
+    switch (type) {
+        case 'cover-letter':
+            return `Dear Hiring Manager,
+
+I'm writing to express my strong interest in the Product Manager role at ${company}. What excites me most isn't just the role itself — it's the intersection of scale and user empathy that ${company} represents.
+
+Over the past four years at PhonePe, I've had the rare privilege of operating at both extremes of the product spectrum: managing a ₹1000+ Cr marketing engine that demands rigorous analytical discipline, while simultaneously designing gamified user journeys that require deep empathy for human behavior. This duality — the ability to think in spreadsheets and feel in user flows — is what I believe makes me uniquely suited for this role.
+
+What I find most compelling about ${company}'s trajectory is the ambition to build products that don't just serve users, but fundamentally change how they interact with technology. My experience launching Kotak Cherry from zero to 100K+ downloads taught me that the best products aren't built — they're discovered through relentless iteration and genuine curiosity about user needs.
+
+I would welcome the opportunity to discuss how my experience scaling engagement systems and optimizing high-volume transactional platforms can contribute to ${company}'s next chapter of growth.
+
+Warm regards,
+Ajay Avaghade`;
+
+        case 'hm-email':
+            return `Subject: PM with 5Mn+ user/month acquisition engine — excited about ${company}
+
+Hi,
+
+I recently came across the PM opening at ${company} and was immediately drawn to it. At PhonePe, I built a referral engine that acquires 5Mn+ users/month while cutting CAC by 23% — and I'm eager to bring that same growth mindset to your team.
+
+My background bridges the gap between aggressive scale execution and user-centric product design. Whether it's managing ₹1000+ Cr budgets with ML-driven optimization or launching a zero-to-one wealth-tech platform, I've consistently delivered measurable impact at every stage of the product lifecycle.
+
+Would love to connect for a quick 15-minute chat to explore how I might contribute to ${company}'s roadmap. I'm available this week at your convenience.
+
+Best,
+Ajay Avaghade`;
+
+        case 'referral-msg':
+            return `Hi! I'm a PM at PhonePe (4+ yrs scaling fintech products). Saw the PM role at ${company} — would love a quick referral if my profile fits. Happy to chat!`;
+
+        case 'hr-questions':
+            return `## "Why this company?"
+
+• ${company} sits at the intersection of technology and real user impact — a space I've operated in for 4+ years
+• The scale of ambition here mirrors my own trajectory: from zero-to-one launches to managing platforms serving millions
+• I'm drawn to companies that prioritize data-driven decision making while maintaining user empathy — ${company}'s product philosophy aligns perfectly
+
+## "Why this role?"
+
+• This role lets me leverage my dual expertise: analytical rigor (₹1000+ Cr budget optimization) and creative product thinking (gamified engagement systems)
+• The problems outlined in the JD — scaling user engagement, conversion optimization, retention mechanics — are exactly the challenges I've solved repeatedly at PhonePe
+• I see this as a natural next step where I can apply my fintech-scale execution experience to a new domain
+
+## "How does your background translate to this product role?"
+
+• Engagement at scale: Built gamified milestone systems that drove 17% CLTV lift — directly transferable to any product requiring retention mechanics
+• Data-driven growth: Deployed propensity-to-transact ML models that reduced marketing burn by 32% — applicable to any organization optimizing CAC/LTV
+• Zero-to-one execution: Launched Kotak Cherry wealth-tech platform to 100K+ downloads in 90 days — proves ability to build from scratch
+• Cross-functional leadership: Managed engineering, design, data science, and marketing stakeholders simultaneously across multiple product lines`;
+    }
+}
+
+// Generate outreach materials
+generateOutreachBtn.addEventListener('click', async () => {
+    const selectedTypes = [];
+    if (document.getElementById('opt-cover-letter').checked) selectedTypes.push('cover-letter');
+    if (document.getElementById('opt-hm-email').checked) selectedTypes.push('hm-email');
+    if (document.getElementById('opt-referral-msg').checked) selectedTypes.push('referral-msg');
+    if (document.getElementById('opt-hr-questions').checked) selectedTypes.push('hr-questions');
+
+    if (selectedTypes.length === 0) return;
+
+    const jdText = document.getElementById('jd-text').value.trim();
+    const jdUrl = document.getElementById('jd-url').value.trim();
+    const companyName = detectCompany(jdText, jdUrl);
+    const apiKey = localStorage.getItem('gemini_api_key');
+    const resumeHtml = resumeContent.innerHTML;
+
+    generateOutreachBtn.disabled = true;
+    generateOutreachBtn.innerHTML = '<div class="outreach-spinner" style="display: inline-block; width: 18px; height: 18px; margin-right: 8px; vertical-align: middle;"></div> GENERATING...';
+
+    outreachOutput.innerHTML = '<div class="outreach-loading"><div class="outreach-spinner"></div>Agent 5 is crafting your outreach materials...</div>';
+    outreachOutput.style.display = 'flex';
+
+    addLog('\n> [Agent 5] OUTREACH SPECIALIST: Context break initiated. Wiping heavy agent context...');
+    addLog(`> [Agent 5] OUTREACH SPECIALIST: Generating ${selectedTypes.length} material(s)...`);
+
+    const typeLabels = {
+        'cover-letter': { label: 'Cover Letter', icon: 'file-text' },
+        'hm-email': { label: 'Email to Hiring Manager', icon: 'send' },
+        'referral-msg': { label: 'LinkedIn Referral Message', icon: 'message-circle' },
+        'hr-questions': { label: 'HR Questions Prep', icon: 'help-circle' }
+    };
+
+    const results = {};
+
+    for (const type of selectedTypes) {
+        if (apiKey && jdText) {
+            const prompt = buildOutreachPrompt(type, resumeHtml, jdText, companyName);
+            const result = await callGemini(prompt);
+            if (result && result.length > 20) {
+                results[type] = result.replace(/```/g, '').trim();
+                addLog(`> [Agent 5] SUCCESS: ${typeLabels[type].label} generated via LLM.`);
+            } else {
+                results[type] = getLocalOutreach(type, companyName);
+                addLog(`> [Agent 5] LLM unavailable for ${typeLabels[type].label}. Using strategic template.`);
+            }
+        } else {
+            results[type] = getLocalOutreach(type, companyName);
+            addLog(`> [Agent 5] ${typeLabels[type].label} generated (template mode).`);
+        }
+    }
+
+    // Render output cards
+    outreachOutput.innerHTML = '';
+    for (const type of selectedTypes) {
+        const content = results[type];
+        const info = typeLabels[type];
+
+        let extraBadge = '';
+        if (type === 'referral-msg') {
+            const charCount = content.length;
+            const isOk = charCount <= 200;
+            extraBadge = `<span class="char-counter ${isOk ? 'ok' : 'over'}">${charCount}/200 chars</span>`;
+        }
+
+        const card = document.createElement('div');
+        card.className = 'outreach-card';
+        card.innerHTML = `
+            <div class="outreach-card-header" onclick="this.nextElementSibling.style.display = this.nextElementSibling.style.display === 'none' ? 'block' : 'none'">
+                <h4>
+                    <i data-lucide="${info.icon}" style="width: 16px;"></i>
+                    ${info.label}${extraBadge}
+                </h4>
+                <div class="outreach-card-actions">
+                    <button class="outreach-copy-btn" onclick="event.stopPropagation(); copyOutreach(this, '${type}')">
+                        <i data-lucide="copy" style="width: 12px;"></i>
+                        COPY
+                    </button>
+                </div>
+            </div>
+            <div class="outreach-card-body" data-type="${type}">${escapeHtml(content)}</div>
+        `;
+        outreachOutput.appendChild(card);
+    }
+
+    addLog(`> [Agent 5] OUTREACH SPECIALIST: All ${selectedTypes.length} material(s) ready.`);
+
+    generateOutreachBtn.disabled = false;
+    generateOutreachBtn.innerHTML = '<i data-lucide="zap" style="width: 18px; vertical-align: middle; margin-right: 8px;"></i> REGENERATE OUTREACH';
+    lucide.createIcons();
+});
+
+// Copy to clipboard
+function copyOutreach(btn, type) {
+    const body = btn.closest('.outreach-card').querySelector('.outreach-card-body');
+    navigator.clipboard.writeText(body.textContent).then(() => {
+        const originalText = btn.innerHTML;
+        btn.innerHTML = '<i data-lucide="check" style="width: 12px;"></i> COPIED!';
+        btn.style.color = '#10b981';
+        btn.style.borderColor = '#10b981';
+        lucide.createIcons();
+        setTimeout(() => {
+            btn.innerHTML = originalText;
+            btn.style.color = '';
+            btn.style.borderColor = '';
+            lucide.createIcons();
+        }, 2000);
+    });
+}
+
+function escapeHtml(text) {
+    const div = document.createElement('div');
+    div.textContent = text;
+    return div.innerHTML;
+}
