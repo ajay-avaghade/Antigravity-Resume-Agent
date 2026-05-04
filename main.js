@@ -23,7 +23,10 @@ const previewCard = document.getElementById('preview-card');
 const resumeContent = document.getElementById('resume-content');
 const downloadBtn = document.getElementById('download-pdf');
 const downloadBtnDirect = document.getElementById('download-pdf-direct');
-const navDownload = document.getElementById('nav-download'); // May be null
+
+// Detect Mode: Personal (index.html) vs Public (public.html)
+const isPublicMode = window.location.pathname.includes('public.html');
+const profileText = document.getElementById('profile-text'); // Only in public.html
 const refineBtn = document.getElementById('refine-btn');
 const refineInput = document.getElementById('refine-input');
 
@@ -371,33 +374,42 @@ startBtn.addEventListener('click', async () => {
 
     // ---- Adaptation ----
     let finalContent = masterResume;
+    let sourceProfile = masterResume;
     let adapted = false;
+
+    // In Public Mode, we MUST have profile text. Use masterResume as fallback only in personal mode.
+    if (isPublicMode) {
+        const userProfile = (profileText?.value || "").trim();
+        if (!userProfile && !jdText) {
+            addLog("> ERROR: [Agent 1] No profile or JD provided. Public mode requires input.");
+            startBtn.disabled = false;
+            startBtn.textContent = "RUN PUBLIC PIPELINE";
+            return;
+        }
+        sourceProfile = userProfile || "The candidate did not provide a full resume, only a JD was provided. Generate a high-quality draft based on their inferred background.";
+        finalContent = `<div class="resume-container" style="color: #333; line-height: 1.4; font-family: 'Inter', sans-serif; padding: 20mm;"><h1>New Draft</h1><p>Drafting based on provided background...</p></div>`;
+    }
 
     // Path 1: Gemini API (only if we have actual JD text)
     if (apiKey && jdText) {
         addLog("> [Agent 2] SYNTHESIZER: Sending payload to Gemini Pro...");
-        const prompt = `You are a SENIOR HR MANAGER and ATS OPTIMIZATION SPECIALIST reviewing resumes for a ${companyName ? companyName + ' ' : ''}Product Manager role.
+        const prompt = `You are a SENIOR HR MANAGER and ATS OPTIMIZATION SPECIALIST.
+        
+YOUR TASK: Generate a high-quality, ATS-optimized resume. 
 
-YOUR TASK: Rewrite this resume HTML so it would score 95+ on any ATS system while reading naturally to a human recruiter.
+${isPublicMode ? "The candidate has provided their background below. If the background is sparse, use your expertise to create professional, metric-heavy bullet points that fit the JD." : "Rewrite this existing HTML resume to match the JD below."}
 
 ═══════════════════════════════════════
-STEP 1: COMPANY & ROLE INTELLIGENCE
+STEP 1: TARGET JOB
 ═══════════════════════════════════════
-From the Job Description below, extract:
-- Company's CORE VALUES and MISSION (what do they care about?)
-- The BIGGEST PROBLEM they're hiring this PM to solve
-- Their DOMAIN VOCABULARY (specific terms/jargon they use)
-- The TOP 5 HARD SKILLS and TOP 3 SOFT SKILLS they prioritize
-- Seniority signals (are they looking for strategic thinking? Execution? Both?)
-
+TARGET COMPANY: ${companyName || 'Unknown'}
 JOB DESCRIPTION:
 ${jdText}
 
 ═══════════════════════════════════════
-STEP 2: CANDIDATE MATERIAL
+STEP 2: CANDIDATE SOURCE
 ═══════════════════════════════════════
-ORIGINAL RESUME HTML:
-${masterResume}
+${isPublicMode ? "CANDIDATE BACKGROUND:\n" + sourceProfile : "ORIGINAL RESUME HTML:\n" + masterResume}
 
 ═══════════════════════════════════════
 STEP 3: STRATEGIC REWRITE RULES
