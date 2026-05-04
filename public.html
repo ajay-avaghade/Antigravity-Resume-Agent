@@ -15,6 +15,10 @@
     <nav class="container">
         <div class="logo">ANTIGRAVITY <span style="font-size: 0.6rem; opacity: 0.7; border: 1px solid var(--accent); padding: 2px 6px; border-radius: 4px; margin-left: 5px;">PUBLIC</span></div>
         <div class="nav-links">
+            <a href="index.html" class="btn" style="text-decoration: none; background: var(--bg-secondary); border: 1px solid var(--accent); color: var(--accent); font-weight: 700; width: auto; padding: 0 1.5rem;">
+                <i data-lucide="home" style="width: 18px; margin-right: 8px;"></i>
+                BACK TO HOME
+            </a>
             <button class="btn" id="open-settings" style="background: var(--bg-secondary); border: 1px solid var(--accent); color: var(--accent); font-weight: 700; width: auto; padding: 0 1.5rem;">
                 <i data-lucide="settings" style="width: 18px; margin-right: 8px;"></i>
                 API SETTINGS
@@ -87,6 +91,16 @@
                 </div>
 
                 <div id="result-actions" style="display: none; margin-top: 2rem; border-top: 1px solid var(--card-border); padding-top: 2rem;">
+                    <div class="input-group" style="margin-bottom: 1.5rem;">
+                        <label>Refine with AI</label>
+                        <div style="display: flex; gap: 0.5rem;">
+                            <input type="text" id="refine-input" placeholder="e.g. Make it more leadership focused...">
+                            <button class="btn" style="width: auto; padding: 0 1.5rem;" id="refine-btn">
+                                <i data-lucide="sparkles" style="width: 18px;"></i>
+                            </button>
+                        </div>
+                    </div>
+
                     <div style="display: flex; gap: 1rem; margin-bottom: 2rem;">
                         <button class="btn" style="flex: 1; background: var(--accent-gradient);" id="download-pdf">
                             <i data-lucide="download" style="width: 18px; vertical-align: middle; margin-right: 8px;"></i>
@@ -118,15 +132,46 @@
                         <div class="toggle-track"><div class="toggle-thumb"></div></div>
                         <div class="toggle-label">
                             <i data-lucide="file-text" style="width: 16px;"></i>
-                            <div><span class="toggle-name">Cover Letter</span></div>
+                            <div>
+                                <span class="toggle-name">Cover Letter</span>
+                                <span class="toggle-desc">Tailored narrative, different from resume.</span>
+                            </div>
                         </div>
                     </label>
+
                     <label class="outreach-toggle" for="opt-hm-email">
                         <input type="checkbox" id="opt-hm-email">
                         <div class="toggle-track"><div class="toggle-thumb"></div></div>
                         <div class="toggle-label">
                             <i data-lucide="send" style="width: 16px;"></i>
-                            <div><span class="toggle-name">HM Email</span></div>
+                            <div>
+                                <span class="toggle-name">Email to Hiring Manager</span>
+                                <span class="toggle-desc">3-paragraph direct outreach.</span>
+                            </div>
+                        </div>
+                    </label>
+
+                    <label class="outreach-toggle" for="opt-referral-msg">
+                        <input type="checkbox" id="opt-referral-msg">
+                        <div class="toggle-track"><div class="toggle-thumb"></div></div>
+                        <div class="toggle-label">
+                            <i data-lucide="message-circle" style="width: 16px;"></i>
+                            <div>
+                                <span class="toggle-name">LinkedIn Referral Message</span>
+                                <span class="toggle-desc">Strict 200 character limit.</span>
+                            </div>
+                        </div>
+                    </label>
+
+                    <label class="outreach-toggle" for="opt-hr-questions">
+                        <input type="checkbox" id="opt-hr-questions">
+                        <div class="toggle-track"><div class="toggle-thumb"></div></div>
+                        <div class="toggle-label">
+                            <i data-lucide="help-circle" style="width: 16px;"></i>
+                            <div>
+                                <span class="toggle-name">HR Questions Prep</span>
+                                <span class="toggle-desc">Bulleted talking points for interviews.</span>
+                            </div>
                         </div>
                     </label>
                 </div>

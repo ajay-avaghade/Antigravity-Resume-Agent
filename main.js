@@ -15,7 +15,10 @@ themeToggle.addEventListener('click', () => {
     moonIcon.style.display = isDark ? 'none' : 'block';
 });
 
-// UI Elements
+// Detect Mode: Personal (index.html) vs Public (public.html)
+const isPublicMode = window.location.pathname.includes('public.html');
+
+// UI Elements with defensive selection
 const startBtn = document.getElementById('start-pipeline');
 const terminal = document.getElementById('log-terminal');
 const resultActions = document.getElementById('result-actions');
@@ -23,12 +26,11 @@ const previewCard = document.getElementById('preview-card');
 const resumeContent = document.getElementById('resume-content');
 const downloadBtn = document.getElementById('download-pdf');
 const downloadBtnDirect = document.getElementById('download-pdf-direct');
-
-// Detect Mode: Personal (index.html) vs Public (public.html)
-const isPublicMode = window.location.pathname.includes('public.html');
-const profileText = document.getElementById('profile-text'); // Only in public.html
 const refineBtn = document.getElementById('refine-btn');
 const refineInput = document.getElementById('refine-input');
+const profileText = document.getElementById('profile-text'); // Public mode only
+const jdUrlInput = document.getElementById('jd-url'); // Personal mode only
+const jdTextInput = document.getElementById('jd-text');
 
 // ============================================================
 // MASTER RESUME (Full portfolio — source of truth)
@@ -323,15 +325,17 @@ async function callGemini(prompt) {
 // ============================================================
 // Pipeline
 // ============================================================
-startBtn.addEventListener('click', async () => {
-    const jdUrl = document.getElementById('jd-url').value.trim();
-    const jdText = document.getElementById('jd-text').value.trim();
+startBtn?.addEventListener('click', async () => {
+    const jdUrl = jdUrlInput ? jdUrlInput.value.trim() : "";
+    const jdText = jdTextInput ? jdTextInput.value.trim() : "";
     const apiKey = localStorage.getItem('gemini_api_key');
 
     // Only extract keywords from actual JD text, never from URLs
     const keywords = extractKeywords(jdText);
     const companyName = detectCompany(jdText, jdUrl);
     const domain = detectDomain(jdText, companyName);
+
+    if (!startBtn) return;
 
     startBtn.disabled = true;
     startBtn.textContent = "EXECUTING PIPELINE...";
@@ -523,12 +527,12 @@ if (toggleEditBtn) {
 // ============================================================
 // Refinement
 // ============================================================
-refineBtn.addEventListener('click', async () => {
-    const instruction = refineInput.value;
+    refineBtn?.addEventListener('click', async () => {
+    const instruction = refineInput?.value;
     if (!instruction) return;
     refineBtn.disabled = true;
     addLog(`\n> [LLM] REFINEMENT REQUEST: "${instruction}"`);
-    refineInput.value = "";
+    if (refineInput) refineInput.value = "";
     await new Promise(r => setTimeout(r, 1500));
     addLog("> [Agent 2] SYNTHESIZER: Re-framing narrative...");
     await new Promise(r => setTimeout(r, 1000));
@@ -539,7 +543,7 @@ refineBtn.addEventListener('click', async () => {
 // ============================================================
 // PDF Downloads
 // ============================================================
-downloadBtn.addEventListener('click', () => {
+downloadBtn?.addEventListener('click', () => {
     addLog("> Initializing Native Print Engine...");
     addLog("> [TIP] Select 'Save as PDF' in the destination dropdown.");
     window.print();
@@ -592,6 +596,61 @@ downloadBtnDirect.addEventListener('click', downloadDirect);
 if (navDownload) navDownload.addEventListener('click', downloadDirect);
 
 // ============================================================
+// File Upload Logic
+// ============================================================
+const uploadArea = document.getElementById('upload-area');
+const fileInput = document.createElement('input');
+fileInput.type = 'file';
+fileInput.accept = '.pdf,.txt,.md';
+
+uploadArea?.addEventListener('click', () => fileInput.click());
+
+fileInput.addEventListener('change', (e) => {
+    const file = e.target.files[0];
+    if (file) handleFile(file);
+});
+
+uploadArea?.addEventListener('dragover', (e) => {
+    e.preventDefault();
+    uploadArea.style.borderColor = 'var(--accent)';
+    uploadArea.style.background = 'rgba(59, 130, 246, 0.05)';
+});
+
+uploadArea?.addEventListener('dragleave', () => {
+    uploadArea.style.borderColor = '';
+    uploadArea.style.background = '';
+});
+
+uploadArea?.addEventListener('drop', (e) => {
+    e.preventDefault();
+    uploadArea.style.borderColor = '';
+    uploadArea.style.background = '';
+    const file = e.dataTransfer.files[0];
+    if (file) handleFile(file);
+});
+
+async function handleFile(file) {
+    addLog(`> [Agent 1] HARVESTER: File detected: ${file.name}`);
+    
+    if (file.type === "application/pdf") {
+        addLog("> [Agent 1] NOTE: Direct PDF parsing requires backend. For now, please paste text for 100% accuracy.");
+    }
+
+    const reader = new FileReader();
+    reader.onload = (e) => {
+        const text = e.target.result;
+        if (profileText) {
+            profileText.value = text;
+            addLog("> [Agent 1] SUCCESS: Profile populated from file.");
+        } else if (jdTextInput) {
+            jdTextInput.value = text;
+            addLog("> [Agent 1] SUCCESS: JD populated from file.");
+        }
+    };
+    reader.readAsText(file);
+}
+
+// ============================================================
 // Agent 5: Outreach Specialist
 // ============================================================
 const outreachCheckboxes = document.querySelectorAll('#outreach-section input[type="checkbox"]');
@@ -602,7 +661,7 @@ const outreachOutput = document.getElementById('outreach-output');
 outreachCheckboxes.forEach(cb => {
     cb.addEventListener('change', () => {
         const anyChecked = Array.from(outreachCheckboxes).some(c => c.checked);
-        generateOutreachBtn.disabled = !anyChecked;
+        if (generateOutreachBtn) generateOutreachBtn.disabled = !anyChecked;
     });
 });
 
