@@ -508,7 +508,10 @@ STRUCTURAL RULES:
     const editHint = document.getElementById('edit-hint');
     const toggleEdit = document.getElementById('toggle-edit');
     if (editHint) editHint.style.display = 'block';
-    if (toggleEdit) toggleEdit.style.display = 'flex';
+    if (toggleEdit) {
+        toggleEdit.style.display = 'flex';
+        toggleEdit.innerHTML = '<i data-lucide="lock" style="width: 14px; margin-right: 6px;"></i>LOCK DRAFT';
+    }
 
     addLog("\n> FINAL ATS SCORE: 96/100 | Evaluated across 5 models.");
     addLog("> TIP: Click on the resume to edit text directly before downloading.");
