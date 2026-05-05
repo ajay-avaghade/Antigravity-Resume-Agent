@@ -7,19 +7,141 @@
     <link rel="stylesheet" href="style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=JetBrains+Mono&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=Outfit:wght@400;600;700;800&family=JetBrains+Mono&display=swap" rel="stylesheet">
     <script src="https://unpkg.com/lucide@latest"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    <style>
+        :root { --font-display: 'Outfit', sans-serif; }
+        body { font-family: 'Inter', sans-serif; }
+        h1, h2, h3, .logo { font-family: var(--font-display); }
+        
+        .phase-badge {
+            display: inline-block;
+            padding: 4px 12px;
+            background: rgba(59, 130, 246, 0.1);
+            color: var(--accent);
+            border-radius: 100px;
+            font-size: 0.7rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 1rem;
+            border: 1px solid rgba(59, 130, 246, 0.2);
+        }
+
+        .step-number {
+            width: 32px;
+            height: 32px;
+            background: var(--accent-gradient);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            font-weight: 800;
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+            box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+        }
+
+        .playground {
+            display: grid;
+            grid-template-columns: 1.1fr 1.3fr;
+            gap: 2.5rem;
+            align-items: start;
+        }
+
+        .input-card {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 20px;
+            padding: 2rem;
+            box-shadow: var(--shadow);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .input-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: var(--accent-gradient);
+            opacity: 0.8;
+        }
+
+        .terminal-header {
+            background: #1a1a1a;
+            padding: 8px 16px;
+            border-radius: 12px 12px 0 0;
+            display: flex;
+            gap: 6px;
+            border: 1px solid var(--card-border);
+            border-bottom: none;
+        }
+
+        .dot { width: 10px; height: 10px; border-radius: 50%; }
+        .dot.red { background: #ff5f56; }
+        .dot.yellow { background: #ffbd2e; }
+        .dot.green { background: #27c93f; }
+
+        textarea {
+            border-radius: 12px;
+            border: 1px solid var(--card-border);
+            background: var(--bg-primary);
+            padding: 1rem;
+            font-size: 0.9rem;
+            line-height: 1.6;
+            transition: var(--transition);
+        }
+
+        textarea:focus {
+            border-color: var(--accent);
+            box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.1);
+            outline: none;
+        }
+
+        .btn-primary {
+            background: var(--accent-gradient);
+            color: white;
+            font-weight: 800;
+            letter-spacing: 0.5px;
+            padding: 1.2rem;
+            border-radius: 14px;
+            font-size: 1rem;
+            box-shadow: 0 8px 20px -6px rgba(59, 130, 246, 0.4);
+            border: none;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 24px -6px rgba(59, 130, 246, 0.5);
+        }
+
+        @media (max-width: 1024px) {
+            .playground { grid-template-columns: 1fr; }
+        }
+    </style>
 </head>
 <body>
-    <nav class="container">
-        <div class="logo">ANTIGRAVITY <span style="font-size: 0.6rem; opacity: 0.7; border: 1px solid var(--accent); padding: 2px 6px; border-radius: 4px; margin-left: 5px;">PUBLIC</span></div>
+    <nav class="container" style="margin-bottom: 2rem;">
+        <div class="logo" style="font-size: 1.5rem; font-weight: 800; letter-spacing: -1px;">
+            ANTIGRAVITY <span style="font-size: 0.6rem; vertical-align: middle; opacity: 0.6; border: 1px solid var(--accent); padding: 2px 8px; border-radius: 6px; margin-left: 8px; font-weight: 800;">PUBLIC</span>
+        </div>
         <div class="nav-links">
-            <button class="btn" id="open-settings" style="background: var(--bg-secondary); border: 1px solid var(--accent); color: var(--accent); font-weight: 700; width: auto; padding: 0 1.5rem;">
+            <button class="btn" id="nav-download" style="display: none; background: var(--accent-gradient); color: white; font-weight: 800; width: auto; padding: 0.6rem 1.2rem; border-radius: 100px; border: none; align-items: center; justify-content: center; gap: 8px; cursor: pointer;">
+                <i data-lucide="download" style="width: 18px;"></i>
+                DOWNLOAD
+            </button>
+            <button class="btn" id="open-settings" style="background: transparent; border: 1px solid var(--card-border); color: var(--text-primary); font-weight: 700; width: auto; padding: 0.6rem 1.2rem; border-radius: 10px;">
                 <i data-lucide="settings" style="width: 18px; margin-right: 8px;"></i>
                 API SETTINGS
             </button>
-            <button class="theme-toggle" id="theme-toggle">
+            <button class="theme-toggle" id="theme-toggle" style="background: var(--bg-secondary); border: 1px solid var(--card-border); width: 42px; height: 42px; border-radius: 10px;">
                 <i data-lucide="sun" id="sun-icon" style="display: none;"></i>
                 <i data-lucide="moon" id="moon-icon"></i>
             </button>
@@ -27,171 +149,189 @@
     </nav>
 
     <main class="container">
-        <section class="hero">
-            <h1>Engineered for <span style="color: var(--accent);">Your Impact</span></h1>
-            <p>Upload your resume and a Job Description. Our multi-agent pipeline will autonomously bridge the gap to create a 90+ ATS-scored draft.</p>
+        <section class="hero" style="text-align: center; margin-bottom: 4rem;">
+            <div class="phase-badge">System Ready: Agentic Pipeline v2.4</div>
+            <h1 style="font-size: 4rem; margin-bottom: 1.5rem; letter-spacing: -2px;">High-Impact <span style="background: var(--accent-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Resume Synthesis</span></h1>
+            <p style="max-width: 700px; margin: 0 auto; color: var(--text-secondary); font-size: 1.1rem; line-height: 1.6;">
+                Bridge the gap between your career history and target roles. Our multi-agent pipeline analyzes your metrics and JD requirements to generate 90+ ATS-scored results.
+            </p>
         </section>
 
-        <section class="playground">
-            <div class="card">
-                <h2>1. Your Background</h2>
-                <p style="margin-bottom: 1.5rem; font-size: 0.9rem; color: var(--text-secondary);">First, provide your existing profile so the agents can understand your metrics.</p>
+        <div class="playground">
+            <!-- Phase 1: Knowledge Harvester -->
+            <div class="input-card">
+                <div class="step-number">1</div>
+                <h2 style="color: var(--text-primary); margin-bottom: 0.5rem; font-size: 1.4rem;">The Knowledge Base</h2>
+                <p style="margin-bottom: 2rem; font-size: 0.9rem; color: var(--text-secondary); line-height: 1.5;">Provide your current resume data. This acts as the raw material for the synthesizer.</p>
                 
                 <div class="input-group">
-                    <label>Upload Current Resume</label>
-                    <div class="upload-area" id="upload-area">
-                        <i data-lucide="upload-cloud" style="margin-bottom: 1rem;"></i>
-                        <p>Drop your resume or click to upload</p>
-                        <span style="font-size: 0.8rem; color: var(--text-secondary);">Supports PDF, MD, TXT</span>
+                    <label style="font-size: 0.8rem; font-weight: 700; text-transform: uppercase; color: var(--accent); margin-bottom: 0.75rem; display: block;">Option A: File Ingestion</label>
+                    <div class="upload-area" id="upload-area" style="border: 2px dashed var(--card-border); background: var(--bg-primary); border-radius: 16px; transition: var(--transition); cursor: pointer; padding: 2rem; text-align: center;">
+                        <i data-lucide="upload-cloud" style="width: 48px; height: 48px; color: var(--accent); margin-bottom: 1rem; opacity: 0.6;"></i>
+                        <p style="font-weight: 700;">Drop Resume Here</p>
+                        <span style="font-size: 0.75rem; opacity: 0.6;">Supports PDF, MD, TXT</span>
                     </div>
                 </div>
 
-                <div class="input-group">
-                    <label>OR Paste Profile Text</label>
-                    <textarea id="profile-text" placeholder="Paste your current resume content here..." style="height: 120px;"></textarea>
+                <div class="input-group" style="margin-top: 1.5rem;">
+                    <label style="font-size: 0.8rem; font-weight: 700; text-transform: uppercase; color: var(--accent); margin-bottom: 0.75rem; display: block;">Option B: Raw Text Input</label>
+                    <textarea id="profile-text" placeholder="Paste your current resume content here..." style="height: 140px; width: 100%;"></textarea>
                 </div>
 
-                <h2 style="margin-top: 3rem;">2. Target Role</h2>
+                <div class="step-number" style="margin-top: 3rem;">2</div>
+                <h2 style="color: var(--text-primary); margin-bottom: 0.5rem; font-size: 1.4rem;">The Target Role</h2>
+                <p style="margin-bottom: 1.5rem; font-size: 0.9rem; color: var(--text-secondary); line-height: 1.5;">Paste the Job Description. Agents will extract keywords, mission, and domain specific metrics.</p>
+                
                 <div class="input-group">
-                    <label>Paste Job Description</label>
-                    <textarea id="jd-text" placeholder="Paste the JD you are applying for..." style="height: 150px;"></textarea>
+                    <textarea id="jd-text" placeholder="Paste the JD you are applying for..." style="height: 180px; width: 100%;"></textarea>
                 </div>
 
-                <button class="btn" id="start-pipeline">RUN PUBLIC PIPELINE</button>
+                <button class="btn btn-primary" id="start-pipeline" style="width: 100%; margin-top: 1.5rem;">
+                    EXECUTE AGENTIC PIPELINE
+                </button>
 
-                <div class="card" id="output-card" style="margin-top: 2rem; padding: 1.5rem; background: var(--bg-secondary); border: 1px dashed var(--card-border);">
-                    <h3 style="font-size: 0.9rem; text-transform: uppercase; margin-bottom: 1rem; color: var(--text-secondary);">Orchestration Logs</h3>
-                    <div class="logs" id="log-terminal" style="height: 200px;">
-                        <div class="log-entry">> Initializing Public Agent...</div>
-                        <div class="log-entry">> Awaiting user profile & JD...</div>
+                <div style="margin-top: 2rem;">
+                    <div class="terminal-header">
+                        <div class="dot red"></div>
+                        <div class="dot yellow"></div>
+                        <div class="dot green"></div>
+                        <span style="font-size: 0.6rem; color: #666; margin-left: auto; font-family: 'JetBrains Mono';">antigravity_terminal — zsh</span>
+                    </div>
+                    <div class="logs" id="log-terminal" style="height: 200px; border-radius: 0 0 12px 12px; font-family: 'JetBrains Mono'; font-size: 0.75rem; background: #0c0c0c; border: 1px solid var(--card-border); padding: 1rem; overflow-y: auto;">
+                        <div class="log-entry" style="color: #4ade80;">> [System] Pipeline ready.</div>
+                        <div class="log-entry">> Awaiting Knowledge Base & Target Role...</div>
                     </div>
                 </div>
             </div>
 
-            <div class="card" id="preview-card" style="opacity: 0.5; pointer-events: none;">
-                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+            <!-- Phase 2: Synthesis Results -->
+            <div class="input-card" id="preview-card" style="opacity: 0.5; pointer-events: none;">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem;">
                     <div>
-                        <h2 style="margin-bottom: 0.25rem;">Tailored Result</h2>
-                        <p id="edit-hint" style="font-size: 0.75rem; color: var(--text-secondary); display: none;">✏️ Click to edit directly</p>
+                        <h2 style="color: var(--text-primary); font-size: 1.4rem; margin-bottom: 0.25rem;">Tailored Result</h2>
+                        <p id="edit-hint" style="font-size: 0.75rem; color: var(--accent); font-weight: 600; display: none;">
+                            <i data-lucide="info" style="width: 12px; margin-right: 4px; vertical-align: middle;"></i> Click content to edit directly
+                        </p>
                     </div>
-                    <button class="btn-secondary" id="toggle-edit" style="display: none; font-size: 0.75rem; padding: 0.4rem 1rem;">
-                        <i data-lucide="edit-2" style="width: 14px; margin-right: 6px;"></i>
+                    <button class="btn-secondary" id="toggle-edit" style="display: none; font-size: 0.75rem; padding: 0.6rem 1.2rem; border-radius: 10px;">
+                        <i data-lucide="edit-2" style="width: 14px; margin-right: 8px;"></i>
                         EDIT MODE
                     </button>
                 </div>
                 
-                <div id="resume-preview" style="background: white; color: #333; padding: 0; border-radius: 8px; font-family: 'Inter', sans-serif; font-size: 0.75rem; height: 500px; overflow-y: auto; box-shadow: inset 0 2px 10px rgba(0,0,0,0.1);">
-                    <div id="resume-content">
-                        <p style="color: #666; font-style: italic; text-align: center; padding-top: 150px;">Result will appear here...</p>
+                <div id="resume-preview" style="background: white; color: #333; padding: 0; border-radius: 12px; font-family: 'Inter', sans-serif; height: 620px; overflow-y: auto; box-shadow: inset 0 2px 20px rgba(0,0,0,0.1); border: 1px solid var(--card-border);">
+                    <div id="resume-content" style="padding: 0;">
+                        <p style="color: #999; font-style: italic; text-align: center; padding-top: 250px; font-size: 0.9rem;">
+                            The synthesizer will populate this area...
+                        </p>
                     </div>
                 </div>
 
                 <div id="result-actions" style="display: none; margin-top: 2rem; border-top: 1px solid var(--card-border); padding-top: 2rem;">
                     <div class="input-group" style="margin-bottom: 1.5rem;">
-                        <label>Refine with AI</label>
-                        <div style="display: flex; gap: 0.5rem;">
-                            <input type="text" id="refine-input" placeholder="e.g. Make it more leadership focused...">
-                            <button class="btn" style="width: auto; padding: 0 1.5rem;" id="refine-btn">
-                                <i data-lucide="sparkles" style="width: 18px;"></i>
+                        <label style="font-size: 0.8rem; font-weight: 700; text-transform: uppercase; color: var(--accent); margin-bottom: 0.75rem; display: block;">Refine with AI (Agent 2 Feedback Loop)</label>
+                        <div style="display: flex; gap: 0.75rem;">
+                            <input type="text" id="refine-input" placeholder="e.g. Make it more leadership focused..." style="flex: 1; border-radius: 12px; border: 1px solid var(--card-border); background: var(--bg-primary); padding: 0 1rem;">
+                            <button class="btn" style="width: 52px; height: 52px; border-radius: 12px; display: flex; align-items: center; justify-content: center; background: var(--bg-secondary); border: 1px solid var(--card-border);" id="refine-btn">
+                                <i data-lucide="sparkles" style="width: 20px; color: var(--accent);"></i>
                             </button>
                         </div>
                     </div>
 
                     <div style="display: flex; gap: 1rem; margin-bottom: 2rem;">
-                        <button class="btn" style="flex: 1; background: var(--accent-gradient);" id="download-pdf">
-                            <i data-lucide="download" style="width: 18px; vertical-align: middle; margin-right: 8px;"></i>
-                            EXPORT PDF
+                        <button class="btn" style="flex: 1; border: 1px solid var(--card-border); background: transparent; color: var(--text-primary); border-radius: 12px; display: flex; align-items: center; justify-content: center; height: 52px;" id="download-pdf">
+                            <i data-lucide="printer" style="width: 18px; margin-right: 8px;"></i>
+                            PDF PREVIEW
                         </button>
-                        <button class="btn" style="flex: 1; background: #10b981;" id="download-pdf-direct">
-                            <i data-lucide="file-down" style="width: 18px; vertical-align: middle; margin-right: 8px;"></i>
-                            DOWNLOAD PDF
+                        <button class="btn" style="flex: 1; background: var(--accent-gradient); color: white; border-radius: 12px; border: none; display: flex; align-items: center; justify-content: center; height: 52px; font-weight: 700;" id="download-pdf-direct">
+                            <i data-lucide="download" style="width: 18px; margin-right: 8px;"></i>
+                            INSTANT PDF
                         </button>
                     </div>
                 </div>
             </div>
-        </section>
+        </div>
 
-        <!-- Outreach Section -->
-        <section class="outreach-standalone" id="outreach-section">
-            <div class="card">
-                <div class="outreach-header">
-                    <div class="outreach-title">
-                        <i data-lucide="mail" style="width: 22px; color: var(--accent);"></i>
-                        <h2 style="font-size: 1.3rem; color: var(--text-primary);">Outreach Specialist</h2>
+        <!-- Outreach Specialist (Optional) -->
+        <section class="outreach-standalone" id="outreach-section" style="margin-top: 4rem; margin-bottom: 6rem;">
+            <div class="input-card">
+                <div class="outreach-header" style="display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 2rem;">
+                    <div>
+                        <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 0.5rem;">
+                            <i data-lucide="mail" style="width: 28px; color: var(--accent);"></i>
+                            <h2 style="font-size: 1.6rem; color: var(--text-primary);">The Outreach Specialist</h2>
+                        </div>
+                        <p style="color: var(--text-secondary); font-size: 0.95rem;">Generate mission-aligned artifacts for your application.</p>
                     </div>
-                    <p class="outreach-subtitle">Generate optional materials for this profile.</p>
+                    <button class="btn" id="generate-outreach" disabled style="width: auto; padding: 0.8rem 2rem; border-radius: 12px; background: var(--bg-secondary); border: 1px solid var(--card-border); color: var(--text-primary); cursor: pointer; transition: var(--transition);">
+                        GENERATE MATERIALS
+                    </button>
                 </div>
 
-                <div class="outreach-grid">
-                    <label class="outreach-toggle" for="opt-cover-letter">
-                        <input type="checkbox" id="opt-cover-letter">
-                        <div class="toggle-track"><div class="toggle-thumb"></div></div>
-                        <div class="toggle-label">
-                            <i data-lucide="file-text" style="width: 16px;"></i>
-                            <div>
-                                <span class="toggle-name">Cover Letter</span>
-                                <span class="toggle-desc">Tailored narrative, different from resume.</span>
-                            </div>
+                <div class="outreach-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1rem;">
+                    <label class="outreach-toggle" for="opt-cover-letter" style="cursor: pointer; border: 1px solid var(--card-border); padding: 1.2rem; border-radius: 16px; display: flex; align-items: center; gap: 1rem; transition: var(--transition);">
+                        <input type="checkbox" id="opt-cover-letter" style="width: 18px; height: 18px;">
+                        <div>
+                            <span style="font-weight: 700; display: block; font-size: 0.9rem;">Cover Letter</span>
+                            <span style="font-size: 0.75rem; color: var(--text-secondary);">Tailored narrative story</span>
                         </div>
                     </label>
 
-                    <label class="outreach-toggle" for="opt-hm-email">
-                        <input type="checkbox" id="opt-hm-email">
-                        <div class="toggle-track"><div class="toggle-thumb"></div></div>
-                        <div class="toggle-label">
-                            <i data-lucide="send" style="width: 16px;"></i>
-                            <div>
-                                <span class="toggle-name">Email to Hiring Manager</span>
-                                <span class="toggle-desc">3-paragraph direct outreach.</span>
-                            </div>
+                    <label class="outreach-toggle" for="opt-hm-email" style="cursor: pointer; border: 1px solid var(--card-border); padding: 1.2rem; border-radius: 16px; display: flex; align-items: center; gap: 1rem; transition: var(--transition);">
+                        <input type="checkbox" id="opt-hm-email" style="width: 18px; height: 18px;">
+                        <div>
+                            <span style="font-weight: 700; display: block; font-size: 0.9rem;">Hiring Manager Email</span>
+                            <span style="font-size: 0.75rem; color: var(--text-secondary);">Direct 3-paragraph hook</span>
                         </div>
                     </label>
 
-                    <label class="outreach-toggle" for="opt-referral-msg">
-                        <input type="checkbox" id="opt-referral-msg">
-                        <div class="toggle-track"><div class="toggle-thumb"></div></div>
-                        <div class="toggle-label">
-                            <i data-lucide="message-circle" style="width: 16px;"></i>
-                            <div>
-                                <span class="toggle-name">LinkedIn Referral Message</span>
-                                <span class="toggle-desc">Strict 200 character limit.</span>
-                            </div>
+                    <label class="outreach-toggle" for="opt-referral-msg" style="cursor: pointer; border: 1px solid var(--card-border); padding: 1.2rem; border-radius: 16px; display: flex; align-items: center; gap: 1rem; transition: var(--transition);">
+                        <input type="checkbox" id="opt-referral-msg" style="width: 18px; height: 18px;">
+                        <div>
+                            <span style="font-weight: 700; display: block; font-size: 0.9rem;">LinkedIn Message</span>
+                            <span style="font-size: 0.75rem; color: var(--text-secondary);">Punchy referral request</span>
                         </div>
                     </label>
 
-                    <label class="outreach-toggle" for="opt-hr-questions">
-                        <input type="checkbox" id="opt-hr-questions">
-                        <div class="toggle-track"><div class="toggle-thumb"></div></div>
-                        <div class="toggle-label">
-                            <i data-lucide="help-circle" style="width: 16px;"></i>
-                            <div>
-                                <span class="toggle-name">HR Questions Prep</span>
-                                <span class="toggle-desc">Bulleted talking points for interviews.</span>
-                            </div>
+                    <label class="outreach-toggle" for="opt-hr-questions" style="cursor: pointer; border: 1px solid var(--card-border); padding: 1.2rem; border-radius: 16px; display: flex; align-items: center; gap: 1rem; transition: var(--transition);">
+                        <input type="checkbox" id="opt-hr-questions" style="width: 18px; height: 18px;">
+                        <div>
+                            <span style="font-weight: 700; display: block; font-size: 0.9rem;">HR Interview Prep</span>
+                            <span style="font-size: 0.75rem; color: var(--text-secondary);">Strategic talking points</span>
                         </div>
                     </label>
                 </div>
 
-                <button class="btn outreach-generate-btn" id="generate-outreach" disabled>
-                    GENERATE MATERIALS
-                </button>
-                <div id="outreach-output" class="outreach-output" style="display: none;"></div>
+                <div id="outreach-output" style="display: none; margin-top: 2.5rem; flex-direction: column; gap: 1.5rem;"></div>
             </div>
         </section>
     </main>
 
-    <div id="settings-modal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); z-index: 1000; justify-content: center; align-items: center;">
-        <div class="card" style="width: 400px; position: relative;">
-            <button id="close-settings" style="position: absolute; top: 1rem; right: 1rem; background: none; border: none; color: var(--text-secondary); cursor: pointer;"><i data-lucide="x"></i></button>
-            <h3>API Settings</h3>
+    <!-- Settings Modal -->
+    <div class="modal" id="settings-modal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); z-index: 1000; align-items: center; justify-content: center;">
+        <div class="modal-content input-card" style="max-width: 450px; width: 90%;">
+            <h2 style="margin-bottom: 1.5rem; font-size: 1.4rem;">System Configuration</h2>
             <div class="input-group">
-                <label>Gemini API Key</label>
-                <input type="password" id="api-key" placeholder="AIzaSy...">
+                <label style="font-size: 0.8rem; font-weight: 700; color: var(--accent); margin-bottom: 0.5rem; display: block;">GEMINI API KEY</label>
+                <p style="font-size: 0.75rem; color: var(--text-secondary); margin-bottom: 1.5rem;">Needed for Agent 2 Strategic Synthesis.</p>
+                <input type="password" id="api-key" placeholder="Paste your key here..." style="width: 100%; padding: 1rem; border-radius: 12px; border: 1px solid var(--card-border); background: var(--bg-primary); color: var(--text-primary);">
             </div>
-            <button class="btn" id="save-settings">SAVE & CLOSE</button>
+            <div style="display: flex; gap: 1rem; margin-top: 2rem;">
+                <button class="btn" id="close-settings" style="flex: 1; border: 1px solid var(--card-border); background: transparent; color: var(--text-primary); border-radius: 12px; padding: 1rem; cursor: pointer;">CANCEL</button>
+                <button class="btn" id="save-settings" style="flex: 1; background: var(--accent-gradient); color: white; border-radius: 12px; border: none; font-weight: 700; padding: 1rem; cursor: pointer;">SAVE CONFIG</button>
+            </div>
         </div>
     </div>
 
+    <footer>
+        <div class="container" style="padding: 4rem 0; text-align: center; border-top: 1px solid var(--card-border); opacity: 0.6; font-size: 0.85rem;">
+            <p>&copy; 2026 Antigravity Multi-Agent Resume System. Built for professional impact.</p>
+        </div>
+    </footer>
+
     <script src="main.js"></script>
+    <script>
+        lucide.createIcons();
+    </script>
 </body>
 </html>

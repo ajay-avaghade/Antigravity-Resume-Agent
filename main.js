@@ -299,6 +299,30 @@ function detectDomain(jdText, companyName) {
     return bestDomain;
 }
 
+// Detect Target Location for Relocation Logic
+function detectLocation(jdText) {
+    if (!jdText) return null;
+    const countries = [
+        'usa','united states','canada','uk','united kingdom','germany','france','australia',
+        'singapore','uae','dubai','netherlands','switzerland','japan','south korea'
+    ];
+    const text = jdText.toLowerCase();
+    for (const country of countries) {
+        if (text.includes(country)) {
+            return country.charAt(0).toUpperCase() + country.slice(1);
+        }
+    }
+    // Check for cities that imply countries
+    const cityMap = {
+        'london': 'UK', 'new york': 'USA', 'san francisco': 'USA', 'berlin': 'Germany',
+        'paris': 'France', 'singapore': 'Singapore', 'dubai': 'UAE', 'amsterdam': 'Netherlands'
+    };
+    for (const [city, country] of Object.entries(cityMap)) {
+        if (text.includes(city)) return country;
+    }
+    return null;
+}
+
 // ============================================================
 // Gemini API
 // ============================================================
@@ -501,6 +525,17 @@ STRUCTURAL RULES:
             /<p id="resume-summary"[^>]*>[\s\S]*?<\/p>/,
             `<p id="resume-summary" style="font-size: 9.5pt; line-height: 1.5; color: #333; text-align: justify;">${newSummary}</p>`
         );
+
+        // Relocation Logic for Personal Edition
+        if (!isPublicMode) {
+            const targetCountry = detectLocation(jdText);
+            if (targetCountry && targetCountry !== 'India') {
+                const relocationLine = `<p style="font-size: 9.5pt; color: #1a1a1a; font-weight: 600; margin-top: 6pt; border-left: 3px solid var(--accent); padding-left: 10px; font-style: italic;">
+                    Note: I am planning active relocation to ${targetCountry} in Q3 2026 and would require visa sponsorship.
+                </p>`;
+                finalContent = finalContent.replace('</p>', '</p>' + relocationLine);
+            }
+        }
     }
 
     // Render
