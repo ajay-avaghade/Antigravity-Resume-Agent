@@ -26,6 +26,7 @@ const previewCard = document.getElementById('preview-card');
 const resumeContent = document.getElementById('resume-content');
 const downloadBtn = document.getElementById('download-pdf');
 const downloadBtnDirect = document.getElementById('download-pdf-direct');
+const navDownload = document.getElementById('nav-download'); // Added back missing variable
 const refineBtn = document.getElementById('refine-btn');
 const refineInput = document.getElementById('refine-input');
 const profileText = document.getElementById('profile-text'); // Public mode only
