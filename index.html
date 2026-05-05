@@ -164,34 +164,49 @@
         </section>
 
         <div class="playground">
-            <!-- Phase 1: Target Ingestion -->
+            <!-- Phase 1: Context Harvester -->
             <div class="input-card">
                 <div class="step-number">1</div>
+                <h2 style="color: var(--text-primary); margin-bottom: 0.5rem; font-size: 1.4rem;">Knowledge Base</h2>
+                <p style="margin-bottom: 2rem; font-size: 0.9rem; color: var(--text-secondary); line-height: 1.5;">Optionally upload a specific baseline resume or use your master portfolio.</p>
+                
+                <div class="input-group">
+                    <label style="font-size: 0.8rem; font-weight: 700; text-transform: uppercase; color: var(--accent); margin-bottom: 0.75rem; display: block;">Option A: File Ingestion</label>
+                    <div class="upload-area" id="upload-area" style="border: 2px dashed var(--card-border); background: var(--bg-primary); border-radius: 16px; transition: var(--transition); cursor: pointer; padding: 2rem; text-align: center;">
+                        <i data-lucide="upload-cloud" style="width: 48px; height: 48px; color: var(--accent); margin-bottom: 1rem; opacity: 0.6;"></i>
+                        <p style="font-weight: 700;">Drop Resume Here</p>
+                        <span style="font-size: 0.75rem; opacity: 0.6;">Supports PDF, MD, TXT</span>
+                    </div>
+                </div>
+
+                <div class="input-group" style="margin-top: 1.5rem;">
+                    <label style="font-size: 0.8rem; font-weight: 700; text-transform: uppercase; color: var(--accent); margin-bottom: 0.75rem; display: block;">Option B: Raw Profile Text</label>
+                    <textarea id="profile-text" placeholder="Paste specific background details here..." style="height: 120px; width: 100%;"></textarea>
+                </div>
+
+                <div class="step-number" style="margin-top: 3rem;">2</div>
                 <h2 style="color: var(--text-primary); margin-bottom: 0.5rem; font-size: 1.4rem;">Target Role Context</h2>
-                <p style="margin-bottom: 2rem; font-size: 0.9rem; color: var(--text-secondary); line-height: 1.5;">Agents will cross-reference this JD against your master portfolio metrics.</p>
+                <p style="margin-bottom: 1.5rem; font-size: 0.9rem; color: var(--text-secondary); line-height: 1.5;">Paste the Job Description to trigger the multi-agent pipeline.</p>
                 
                 <div class="input-group">
                     <label style="font-size: 0.8rem; font-weight: 700; text-transform: uppercase; color: var(--accent); margin-bottom: 0.75rem; display: block;">Job Description URL</label>
                     <input type="text" id="jd-url" placeholder="https://www.linkedin.com/jobs/view/...">
-                    <p style="font-size: 0.7rem; color: #666; margin-top: 0.5rem; font-style: italic;">Note: Paste full text below for 100% deep-parsing reliability.</p>
                 </div>
 
                 <div class="input-group" style="margin-top: 1.5rem;">
                     <label style="font-size: 0.8rem; font-weight: 700; text-transform: uppercase; color: var(--accent); margin-bottom: 0.75rem; display: block;">Full JD Text</label>
-                    <textarea id="jd-text" placeholder="Paste the JD here for Agent 1 harvesting..." style="height: 160px;"></textarea>
+                    <textarea id="jd-text" placeholder="Paste JD for Agent 1 harvesting..." style="height: 160px;"></textarea>
                 </div>
 
-                <div class="step-number" style="margin-top: 3rem;">2</div>
+                <div class="step-number" style="margin-top: 3rem;">3</div>
                 <h2 style="color: var(--text-primary); margin-bottom: 0.5rem; font-size: 1.4rem;">Strategic Anchors</h2>
-                <p style="margin-bottom: 1.5rem; font-size: 0.9rem; color: var(--text-secondary); line-height: 1.5;">Verify your master data sources for this run.</p>
-                
                 <div class="input-group">
                     <label style="font-size: 0.8rem; font-weight: 700; text-transform: uppercase; color: var(--accent); margin-bottom: 0.5rem; display: block;">Portfolio Source</label>
-                    <input type="text" id="portfolio-url" value="https://ajay-avaghade.github.io/Portfolio/" readonly style="background: var(--bg-secondary); border-style: dashed; color: #888;">
+                    <input type="text" id="portfolio-url" value="https://ajay-avaghade.github.io/Portfolio/" style="background: var(--bg-secondary); border-style: dashed;">
                 </div>
 
                 <button class="btn btn-primary" id="start-pipeline" style="width: 100%; margin-top: 1.5rem;">
-                    RUN MULTI-AGENT PIPELINE
+                    EXECUTE AGENTIC PIPELINE
                 </button>
 
                 <div style="margin-top: 2rem;">
@@ -256,7 +271,7 @@
             </div>
         </div>
 
-        <!-- Outreach Specialist (Personal Integration) -->
+        <!-- Outreach Specialist -->
         <section class="outreach-standalone" id="outreach-section" style="margin-top: 4rem; margin-bottom: 6rem;">
             <div class="input-card">
                 <div class="outreach-header" style="display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 2rem;">

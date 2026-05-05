@@ -46,33 +46,46 @@ body {
 }
 
 @media print {
-    /* Hide everything by default */
-    body * { visibility: hidden; }
-    
-    /* Show only the resume content and its parents */
-    #resume-preview, #resume-preview * { visibility: visible; }
-    
-    #resume-preview {
-        position: absolute;
-        left: 0;
-        top: 0;
-        width: 210mm; /* Fixed A4 width */
-        min-height: 297mm;
+    /* Absolute reset for print engine */
+    html, body {
         height: auto !important;
         overflow: visible !important;
-        padding: 15mm !important; /* Apply the margin here instead of @page */
-        margin: 0 !important;
-        box-shadow: none !important;
         background: white !important;
-        box-sizing: border-box;
+        color: black !important;
     }
 
-    /* Prevent orphaned headers and ensure clean breaks */
-    h2 { page-break-after: avoid; border-bottom: 1px solid #eee !important; }
-    .experience-block { page-break-inside: avoid; margin-bottom: 15pt !important; }
+    /* Hide everything except the target */
+    body * { visibility: hidden !important; }
     
-    /* Ensure links are visible/blue in print */
-    a { color: #007bff !important; text-decoration: none !important; }
+    #resume-preview, #resume-preview * { 
+        visibility: visible !important; 
+    }
+    
+    #resume-preview {
+        position: absolute !important;
+        left: 0 !important;
+        top: 0 !important;
+        width: 210mm !important;
+        height: auto !important;
+        padding: 0 !important;
+        margin: 0 !important;
+        border: none !important;
+        box-shadow: none !important;
+        display: block !important;
+        z-index: 9999 !important;
+    }
+
+    #resume-content {
+        padding: 15mm !important; /* Standard resume padding */
+        background: white !important;
+        width: 100% !important;
+        height: auto !important;
+    }
+
+    /* Prevent UI elements from appearing */
+    .input-card, nav, footer, button, .phase-badge, .step-number {
+        display: none !important;
+    }
 }
 
 

@@ -87,7 +87,7 @@
         .dot.yellow { background: #ffbd2e; }
         .dot.green { background: #27c93f; }
 
-        textarea {
+        input[type="text"], textarea {
             border-radius: 12px;
             border: 1px solid var(--card-border);
             background: var(--bg-primary);
@@ -95,9 +95,11 @@
             font-size: 0.9rem;
             line-height: 1.6;
             transition: var(--transition);
+            width: 100%;
+            color: var(--text-primary);
         }
 
-        textarea:focus {
+        input[type="text"]:focus, textarea:focus {
             border-color: var(--accent);
             box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.1);
             outline: none;
@@ -128,20 +130,20 @@
     </style>
 </head>
 <body>
-    <nav class="container" style="margin-bottom: 2rem;">
+    <nav class="container" style="margin-bottom: 2rem; display: flex; justify-content: space-between; align-items: center; height: 80px;">
         <div class="logo" style="font-size: 1.5rem; font-weight: 800; letter-spacing: -1px;">
             ANTIGRAVITY <span style="font-size: 0.6rem; vertical-align: middle; opacity: 0.6; border: 1px solid var(--accent); padding: 2px 8px; border-radius: 6px; margin-left: 8px; font-weight: 800;">PUBLIC</span>
         </div>
-        <div class="nav-links">
+        <div class="nav-links" style="display: flex; gap: 10px; align-items: center;">
             <button class="btn" id="nav-download" style="display: none; background: var(--accent-gradient); color: white; font-weight: 800; width: auto; padding: 0.6rem 1.2rem; border-radius: 100px; border: none; align-items: center; justify-content: center; gap: 8px; cursor: pointer;">
                 <i data-lucide="download" style="width: 18px;"></i>
                 DOWNLOAD
             </button>
             <button class="btn" id="open-settings" style="background: transparent; border: 1px solid var(--card-border); color: var(--text-primary); font-weight: 700; width: auto; padding: 0.6rem 1.2rem; border-radius: 10px;">
                 <i data-lucide="settings" style="width: 18px; margin-right: 8px;"></i>
-                API SETTINGS
+                API
             </button>
-            <button class="theme-toggle" id="theme-toggle" style="background: var(--bg-secondary); border: 1px solid var(--card-border); width: 42px; height: 42px; border-radius: 10px;">
+            <button class="theme-toggle" id="theme-toggle" style="background: var(--bg-secondary); border: 1px solid var(--card-border); width: 42px; height: 42px; border-radius: 10px; cursor: pointer;">
                 <i data-lucide="sun" id="sun-icon" style="display: none;"></i>
                 <i data-lucide="moon" id="moon-icon"></i>
             </button>
@@ -180,10 +182,23 @@
 
                 <div class="step-number" style="margin-top: 3rem;">2</div>
                 <h2 style="color: var(--text-primary); margin-bottom: 0.5rem; font-size: 1.4rem;">The Target Role</h2>
-                <p style="margin-bottom: 1.5rem; font-size: 0.9rem; color: var(--text-secondary); line-height: 1.5;">Paste the Job Description. Agents will extract keywords, mission, and domain specific metrics.</p>
+                <p style="margin-bottom: 1.5rem; font-size: 0.9rem; color: var(--text-secondary); line-height: 1.5;">Paste the Job Description or URL. Agents will extract keywords, mission, and domain specific metrics.</p>
                 
                 <div class="input-group">
-                    <textarea id="jd-text" placeholder="Paste the JD you are applying for..." style="height: 180px; width: 100%;"></textarea>
+                    <label style="font-size: 0.8rem; font-weight: 700; text-transform: uppercase; color: var(--accent); margin-bottom: 0.75rem; display: block;">Job Description URL</label>
+                    <input type="text" id="jd-url" placeholder="https://www.linkedin.com/jobs/view/...">
+                </div>
+
+                <div class="input-group" style="margin-top: 1.5rem;">
+                    <label style="font-size: 0.8rem; font-weight: 700; text-transform: uppercase; color: var(--accent); margin-bottom: 0.75rem; display: block;">Full JD Text</label>
+                    <textarea id="jd-text" placeholder="Paste the JD text for deep parsing..." style="height: 180px; width: 100%;"></textarea>
+                </div>
+
+                <div class="step-number" style="margin-top: 3rem;">3</div>
+                <h2 style="color: var(--text-primary); margin-bottom: 0.5rem; font-size: 1.4rem;">Strategic Anchors</h2>
+                <div class="input-group">
+                    <label style="font-size: 0.8rem; font-weight: 700; text-transform: uppercase; color: var(--accent); margin-bottom: 0.5rem; display: block;">Portfolio Source (Optional)</label>
+                    <input type="text" id="portfolio-url" placeholder="https://your-portfolio.com" style="background: var(--bg-secondary); border-style: dashed;">
                 </div>
 
                 <button class="btn btn-primary" id="start-pipeline" style="width: 100%; margin-top: 1.5rem;">
@@ -239,11 +254,11 @@
                     </div>
 
                     <div style="display: flex; gap: 1rem; margin-bottom: 2rem;">
-                        <button class="btn" style="flex: 1; border: 1px solid var(--card-border); background: transparent; color: var(--text-primary); border-radius: 12px; display: flex; align-items: center; justify-content: center; height: 52px;" id="download-pdf">
+                        <button class="btn" style="flex: 1; border: 1px solid var(--card-border); background: transparent; color: var(--text-primary); border-radius: 12px; display: flex; align-items: center; justify-content: center; height: 52px; cursor: pointer;" id="download-pdf">
                             <i data-lucide="printer" style="width: 18px; margin-right: 8px;"></i>
                             PDF PREVIEW
                         </button>
-                        <button class="btn" style="flex: 1; background: var(--accent-gradient); color: white; border-radius: 12px; border: none; display: flex; align-items: center; justify-content: center; height: 52px; font-weight: 700;" id="download-pdf-direct">
+                        <button class="btn" style="flex: 1; background: var(--accent-gradient); color: white; border-radius: 12px; border: none; display: flex; align-items: center; justify-content: center; height: 52px; font-weight: 700; cursor: pointer;" id="download-pdf-direct">
                             <i data-lucide="download" style="width: 18px; margin-right: 8px;"></i>
                             INSTANT PDF
                         </button>
@@ -263,7 +278,7 @@
                         </div>
                         <p style="color: var(--text-secondary); font-size: 0.95rem;">Generate mission-aligned artifacts for your application.</p>
                     </div>
-                    <button class="btn" id="generate-outreach" disabled style="width: auto; padding: 0.8rem 2rem; border-radius: 12px; background: var(--bg-secondary); border: 1px solid var(--card-border); color: var(--text-primary); cursor: pointer; transition: var(--transition);">
+                    <button class="btn" id="generate-outreach" disabled style="width: auto; padding: 0.8rem 2rem; border-radius: 12px; background: var(--bg-secondary); border: 1px solid var(--card-border); color: var(--text-primary); cursor: pointer;">
                         GENERATE MATERIALS
                     </button>
                 </div>
@@ -313,8 +328,7 @@
             <h2 style="margin-bottom: 1.5rem; font-size: 1.4rem;">System Configuration</h2>
             <div class="input-group">
                 <label style="font-size: 0.8rem; font-weight: 700; color: var(--accent); margin-bottom: 0.5rem; display: block;">GEMINI API KEY</label>
-                <p style="font-size: 0.75rem; color: var(--text-secondary); margin-bottom: 1.5rem;">Needed for Agent 2 Strategic Synthesis.</p>
-                <input type="password" id="api-key" placeholder="Paste your key here..." style="width: 100%; padding: 1rem; border-radius: 12px; border: 1px solid var(--card-border); background: var(--bg-primary); color: var(--text-primary);">
+                <input type="password" id="api-key" placeholder="Paste your key here..." style="width: 100%; padding: 1rem; border-radius: 12px;">
             </div>
             <div style="display: flex; gap: 1rem; margin-top: 2rem;">
                 <button class="btn" id="close-settings" style="flex: 1; border: 1px solid var(--card-border); background: transparent; color: var(--text-primary); border-radius: 12px; padding: 1rem; cursor: pointer;">CANCEL</button>
