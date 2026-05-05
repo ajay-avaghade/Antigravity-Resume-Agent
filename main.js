@@ -347,6 +347,15 @@ startBtn?.addEventListener('click', async () => {
 
     if (!startBtn) return;
 
+    // Validate inputs BEFORE running fake logs
+    if (isPublicMode) {
+        const userProfile = (profileText?.value || "").trim();
+        if (!userProfile && !jdText) {
+            alert("Please paste your profile text or Job Description to run the pipeline.");
+            return;
+        }
+    }
+
     startBtn.disabled = true;
     startBtn.textContent = "EXECUTING PIPELINE...";
     terminal.innerHTML = "";
@@ -806,8 +815,8 @@ generateOutreachBtn.addEventListener('click', async () => {
 
     if (selectedTypes.length === 0) return;
 
-    const jdText = document.getElementById('jd-text').value.trim();
-    const jdUrl = document.getElementById('jd-url').value.trim();
+    const jdText = jdTextInput ? jdTextInput.value.trim() : "";
+    const jdUrl = jdUrlInput ? jdUrlInput.value.trim() : "";
     const companyName = detectCompany(jdText, jdUrl);
     const apiKey = localStorage.getItem('gemini_api_key');
     const resumeHtml = resumeContent.innerHTML;
