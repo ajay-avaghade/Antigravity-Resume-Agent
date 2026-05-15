@@ -38,81 +38,81 @@ const jdTextInput = document.getElementById('jd-text');
 // One-pager optimized: tight spacing, compact font, clean structure
 // ============================================================
 const masterResume = `
-<div class="resume-container" style="color: #222; line-height: 1.3; font-family: 'Inter', sans-serif; padding: 0; margin: 0; font-size: 9pt;">
-    <div style="text-align: center; border-bottom: 2px solid #1a1a1a; padding-bottom: 6pt; margin-bottom: 8pt;">
-        <h1 style="font-size: 20pt; color: #1a1a1a; margin-bottom: 1pt; font-weight: 800; text-transform: uppercase; letter-spacing: 0.5px;">AJAY AVAGHADE</h1>
-        <p style="font-size: 8.5pt; color: #444; margin-bottom: 1pt;">
+<div class="resume-container" style="color: #222; line-height: 1.45; font-family: 'Inter', sans-serif; padding: 0; margin: 0; font-size: 9.5pt;">
+    <div style="text-align: center; border-bottom: 2px solid #1a1a1a; padding-bottom: 8pt; margin-bottom: 12pt;">
+        <h1 style="font-size: 21pt; color: #1a1a1a; margin-bottom: 2pt; font-weight: 800; text-transform: uppercase; letter-spacing: 0.5px;">AJAY AVAGHADE</h1>
+        <p style="font-size: 9pt; color: #444; margin-bottom: 2pt;">
             Bangalore, India &nbsp;|&nbsp; +91 95615 58439 &nbsp;|&nbsp; <a href="mailto:avaghadeajay009@gmail.com" style="color: #444; text-decoration: none;">avaghadeajay009@gmail.com</a>
         </p>
-        <p style="font-size: 8.5pt; font-weight: 600; margin-bottom: 2pt;">
+        <p style="font-size: 9pt; font-weight: 600; margin-bottom: 0;">
             <a href="https://linkedin.com/in/ajay-avaghade" style="color: #007bff; text-decoration: none;">LinkedIn</a> &nbsp;|&nbsp;
             <a href="https://ajay-avaghade.github.io/Portfolio/" style="color: #007bff; text-decoration: none;">Portfolio</a> &nbsp;|&nbsp;
             <a href="https://github.com/ajay-avaghade" style="color: #007bff; text-decoration: none;">GitHub</a>
         </p>
     </div>
 
-    <div style="margin-bottom: 7pt;">
-        <h2 style="font-size: 9pt; border-bottom: 1pt solid #ddd; padding-bottom: 1pt; margin-bottom: 3pt; font-weight: bold; color: #1a1a1a; text-transform: uppercase; letter-spacing: 0.3px;">Professional Summary</h2>
-        <p id="resume-summary" style="font-size: 8.5pt; line-height: 1.4; color: #333; text-align: justify; margin: 0;">
-            Impact-driven Senior Product Manager with 4+ years scaling high-volume fintech platforms and digital payment ecosystems. Expert at bridging user journeys with strategic product interventions, driving 22% conversion lifts and 17% CLTV growth. Proven track record managing \u20b91000+ Cr annual budgets to optimize acquisition and platform-scale depth.
+    <div style="margin-bottom: 12pt;">
+        <h2 style="font-size: 9.5pt; border-bottom: 1pt solid #ccc; padding-bottom: 2pt; margin-bottom: 5pt; font-weight: bold; color: #1a1a1a; text-transform: uppercase; letter-spacing: 0.4px;">Professional Summary</h2>
+        <p id="resume-summary" style="font-size: 9pt; line-height: 1.55; color: #333; text-align: justify; margin: 0;">
+            Impact-driven Senior Product Manager with 4+ years scaling high-volume fintech platforms and digital payment ecosystems at 500M+ transaction scale. Expert at transforming ambiguous growth problems into platform-level solutions — from ML-powered targeting to zero-to-one wealth-tech launches — driving 22% conversion lifts, 17% CLTV growth, and \u20b91000+ Cr budget efficiency. Unique duality of product strategy depth and risk/compliance fluency makes for outsized impact in regulated, high-stakes environments.
         </p>
     </div>
 
-    <div style="margin-bottom: 7pt;">
-        <h2 style="font-size: 9pt; border-bottom: 1pt solid #ddd; padding-bottom: 1pt; margin-bottom: 4pt; font-weight: bold; color: #1a1a1a; text-transform: uppercase; letter-spacing: 0.3px;">Professional Experience</h2>
+    <div style="margin-bottom: 12pt;">
+        <h2 style="font-size: 9.5pt; border-bottom: 1pt solid #ccc; padding-bottom: 2pt; margin-bottom: 7pt; font-weight: bold; color: #1a1a1a; text-transform: uppercase; letter-spacing: 0.4px;">Professional Experience</h2>
 
-        <div style="margin-bottom: 5pt; page-break-inside: avoid;">
-            <div style="display: flex; justify-content: space-between; font-weight: bold; font-size: 9pt; color: #1a1a1a;">
-                <span>PHONEPE &mdash; Product Manager &nbsp;<em style="font-weight:400; font-size:8.5pt;">(Engagement &amp; Growth)</em></span><span style="font-size:8.5pt;">May 2023 &ndash; Present | Bangalore</span>
+        <div style="margin-bottom: 9pt; page-break-inside: avoid;">
+            <div style="display: flex; justify-content: space-between; font-weight: bold; font-size: 9.5pt; color: #1a1a1a; margin-bottom: 1pt;">
+                <span>PHONEPE &mdash; Product Manager &nbsp;<em style="font-weight:400; font-size:9pt;">(Engagement &amp; Growth)</em></span><span style="font-size:9pt; font-weight:400;">May 2023 &ndash; Present &nbsp;|&nbsp; Bangalore</span>
             </div>
-            <ul style="font-size: 8.5pt; margin: 2pt 0 0 12pt; line-height: 1.32; color: #333; padding: 0;">
-                <li style="margin-bottom: 1.5pt;">Diagnosed fragmented offer discovery as the primary drop-off driver across 50M+ MAU; architected a unified offer platform spanning discovery, application, and post-transaction — lifting <strong>offer-applied conversion by 22%</strong> and CLTV by 17%.</li>
-                <li style="margin-bottom: 1.5pt;">Identified that one-size-fits-all promotions were burning budget on low-intent users; led strategy to deploy Propensity-to-Transact ML models across a \u20b91000+ Cr marketing engine, cutting <strong>acquisition burn by 32%</strong> while sustaining double-digit YoY growth.</li>
-                <li style="margin-bottom: 1.5pt;">Recognized EMI as an untapped conversion lever for high-ticket categories; defined the product and commercial strategy for EMI subvention, enabling bank-funded zero-cost installment plans that drove <strong>14% uplift in high-intent checkout completion</strong>.</li>
-                <li style="margin-bottom: 1.5pt;">Observed high cart abandonment in Pincode (Quick Commerce) despite strong intent signals; designed a real-time incentive engine — freebies, fee-waivers, steal deals — contextually triggered at cart, <strong>meaningfully reducing abandonment</strong> and improving AOV.</li>
+            <ul style="font-size: 9pt; margin: 3pt 0 0 14pt; line-height: 1.5; color: #333; padding: 0;">
+                <li style="margin-bottom: 3pt;">Diagnosed fragmented offer discovery as the primary drop-off driver across 50M+ MAU; architected a unified offer platform spanning discovery, application, and post-transaction nudges — lifting <strong>offer-applied conversion by 22%</strong> and CLTV by 17%.</li>
+                <li style="margin-bottom: 3pt;">Identified that one-size-fits-all promotions were burning budget on low-intent users; led strategy to deploy Propensity-to-Transact ML models across a \u20b91000+ Cr annual marketing engine, cutting <strong>acquisition burn by 32%</strong> while sustaining double-digit YoY growth.</li>
+                <li style="margin-bottom: 3pt;">Recognized EMI as an untapped conversion lever for high-ticket categories; defined product &amp; commercial strategy for EMI subvention, enabling bank-funded zero-cost plans that drove <strong>14% uplift in high-intent checkout completion</strong>.</li>
+                <li style="margin-bottom: 0;">Observed high cart abandonment in Pincode (Quick Commerce) despite strong intent signals; designed a real-time incentive engine — freebies, fee-waivers, steal deals — contextually triggered at cart, <strong>meaningfully reducing abandonment</strong> and improving AOV.</li>
+            </ul>
+        </div>
+
+        <div style="margin-bottom: 9pt; page-break-inside: avoid;">
+            <div style="display: flex; justify-content: space-between; font-weight: bold; font-size: 9.5pt; color: #1a1a1a; margin-bottom: 1pt;">
+                <span>PHONEPE &mdash; Associate Product Manager &nbsp;<em style="font-weight:400; font-size:9pt;">(Monetization &amp; Strategy)</em></span><span style="font-size:9pt; font-weight:400;">Apr 2022 &ndash; Apr 2023 &nbsp;|&nbsp; Bangalore</span>
+            </div>
+            <ul style="font-size: 9pt; margin: 3pt 0 0 14pt; line-height: 1.5; color: #333; padding: 0;">
+                <li style="margin-bottom: 3pt;">Saw that referral programs across business units operated in silos with duplicate fraud vectors; built a multi-tenant referral platform with integrated fraud detection and feature-level hooks, acquiring <strong>5Mn+ users/month at 23% lower CAC</strong>.</li>
+                <li style="margin-bottom: 0;">Defined monetization strategy for a \u20b9100 Cr/yr portfolio; established scalable B2B revenue infrastructure — subscription tiers, transaction fees, settlement mechanics — enabling <strong>rapid merchant growth</strong> without marginal cost increase.</li>
             </ul>
         </div>
 
         <div style="margin-bottom: 5pt; page-break-inside: avoid;">
-            <div style="display: flex; justify-content: space-between; font-weight: bold; font-size: 9pt; color: #1a1a1a;">
-                <span>PHONEPE &mdash; Associate Product Manager &nbsp;<em style="font-weight:400; font-size:8.5pt;">(Monetization &amp; Strategy)</em></span><span style="font-size:8.5pt;">Apr 2022 &ndash; Apr 2023 | Bangalore</span>
+            <div style="display: flex; justify-content: space-between; font-weight: bold; font-size: 9.5pt; color: #1a1a1a; margin-bottom: 1pt;">
+                <span>KOTAK MAHINDRA BANK &mdash; PM Intern, Founding Team</span><span style="font-size:9pt; font-weight:400;">Apr &ndash; Jun 2021 &nbsp;|&nbsp; Mumbai</span>
             </div>
-            <ul style="font-size: 8.5pt; margin: 2pt 0 0 12pt; line-height: 1.32; color: #333; padding: 0;">
-                <li style="margin-bottom: 1.5pt;">Saw that referral programs across business units operated in silos with duplicate fraud vectors; built a multi-tenant referral platform with integrated fraud detection and feature-level referral hooks, acquiring <strong>5Mn+ users/month at 23% lower CAC</strong>.</li>
-                <li style="margin-bottom: 1.5pt;">Defined the monetization strategy for a \u20b9100 Cr/yr portfolio; established scalable B2B revenue infrastructure — subscription tiers, transaction fees, settlement mechanics — enabling <strong>rapid merchant growth</strong> without marginal cost increase.</li>
-            </ul>
-        </div>
-
-        <div style="margin-bottom: 5pt; page-break-inside: avoid;">
-            <div style="display: flex; justify-content: space-between; font-weight: bold; font-size: 9pt; color: #1a1a1a;">
-                <span>KOTAK MAHINDRA BANK &mdash; PM Intern, Founding Team</span><span style="font-size:8.5pt;">Apr &ndash; Jun 2021 | Mumbai</span>
-            </div>
-            <ul style="font-size: 8.5pt; margin: 2pt 0 0 12pt; line-height: 1.32; color: #333; padding: 0;">
-                <li>Tasked with building Kotak's first retail wealth-tech product from zero; led end-to-end conceptualization of the Kotak Cherry platform — investment journeys, onboarding flows, nudge systems — achieving <strong>100K+ downloads in 90 days</strong> with Day-30 retention of +26%.</li>
+            <ul style="font-size: 9pt; margin: 3pt 0 0 14pt; line-height: 1.5; color: #333; padding: 0;">
+                <li>Tasked with building Kotak's first retail wealth-tech product from zero; led end-to-end conceptualization of Kotak Cherry — investment journeys, onboarding flows, behavioral nudge systems — achieving <strong>100K+ downloads in 90 days</strong> and Day-30 retention of +26%.</li>
             </ul>
         </div>
     </div>
 
-    <div style="margin-bottom: 6pt; page-break-inside: avoid;">
-        <h2 style="font-size: 9pt; border-bottom: 1pt solid #ddd; padding-bottom: 1pt; margin-bottom: 3pt; font-weight: bold; color: #1a1a1a; text-transform: uppercase; letter-spacing: 0.3px;">Skills</h2>
-        <p style="font-size: 8.5pt; line-height: 1.4; color: #333; margin: 0;">
-            <strong>Product:</strong> LiveOps, Gamification, Retention Mechanics, Funnel Optimization, A/B Testing, Lifecycle, Growth Loops &nbsp;&nbsp;
-            <strong>Data &amp; Tools:</strong> SQL, ML (Propensity Modeling), Mixpanel, CleverTap, Jira, Figma, Tableau
+    <div style="margin-bottom: 10pt; page-break-inside: avoid;">
+        <h2 style="font-size: 9.5pt; border-bottom: 1pt solid #ccc; padding-bottom: 2pt; margin-bottom: 5pt; font-weight: bold; color: #1a1a1a; text-transform: uppercase; letter-spacing: 0.4px;">Skills</h2>
+        <p style="font-size: 9pt; line-height: 1.55; color: #333; margin: 0;">
+            <strong>Product &amp; Strategy:</strong> Product-Led Growth, LiveOps, Gamification, Retention Mechanics, Conversion Funnel Optimization, A/B Testing, Lifecycle, Growth Loops, Platform Architecture<br>
+            <strong>Data &amp; Tools:</strong> SQL (Advanced), ML (Propensity Modeling), Mixpanel, CleverTap, Jira, Figma, Tableau, Looker
         </p>
     </div>
 
-    <div style="margin-bottom: 6pt;">
-        <h2 style="font-size: 9pt; border-bottom: 1pt solid #ddd; padding-bottom: 1pt; margin-bottom: 3pt; font-weight: bold; color: #1a1a1a; text-transform: uppercase; letter-spacing: 0.3px;">Education</h2>
-        <p style="font-size: 8.5pt; color: #333; line-height: 1.5; margin: 0;">
-            <strong>IIM Indore</strong> | MBA | 2022 &nbsp;&mdash;&nbsp; <strong>Neoma Business School, France</strong> | Exchange (MBA) | 2021 &nbsp;&mdash;&nbsp; <strong>VNIT Nagpur</strong> | B.Tech CS | 2020
-        </p>
+    <div style="margin-bottom: 10pt;">
+        <h2 style="font-size: 9.5pt; border-bottom: 1pt solid #ccc; padding-bottom: 2pt; margin-bottom: 5pt; font-weight: bold; color: #1a1a1a; text-transform: uppercase; letter-spacing: 0.4px;">Education</h2>
+        <div style="font-size: 9pt; color: #333; line-height: 1.6;">
+            <strong>IIM Indore</strong> | MBA | 2022 &nbsp;&mdash;&nbsp; <strong>Neoma Business School, France</strong> | Exchange (MBA) | 2021 &nbsp;&mdash;&nbsp; <strong>VNIT Nagpur</strong> | B.Tech, Computer Science | 2020
+        </div>
     </div>
 
-    <div style="margin-bottom: 5pt;">
-        <h2 style="font-size: 9pt; border-bottom: 1pt solid #ddd; padding-bottom: 1pt; margin-bottom: 3pt; font-weight: bold; color: #1a1a1a; text-transform: uppercase; letter-spacing: 0.3px;">AI Projects &amp; Key Highlights</h2>
-        <ul style="font-size: 8.5pt; margin: 0 0 0 12pt; line-height: 1.32; color: #333; padding: 0;">
-            <li style="margin-bottom: 1.5pt;"><strong>AI PM Interviewer</strong> (<a href="https://huggingface.co/spaces/ajay-avaghade/AI-Mock-Product-Manager-Interviewer" style="color: #007bff; text-decoration: none;">Live Demo</a>): Real-time voice agent for PM mock interviews with auto-scorecard generation.</li>
-            <li><strong>Awards:</strong> Campus Winner &ndash; Asian Paints Canvas; National Finalist &ndash; ITC Interrobang; Education Minister Award (District Topper, 10th &amp; 12th).</li>
+    <div style="margin-bottom: 0;">
+        <h2 style="font-size: 9.5pt; border-bottom: 1pt solid #ccc; padding-bottom: 2pt; margin-bottom: 5pt; font-weight: bold; color: #1a1a1a; text-transform: uppercase; letter-spacing: 0.4px;">AI Projects &amp; Key Highlights</h2>
+        <ul style="font-size: 9pt; margin: 0 0 0 14pt; line-height: 1.5; color: #333; padding: 0;">
+            <li style="margin-bottom: 3pt;"><strong>AI Mock PM Interviewer</strong> (<a href="https://huggingface.co/spaces/ajay-avaghade/AI-Mock-Product-Manager-Interviewer" style="color: #007bff; text-decoration: none;">Live Demo</a>): Built a real-time voice conversational agent using LLMs + speech-to-text to conduct structured PM mock interviews with instant scorecard generation.</li>
+            <li><strong>Awards:</strong> Campus Winner &ndash; Asian Paints Canvas B-School Competition; National Finalist &ndash; ITC Interrobang; Education Minister Award &ndash; District Topper (10th &amp; 12th Standard).</li>
         </ul>
     </div>
 </div>
@@ -621,10 +621,14 @@ STRUCTURAL RULES:
 - Keep the EXACT same HTML structure and inline styles.
 - Do NOT add any new sections or remove existing ones.
 
-ONE-PAGER CONSTRAINT (CRITICAL):
-- The final resume MUST fit on a single A4 page (max ~55-60 lines of content).
-- Keep Professional Summary to 2 sentences, each bullet to 1 tight line (~15 words), Skills compact, Education on one line.
-- NEVER truncate metrics or contact info.`;
+PAGE-FILL CONSTRAINT (CRITICAL):
+- The resume MUST fill a single A4 page — no whitespace at the bottom, no overflow to a second page.
+- Each STAR bullet should be a full, complete sentence of 20–30 words. Do NOT truncate to save space.
+- Professional Summary: 3 sentences. Each sentence is substantive (15–20 words each).
+- Skills: 2 lines (Product & Strategy on line 1, Data & Tools on line 2). Include 8–10 skills per line.
+- Education: 1 line with all 3 entries separated by em-dashes.
+- AI Projects & Key Highlights: 2 bullets — one for the project (full sentence), one for awards (full sentence).
+- NEVER truncate metrics, proper nouns, or contact info.`;
 
         const result = await callGemini(prompt);
         if (result && result.length > 500) {
