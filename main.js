@@ -49,7 +49,6 @@ const masterResume = `
             <a href="https://ajay-avaghade.github.io/Portfolio/" style="color: #007bff; text-decoration: none;">Portfolio</a> &nbsp;|&nbsp;
             <a href="https://github.com/ajay-avaghade" style="color: #007bff; text-decoration: none;">GitHub</a>
         </p>
-        <div id="resume-spikes" style="display:none;"></div>
     </div>
 
     <div style="margin-bottom: 7pt;">
@@ -67,20 +66,20 @@ const masterResume = `
                 <span>PHONEPE &mdash; Product Manager &nbsp;<em style="font-weight:400; font-size:8.5pt;">(Engagement &amp; Growth)</em></span><span style="font-size:8.5pt;">May 2023 &ndash; Present | Bangalore</span>
             </div>
             <ul style="font-size: 8.5pt; margin: 2pt 0 0 12pt; line-height: 1.32; color: #333; padding: 0;">
-                <li style="margin-bottom: 1.5pt;"><strong>Retention:</strong> Gamified milestone system + unified offer journey &rarr; <strong>CLTV +17%</strong>, deeper session engagement via ML cohorting.</li>
-                <li style="margin-bottom: 1.5pt;"><strong>Conversion:</strong> Checkout revamp + EMI subvention &rarr; <strong>+22% offer-applied conversions</strong> for high-intent segments.</li>
-                <li style="margin-bottom: 1.5pt;"><strong>Budget Optimization:</strong> Directed \u20b91000+ Cr marketing engine with Propensity-to-Transact ML models &rarr; <strong>32% lower burn</strong>, double-digit YoY growth.</li>
-                <li style="margin-bottom: 1.5pt;"><strong>Quick Commerce:</strong> Real-time cart interventions (freebies, fee-waivers) for Pincode &rarr; reduced supply chain abandonment.</li>
+                <li style="margin-bottom: 1.5pt;">Diagnosed fragmented offer discovery as the primary drop-off driver across 50M+ MAU; architected a unified offer platform spanning discovery, application, and post-transaction — lifting <strong>offer-applied conversion by 22%</strong> and CLTV by 17%.</li>
+                <li style="margin-bottom: 1.5pt;">Identified that one-size-fits-all promotions were burning budget on low-intent users; led strategy to deploy Propensity-to-Transact ML models across a \u20b91000+ Cr marketing engine, cutting <strong>acquisition burn by 32%</strong> while sustaining double-digit YoY growth.</li>
+                <li style="margin-bottom: 1.5pt;">Recognized EMI as an untapped conversion lever for high-ticket categories; defined the product and commercial strategy for EMI subvention, enabling bank-funded zero-cost installment plans that drove <strong>14% uplift in high-intent checkout completion</strong>.</li>
+                <li style="margin-bottom: 1.5pt;">Observed high cart abandonment in Pincode (Quick Commerce) despite strong intent signals; designed a real-time incentive engine — freebies, fee-waivers, steal deals — contextually triggered at cart, <strong>meaningfully reducing abandonment</strong> and improving AOV.</li>
             </ul>
         </div>
 
         <div style="margin-bottom: 5pt; page-break-inside: avoid;">
             <div style="display: flex; justify-content: space-between; font-weight: bold; font-size: 9pt; color: #1a1a1a;">
-                <span>PHONEPE &mdash; Associate PM &nbsp;<em style="font-weight:400; font-size:8.5pt;">(Monetization &amp; Strategy)</em></span><span style="font-size:8.5pt;">Apr 2022 &ndash; Apr 2023 | Bangalore</span>
+                <span>PHONEPE &mdash; Associate Product Manager &nbsp;<em style="font-weight:400; font-size:8.5pt;">(Monetization &amp; Strategy)</em></span><span style="font-size:8.5pt;">Apr 2022 &ndash; Apr 2023 | Bangalore</span>
             </div>
             <ul style="font-size: 8.5pt; margin: 2pt 0 0 12pt; line-height: 1.32; color: #333; padding: 0;">
-                <li style="margin-bottom: 1.5pt;"><strong>Viral Growth:</strong> Multi-tenant referral engine with fraud detection &rarr; <strong>5Mn+ users/month</strong>, CAC optimized by 23%.</li>
-                <li style="margin-bottom: 1.5pt;"><strong>Monetization:</strong> Managed \u20b9100 Cr/yr portfolio; built scalable B2B infra supporting rapid merchant expansion.</li>
+                <li style="margin-bottom: 1.5pt;">Saw that referral programs across business units operated in silos with duplicate fraud vectors; built a multi-tenant referral platform with integrated fraud detection and feature-level referral hooks, acquiring <strong>5Mn+ users/month at 23% lower CAC</strong>.</li>
+                <li style="margin-bottom: 1.5pt;">Defined the monetization strategy for a \u20b9100 Cr/yr portfolio; established scalable B2B revenue infrastructure — subscription tiers, transaction fees, settlement mechanics — enabling <strong>rapid merchant growth</strong> without marginal cost increase.</li>
             </ul>
         </div>
 
@@ -89,7 +88,7 @@ const masterResume = `
                 <span>KOTAK MAHINDRA BANK &mdash; PM Intern, Founding Team</span><span style="font-size:8.5pt;">Apr &ndash; Jun 2021 | Mumbai</span>
             </div>
             <ul style="font-size: 8.5pt; margin: 2pt 0 0 12pt; line-height: 1.32; color: #333; padding: 0;">
-                <li><strong>0&rarr;1 Launch:</strong> Conceptualized Kotak Cherry WealthTech &rarr; <strong>100K+ downloads in 90 days</strong>, Day-30 retention +26%.</li>
+                <li>Tasked with building Kotak's first retail wealth-tech product from zero; led end-to-end conceptualization of the Kotak Cherry platform — investment journeys, onboarding flows, nudge systems — achieving <strong>100K+ downloads in 90 days</strong> with Day-30 retention of +26%.</li>
             </ul>
         </div>
     </div>
@@ -118,43 +117,6 @@ const masterResume = `
     </div>
 </div>
 `;
-
-// ============================================================
-// Spike Injection: Domain-tailored metric callout pills
-// ============================================================
-function injectSpikes(html, domain, callback) {
-    const domainSpikes = {
-        Gaming:       ['🎮 CLTV +17% via gamified milestones', '⚡ 5Mn+ users/month acquired', '💰 ₹1000+ Cr budget optimized'],
-        SaaS:         ['📈 22% conversion lift', '🔁 32% lower marketing burn via ML', '🏦 ₹1000+ Cr budget managed'],
-        Fintech:      ['💳 22% checkout conversion lift', '🚀 5Mn+ users/month acquired', '📉 32% marketing burn reduced'],
-        Ecommerce:    ['🛒 22% offer-applied conversion lift', '📦 Supply chain abandonment reduced', '💰 ₹1000+ Cr budget managed'],
-        QuickCommerce:['⚡ Real-time cart interventions live', '📦 Supply chain abandonment reduced', '🚀 5Mn+ users/month via referral'],
-        Travel:       ['✈️ 22% conversion lift on checkout', '🔁 32% lower acquisition burn', '🌏 Cross-border platform expertise'],
-        Mobility:     ['🚗 Real-time supply-demand systems', '📉 CAC optimized by 23%', '💰 ₹1000+ Cr budget managed'],
-        HealthTech:   ['🏥 Compliance-driven product launches', '📈 17% retention lift', '🔒 Fraud-aware growth mechanics'],
-        EdTech:       ['📚 Gamified engagement → CLTV +17%', '🚀 100K+ platform installs in 90 days', '📊 ML-driven cohort targeting'],
-        Logistics:    ['📦 Supply chain abandonment reduced', '🗺️ Real-time dispatch interventions', '💰 ₹1000+ Cr budget optimized'],
-        BigTech:      ['⚙️ B.Tech CS + MBA dual pedigree', '📊 ML propensity models in prod', '📈 22% conversion lift at scale'],
-        Hyperlocal:   ['📍 City-level rollout expertise', '⚡ Real-time cart interventions', '🚀 5Mn+ users/month acquired'],
-        ContentSocial:['🔁 Viral referral loop → 5Mn+/month', '❤️ CLTV +17% via gamification', '📉 CAC reduced 23%'],
-        ProductOps:   ['🧪 ML propensity model in prod', '📊 ₹1000+ Cr budget with data targeting', '📈 32% lower marketing burn'],
-        InsurTech:    ['🔒 Risk & compliance product track', '📈 22% conversion lift', '💰 ₹1000+ Cr budget managed'],
-        PropTech:     ['🏠 End-to-end transaction journeys', '📈 22% conversion lift', '🚀 100K+ users acquired in 90 days'],
-        AgriTech:     ['🌾 Supply chain product expertise', '📊 Data-driven targeting models', '💰 ₹1000+ Cr budget managed'],
-        HRTech:       ['👥 Engagement loop design', '📈 17% CLTV lift', '🔁 ML-driven user cohorting'],
-        Web3Crypto:   ['🔐 Fraud detection systems built', '📊 ML propensity models', '⚡ 5Mn+ user acquisition engine'],
-        B2BCommerce:  ['🏢 ₹100 Cr/yr B2B portfolio managed', '📦 Merchant infra built from scratch', '📈 22% conversion lift'],
-    };
-    const spikes = domainSpikes[domain] || domainSpikes.Fintech;
-    const spikesHtml = `<div style="display:flex; justify-content:center; gap:8pt; flex-wrap:wrap; margin-top:4pt;">
-        ${spikes.map(s => `<span style="background:#f0f4ff; border:1px solid #c7d2fe; border-radius:3pt; padding:1.5pt 6pt; font-size:7.5pt; color:#3730a3; font-weight:600; white-space:nowrap;">${s}</span>`).join('')}
-    </div>`;
-    const updated = html.replace(
-        /<div id="resume-spikes"[^>]*><\/div>/,
-        `<div id="resume-spikes" style="margin-top:3pt;">${spikesHtml}</div>`
-    );
-    callback(updated);
-}
 
 
 // ============================================================
@@ -631,41 +593,45 @@ ${isPublicMode ? "CANDIDATE BACKGROUND:\n" + sourceProfile : "ORIGINAL RESUME HT
 STEP 3: STRATEGIC REWRITE RULES
 ═══════════════════════════════════════
 
-PROFESSIONAL SUMMARY (3 sentences):
-- Sentence 1: State years of experience + the DOMAIN this company operates in (use their vocabulary, not generic terms). Mirror the JD's language.
-- Sentence 2: Highlight the candidate's strongest metric that directly addresses the company's biggest problem.
-- Sentence 3: State a unique differentiator (e.g., the fintech + risk duality, or the scale of budget managed).
-- Do NOT mention the company name in the summary.
-- Do NOT start with "Data-driven" — use a more distinctive opening that reflects the company's values.
+PROFESSIONAL SUMMARY (2 sentences max):
+- Sentence 1: State years of experience + what the candidate is uniquely positioned to do for THIS company's domain. Use their vocabulary, not generic PM jargon.
+- Sentence 2: Lead with the single most relevant metric + the unique strategic differentiator (fintech scale + risk duality, or zero-to-one plus platform thinking).
+- Do NOT mention the company name. Do NOT start with "Data-driven". Do NOT copy phrases from the JD.
 
-EXPERIENCE BULLETS:
-- REFRAME each bullet's lead-in label to use terminology from the JD (e.g., if JD says "growth loops" instead of "retention", use "growth loops").
-- Keep ALL numerical metrics exactly as they are — never change numbers.
-- FRONT-LOAD impact metrics: start every bullet with the outcome, not the action.
-- If the JD emphasizes a skill the candidate has but it's buried, ELEVATE it by rephrasing the bullet to lead with that skill.
-- Add domain-specific context: if it's a gaming company, frame "gamified milestone system" differently than for a SaaS company.
+EXPERIENCE BULLETS — STAR METHOD (CRITICAL):
+Each bullet MUST follow Situation → Action → Result. Write it as a single flowing sentence, not a fragmented list.
+- Situation/Task: Start with what problem was identified or what strategic gap existed. Use phrases like "Diagnosed that...", "Recognized that...", "Tasked with...", "Identified that...".
+- Action: What strategic or platform decision was made. Reflect the candidate's thinking — framework choices, platform architecture decisions, cross-functional influence. Use "defined", "architected", "led the strategy for", "designed the system to".
+- Result: Always end with a bolded metric using HTML <strong> tags — e.g., <strong>lifted conversion by 22%</strong>. NEVER use **asterisks** for bold. Only use HTML <strong></strong>.
+- Balance rule: Bullets must read as original professional writing — NOT paraphrased JD lines. The framing adapts to the company's domain but the substance comes strictly from the candidate's portfolio.
+- Competency signal: At least 2 bullets per role must visibly demonstrate either Strategy (market insight, problem framing, roadmap prioritization) or Platform thinking (systems design, multi-tenant architecture, scalable infra decisions).
 
 SKILLS SECTION:
-- REORDER skills to put JD-mentioned skills first.
-- ADD skills from the JD that are genuinely applicable (e.g., if JD mentions "experimentation" and the candidate does A/B testing, add "Experimentation Frameworks").
-- Remove skills that are irrelevant to this specific role.
+- Reorder skills to put JD-relevant skills first.
+- Only ADD skills the candidate genuinely has (e.g., if JD says "experimentation" and candidate does A/B testing, add "Experimentation Frameworks"). Do not fabricate.
+- Remove skills irrelevant to this specific role.
 
-STRUCTURAL RULES:
-- Keep ALL sections: Summary, Experience (all 3 roles), Skills, Education (all 3 entries), AI Projects, Key Achievements.
-- Keep the EXACT same HTML structure and inline styles.
-- Do NOT add any new sections or remove existing ones.
+FORMATTING RULES (CRITICAL — ZERO EXCEPTIONS):
+- NEVER use **double asterisks** for bold. ONLY use HTML <strong>text</strong>.
 - Return ONLY the HTML. No markdown fences, no backticks, no explanation.
 - Every hyperlink must remain intact and functional.
 
+STRUCTURAL RULES:
+- Keep ALL sections: Summary, Experience (all 3 roles), Skills, Education, AI Projects, Key Achievements.
+- Keep the EXACT same HTML structure and inline styles.
+- Do NOT add any new sections or remove existing ones.
+
 ONE-PAGER CONSTRAINT (CRITICAL):
 - The final resume MUST fit on a single A4 page (max ~55-60 lines of content).
-- To achieve this: shorten the Professional Summary to 2 sentences max, keep each bullet to 1 line (max 15 words), keep Skills to 1 compact line per category, keep Education compact (1 line per entry).
-- Trim AI Projects and Key Achievements to 1 bullet each if needed to fit.
+- Keep Professional Summary to 2 sentences, each bullet to 1 tight line (~15 words), Skills compact, Education on one line.
 - NEVER truncate metrics or contact info.`;
 
         const result = await callGemini(prompt);
         if (result && result.length > 500) {
-            finalContent = result.replace(/```html|```markdown|```/g, "").trim();
+            finalContent = result
+                .replace(/```html|```markdown|```/g, '')
+                .replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>')
+                .trim();
             adapted = true;
             addLog("> [Agent 2] SYNTHESIZER: Deep LLM Adaptation SUCCESS.");
         } else {
@@ -707,9 +673,6 @@ ONE-PAGER CONSTRAINT (CRITICAL):
             `<p id="resume-summary" style="font-size: 9.5pt; line-height: 1.5; color: #333; text-align: justify;">${newSummary}</p>`
         );
     }
-
-    // ---- Always inject spikes (works for both Gemini-adapted and fallback paths) ----
-    injectSpikes(finalContent, domain, (updatedHtml) => { finalContent = updatedHtml; });
 
     // Render
     startBtn.disabled = false;
