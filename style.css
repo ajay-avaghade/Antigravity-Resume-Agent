@@ -41,36 +41,33 @@ body {
 
 /* Print Styles - Native Browser PDF Export */
 @page {
-    size: auto;
-    margin: 0; /* This hides the browser's default header/footer (URL, date, title) */
+    size: A4;
+    margin: 12mm 15mm; /* Standard A4 margins — no blank page inflation */
 }
 
 @media print {
-    /* Hide everything by default */
+    /* Hide everything except the resume */
     body * { visibility: hidden; }
-    
-    /* Show only the resume content and its parents */
     #resume-preview, #resume-preview * { visibility: visible; }
-    
+
     #resume-preview {
-        position: absolute;
+        position: fixed;
         left: 0;
         top: 0;
-        width: 210mm; /* Fixed A4 width */
-        min-height: 297mm;
+        width: 100%;
         height: auto !important;
         overflow: visible !important;
-        padding: 15mm !important; /* Apply the margin here instead of @page */
+        padding: 0 !important;
         margin: 0 !important;
         box-shadow: none !important;
         background: white !important;
-        box-sizing: border-box;
+        max-height: none !important;
     }
 
-    /* Prevent orphaned headers and ensure clean breaks */
+    /* Prevent orphaned headers */
     h2 { page-break-after: avoid; border-bottom: 1px solid #eee !important; }
-    .experience-block { page-break-inside: avoid; margin-bottom: 15pt !important; }
-    
+    .experience-block { page-break-inside: avoid; }
+
     /* Ensure links are visible/blue in print */
     a { color: #007bff !important; text-decoration: none !important; }
 }

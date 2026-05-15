@@ -795,22 +795,45 @@ downloadBtn?.addEventListener('click', () => {
 });
 
 async function downloadDirect() {
-    addLog("> Initializing Direct PDF Generation...");
+    addLog('> Initializing Direct PDF Generation...');
 
-    // Clone the resume content into a temporary off-screen container
-    // This avoids all scroll/height issues with the preview panel
-    const clone = document.getElementById('resume-content').cloneNode(true);
-    clone.removeAttribute('contenteditable');
-    clone.style.width = '210mm';
-    clone.style.padding = '20mm';
-    clone.style.background = 'white';
-    clone.style.position = 'absolute';
-    clone.style.left = '-9999px';
-    clone.style.top = '0';
-    document.body.appendChild(clone);
+    const source = document.getElementById('resume-content');
+    if (!source || !source.innerHTML.trim()) {
+        addLog('> ERROR: No resume content found. Run the pipeline first.');
+        return;
+    }
+
+    // Build a full-page wrapper that mimics an A4 sheet
+    // We render it at z-index: -9999 but WITHIN the visible viewport
+    // so html2canvas can actually capture it (off-screen = blank canvas bug)
+    const wrapper = document.createElement('div');
+    wrapper.style.cssText = `
+        position: fixed;
+        top: 0; left: 0;
+        width: 794px;
+        background: white;
+        padding: 40px 50px;
+        box-sizing: border-box;
+        z-index: -9999;
+        opacity: 0.001;
+        pointer-events: none;
+        font-family: 'Inter', sans-serif;
+        font-size: 9pt;
+        color: #222;
+        line-height: 1.3;
+    `;
+    // Deep-clone the actual resume HTML into the wrapper
+    const inner = source.cloneNode(true);
+    inner.removeAttribute('contenteditable');
+    inner.style.cssText = 'width:100%; background:white;';
+    wrapper.appendChild(inner);
+    document.body.appendChild(wrapper);
+
+    // Wait one frame to let browser layout the wrapper
+    await new Promise(r => requestAnimationFrame(() => requestAnimationFrame(r)));
 
     const opt = {
-        margin: 0, // margins are baked into the clone's padding
+        margin: [10, 12, 10, 12], // top, right, bottom, left in mm
         filename: 'Ajay_Avaghade_Resume.pdf',
         image: { type: 'jpeg', quality: 0.98 },
         html2canvas: {
@@ -818,21 +841,24 @@ async function downloadDirect() {
             useCORS: true,
             logging: false,
             letterRendering: true,
+            windowWidth: 794,
+            scrollX: 0,
             scrollY: 0,
-            scrollX: 0
         },
         jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' },
-        pagebreak: { mode: ['avoid-all', 'css'] }
+        pagebreak: { mode: ['css', 'legacy'] }
     };
+
     try {
-        await html2pdf().set(opt).from(clone).save();
-        addLog("> SUCCESS: Full PDF downloaded.");
+        addLog('> [Agent 6] VALIDATOR: Rendering canvas...');
+        await html2pdf().set(opt).from(wrapper).save();
+        addLog('> SUCCESS: Resume PDF downloaded.');
     } catch (err) {
-        addLog("> ERROR: Direct PDF failed. Opening print dialog...");
+        addLog('> ERROR: PDF generation failed. Falling back to print dialog...');
         console.error(err);
         window.print();
     } finally {
-        document.body.removeChild(clone);
+        document.body.removeChild(wrapper);
     }
 }
 
