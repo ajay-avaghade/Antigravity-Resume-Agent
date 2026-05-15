@@ -35,106 +35,127 @@ const jdTextInput = document.getElementById('jd-text');
 
 // ============================================================
 // MASTER RESUME (Full portfolio — source of truth)
+// One-pager optimized: tight spacing, compact font, clean structure
 // ============================================================
 const masterResume = `
-<div class="resume-container" style="color: #333; line-height: 1.4; font-family: 'Inter', sans-serif; padding: 0; margin: 0;">
-    <div style="text-align: center; border-bottom: 2px solid #1a1a1a; padding-bottom: 10pt; margin-bottom: 12pt;">
-        <h1 style="font-size: 24pt; color: #1a1a1a; margin-bottom: 2pt; font-weight: 800; text-transform: uppercase; letter-spacing: 0.5px;">AJAY AVAGHADE</h1>
-        <p style="font-size: 10pt; color: #444; margin-bottom: 2pt;">
-            Bangalore, India | +91 95615 58439 | <a href="mailto:avaghadeajay009@gmail.com" style="color: #444; text-decoration: none;">avaghadeajay009@gmail.com</a>
+<div class="resume-container" style="color: #222; line-height: 1.3; font-family: 'Inter', sans-serif; padding: 0; margin: 0; font-size: 9pt;">
+    <div style="text-align: center; border-bottom: 2px solid #1a1a1a; padding-bottom: 6pt; margin-bottom: 8pt;">
+        <h1 style="font-size: 20pt; color: #1a1a1a; margin-bottom: 1pt; font-weight: 800; text-transform: uppercase; letter-spacing: 0.5px;">AJAY AVAGHADE</h1>
+        <p style="font-size: 8.5pt; color: #444; margin-bottom: 1pt;">
+            Bangalore, India &nbsp;|&nbsp; +91 95615 58439 &nbsp;|&nbsp; <a href="mailto:avaghadeajay009@gmail.com" style="color: #444; text-decoration: none;">avaghadeajay009@gmail.com</a>
         </p>
-        <p style="font-size: 10pt; font-weight: 600;">
-            <a href="https://linkedin.com/in/ajay-avaghade" style="color: #007bff; text-decoration: none;">LinkedIn</a> | 
-            <a href="https://ajay-avaghade.github.io/Portfolio/" style="color: #007bff; text-decoration: none;">Portfolio</a> | 
+        <p style="font-size: 8.5pt; font-weight: 600; margin-bottom: 2pt;">
+            <a href="https://linkedin.com/in/ajay-avaghade" style="color: #007bff; text-decoration: none;">LinkedIn</a> &nbsp;|&nbsp;
+            <a href="https://ajay-avaghade.github.io/Portfolio/" style="color: #007bff; text-decoration: none;">Portfolio</a> &nbsp;|&nbsp;
             <a href="https://github.com/ajay-avaghade" style="color: #007bff; text-decoration: none;">GitHub</a>
         </p>
+        <div id="resume-spikes" style="display:none;"></div>
     </div>
 
-    <div style="margin-bottom: 14pt;">
-        <h2 style="font-size: 12pt; border-bottom: 1pt solid #ddd; padding-bottom: 2pt; margin-bottom: 6pt; font-weight: bold; color: #1a1a1a; text-transform: uppercase;">Professional Summary</h2>
-        <p id="resume-summary" style="font-size: 9.5pt; line-height: 1.5; color: #333; text-align: justify;">
-            Data-driven Senior Product Manager with 4+ years of experience scaling high-volume transactional platforms and digital ecosystems. Expert at bridging complex user journeys with strategic product interventions, driving 22% conversion lifts and 17% growth through optimized product mechanics. Proven track record in managing ₹1000+ Cr annual budgets to optimize acquisition and platform-scale depth.
+    <div style="margin-bottom: 7pt;">
+        <h2 style="font-size: 9pt; border-bottom: 1pt solid #ddd; padding-bottom: 1pt; margin-bottom: 3pt; font-weight: bold; color: #1a1a1a; text-transform: uppercase; letter-spacing: 0.3px;">Professional Summary</h2>
+        <p id="resume-summary" style="font-size: 8.5pt; line-height: 1.4; color: #333; text-align: justify; margin: 0;">
+            Impact-driven Senior Product Manager with 4+ years scaling high-volume fintech platforms and digital payment ecosystems. Expert at bridging user journeys with strategic product interventions, driving 22% conversion lifts and 17% CLTV growth. Proven track record managing \u20b91000+ Cr annual budgets to optimize acquisition and platform-scale depth.
         </p>
     </div>
 
-    <div style="margin-bottom: 14pt;">
-        <h2 style="font-size: 12pt; border-bottom: 1pt solid #ddd; padding-bottom: 2pt; margin-bottom: 8pt; font-weight: bold; color: #1a1a1a; text-transform: uppercase;">Professional Experience</h2>
+    <div style="margin-bottom: 7pt;">
+        <h2 style="font-size: 9pt; border-bottom: 1pt solid #ddd; padding-bottom: 1pt; margin-bottom: 4pt; font-weight: bold; color: #1a1a1a; text-transform: uppercase; letter-spacing: 0.3px;">Professional Experience</h2>
 
-        <div style="margin-bottom: 10pt; page-break-inside: avoid;">
-            <div style="display: flex; justify-content: space-between; font-weight: bold; font-size: 10pt; color: #1a1a1a;">
-                <span>PHONEPE (Engagement & Growth)</span><span>May 2023 – Present</span>
+        <div style="margin-bottom: 5pt; page-break-inside: avoid;">
+            <div style="display: flex; justify-content: space-between; font-weight: bold; font-size: 9pt; color: #1a1a1a;">
+                <span>PHONEPE &mdash; Product Manager &nbsp;<em style="font-weight:400; font-size:8.5pt;">(Engagement &amp; Growth)</em></span><span style="font-size:8.5pt;">May 2023 &ndash; Present | Bangalore</span>
             </div>
-            <div style="display: flex; justify-content: space-between; font-style: italic; font-size: 9.5pt; color: #444; margin-bottom: 2pt;">
-                <span>Product Manager</span><span>Bangalore, India</span>
-            </div>
-            <ul style="font-size: 9.5pt; margin-left: 14pt; line-height: 1.4; color: #333;">
-                <li style="margin-bottom: 2pt;"><strong>Retention & Growth:</strong> Launched a gamified milestone system and unified offer discovery journey, scaling <strong>CLTV by 17%</strong> and increasing active session depth through algorithmically cohorted user interventions.</li>
-                <li style="margin-bottom: 2pt;"><strong>Conversion Optimization:</strong> Reimagined end-to-end checkout and payment experience, architecting <strong>EMI subvention capabilities</strong> driving 14% increase in conversion for high-intent segments.</li>
-                <li style="margin-bottom: 2pt;"><strong>Predictive Engagement:</strong> Directed a ₹1000+ Cr annual marketing engine, deploying <strong>'Propensity to Transact' ML models</strong> to reduce marketing burn by 32% while sustaining double-digit YoY growth.</li>
-                <li style="margin-bottom: 2pt;"><strong>In-App Incentivization:</strong> Designed real-time, context-aware interventions (freebies, fee-waivers) for Pincode, significantly reducing <strong>supply chain abandonment</strong> and improving overall funnel health.</li>
+            <ul style="font-size: 8.5pt; margin: 2pt 0 0 12pt; line-height: 1.32; color: #333; padding: 0;">
+                <li style="margin-bottom: 1.5pt;"><strong>Retention:</strong> Gamified milestone system + unified offer journey &rarr; <strong>CLTV +17%</strong>, deeper session engagement via ML cohorting.</li>
+                <li style="margin-bottom: 1.5pt;"><strong>Conversion:</strong> Checkout revamp + EMI subvention &rarr; <strong>+22% offer-applied conversions</strong> for high-intent segments.</li>
+                <li style="margin-bottom: 1.5pt;"><strong>Budget Optimization:</strong> Directed \u20b91000+ Cr marketing engine with Propensity-to-Transact ML models &rarr; <strong>32% lower burn</strong>, double-digit YoY growth.</li>
+                <li style="margin-bottom: 1.5pt;"><strong>Quick Commerce:</strong> Real-time cart interventions (freebies, fee-waivers) for Pincode &rarr; reduced supply chain abandonment.</li>
             </ul>
         </div>
 
-        <div style="margin-bottom: 10pt; page-break-inside: avoid;">
-            <div style="display: flex; justify-content: space-between; font-weight: bold; font-size: 10pt; color: #1a1a1a;">
-                <span>PHONEPE (Monetization & Strategy)</span><span>April 2022 – April 2023</span>
+        <div style="margin-bottom: 5pt; page-break-inside: avoid;">
+            <div style="display: flex; justify-content: space-between; font-weight: bold; font-size: 9pt; color: #1a1a1a;">
+                <span>PHONEPE &mdash; Associate PM &nbsp;<em style="font-weight:400; font-size:8.5pt;">(Monetization &amp; Strategy)</em></span><span style="font-size:8.5pt;">Apr 2022 &ndash; Apr 2023 | Bangalore</span>
             </div>
-            <div style="display: flex; justify-content: space-between; font-style: italic; font-size: 9.5pt; color: #444; margin-bottom: 2pt;">
-                <span>Associate Product Manager</span><span>Bangalore, India</span>
-            </div>
-            <ul style="font-size: 9.5pt; margin-left: 14pt; line-height: 1.4; color: #333;">
-                <li style="margin-bottom: 2pt;"><strong>Viral Acquisition Engine:</strong> Engineered a multi-tenant referral engine with integrated fraud detection, acquiring <strong>5Mn+ users/month</strong> and optimizing CAC by 23%.</li>
-                <li style="margin-bottom: 2pt;"><strong>Monetization Roadmap:</strong> Managed a ₹100 Cr/year monetization portfolio, defining scalable B2B infrastructure that supported rapid merchant growth.</li>
+            <ul style="font-size: 8.5pt; margin: 2pt 0 0 12pt; line-height: 1.32; color: #333; padding: 0;">
+                <li style="margin-bottom: 1.5pt;"><strong>Viral Growth:</strong> Multi-tenant referral engine with fraud detection &rarr; <strong>5Mn+ users/month</strong>, CAC optimized by 23%.</li>
+                <li style="margin-bottom: 1.5pt;"><strong>Monetization:</strong> Managed \u20b9100 Cr/yr portfolio; built scalable B2B infra supporting rapid merchant expansion.</li>
             </ul>
         </div>
 
-        <div style="margin-bottom: 10pt; page-break-inside: avoid;">
-            <div style="display: flex; justify-content: space-between; font-weight: bold; font-size: 10pt; color: #1a1a1a;">
-                <span>KOTAK MAHINDRA BANK</span><span>April 2021 – June 2021</span>
+        <div style="margin-bottom: 5pt; page-break-inside: avoid;">
+            <div style="display: flex; justify-content: space-between; font-weight: bold; font-size: 9pt; color: #1a1a1a;">
+                <span>KOTAK MAHINDRA BANK &mdash; PM Intern, Founding Team</span><span style="font-size:8.5pt;">Apr &ndash; Jun 2021 | Mumbai</span>
             </div>
-            <div style="display: flex; justify-content: space-between; font-style: italic; font-size: 9.5pt; color: #444; margin-bottom: 2pt;">
-                <span>PM Intern (Founding Team)</span><span>Mumbai, India</span>
-            </div>
-            <ul style="font-size: 9.5pt; margin-left: 14pt; line-height: 1.4; color: #333;">
-                <li style="margin-bottom: 2pt;"><strong>0→1 Platform Launch:</strong> Conceptualized and launched the <strong>Kotak Cherry WealthTech</strong> platform, achieving 100K+ downloads within 90 days and a +26% Day-30 retention rate.</li>
+            <ul style="font-size: 8.5pt; margin: 2pt 0 0 12pt; line-height: 1.32; color: #333; padding: 0;">
+                <li><strong>0&rarr;1 Launch:</strong> Conceptualized Kotak Cherry WealthTech &rarr; <strong>100K+ downloads in 90 days</strong>, Day-30 retention +26%.</li>
             </ul>
         </div>
     </div>
 
-    <div style="margin-bottom: 14pt; page-break-inside: avoid;">
-        <h2 style="font-size: 12pt; border-bottom: 1pt solid #ddd; padding-bottom: 2pt; margin-bottom: 6pt; font-weight: bold; color: #1a1a1a; text-transform: uppercase;">Technical Skills</h2>
-        <p style="font-size: 9.5pt; line-height: 1.5; color: #333;">
-            <strong>Product & Engagement:</strong> Live Operations (LiveOps), Gamification, Retention Mechanics, Conversion Funnel Optimization, A/B Testing, Lifecycle Management, Technical Product Strategy.<br>
-            <strong>Data & Tools:</strong> SQL (Advanced), Machine Learning (Propensity Modeling), Data Modeling, Mixpanel, Clevertap, Jira, Figma, Tableau.
+    <div style="margin-bottom: 6pt; page-break-inside: avoid;">
+        <h2 style="font-size: 9pt; border-bottom: 1pt solid #ddd; padding-bottom: 1pt; margin-bottom: 3pt; font-weight: bold; color: #1a1a1a; text-transform: uppercase; letter-spacing: 0.3px;">Skills</h2>
+        <p style="font-size: 8.5pt; line-height: 1.4; color: #333; margin: 0;">
+            <strong>Product:</strong> LiveOps, Gamification, Retention Mechanics, Funnel Optimization, A/B Testing, Lifecycle, Growth Loops &nbsp;&nbsp;
+            <strong>Data &amp; Tools:</strong> SQL, ML (Propensity Modeling), Mixpanel, CleverTap, Jira, Figma, Tableau
         </p>
     </div>
 
-    <div style="margin-bottom: 14pt;">
-        <h2 style="font-size: 12pt; border-bottom: 1pt solid #ddd; padding-bottom: 2pt; margin-bottom: 8pt; font-weight: bold; color: #1a1a1a; text-transform: uppercase;">Education</h2>
-        <div style="font-size: 9.5pt; color: #333; line-height: 1.6;">
-            <strong>IIM Indore</strong> | MBA | 2022<br>
-            <strong>Neoma Business School, France</strong> | Student Exchange (MBA) | 2021<br>
-            <strong>VNIT Nagpur</strong> | B.Tech in Computer Science | 2020
-        </div>
+    <div style="margin-bottom: 6pt;">
+        <h2 style="font-size: 9pt; border-bottom: 1pt solid #ddd; padding-bottom: 1pt; margin-bottom: 3pt; font-weight: bold; color: #1a1a1a; text-transform: uppercase; letter-spacing: 0.3px;">Education</h2>
+        <p style="font-size: 8.5pt; color: #333; line-height: 1.5; margin: 0;">
+            <strong>IIM Indore</strong> | MBA | 2022 &nbsp;&mdash;&nbsp; <strong>Neoma Business School, France</strong> | Exchange (MBA) | 2021 &nbsp;&mdash;&nbsp; <strong>VNIT Nagpur</strong> | B.Tech CS | 2020
+        </p>
     </div>
 
-    <div style="margin-bottom: 14pt;">
-        <h2 style="font-size: 12pt; border-bottom: 1pt solid #ddd; padding-bottom: 2pt; margin-bottom: 8pt; font-weight: bold; color: #1a1a1a; text-transform: uppercase;">AI & Open Source Projects</h2>
-        <ul style="font-size: 9.5pt; margin-left: 14pt; line-height: 1.4; color: #333;">
-            <li><strong>AI Mock Product Manager Interviewer</strong> (<a href="https://huggingface.co/spaces/ajay-avaghade/AI-Mock-Product-Manager-Interviewer" style="color: #007bff; text-decoration: none;">Live Demo</a>): Architected a real-time voice conversational agent using LLMs and speech-to-text to conduct PM mock interviews, providing instant scorecards and feedback.</li>
-        </ul>
-    </div>
-
-    <div style="margin-bottom: 14pt;">
-        <h2 style="font-size: 12pt; border-bottom: 1pt solid #ddd; padding-bottom: 2pt; margin-bottom: 8pt; font-weight: bold; color: #1a1a1a; text-transform: uppercase;">Key Achievements</h2>
-        <ul style="font-size: 9.5pt; margin-left: 14pt; line-height: 1.4; color: #333;">
-            <li><strong>Campus Winner:</strong> Asian Paints Canvas B-School Competition.</li>
-            <li><strong>National Finalist:</strong> ITC Interrobang.</li>
-            <li><strong>Academic Excellence:</strong> Education Minister Award – District Topper (10th & 12th).</li>
+    <div style="margin-bottom: 5pt;">
+        <h2 style="font-size: 9pt; border-bottom: 1pt solid #ddd; padding-bottom: 1pt; margin-bottom: 3pt; font-weight: bold; color: #1a1a1a; text-transform: uppercase; letter-spacing: 0.3px;">AI Projects &amp; Key Highlights</h2>
+        <ul style="font-size: 8.5pt; margin: 0 0 0 12pt; line-height: 1.32; color: #333; padding: 0;">
+            <li style="margin-bottom: 1.5pt;"><strong>AI PM Interviewer</strong> (<a href="https://huggingface.co/spaces/ajay-avaghade/AI-Mock-Product-Manager-Interviewer" style="color: #007bff; text-decoration: none;">Live Demo</a>): Real-time voice agent for PM mock interviews with auto-scorecard generation.</li>
+            <li><strong>Awards:</strong> Campus Winner &ndash; Asian Paints Canvas; National Finalist &ndash; ITC Interrobang; Education Minister Award (District Topper, 10th &amp; 12th).</li>
         </ul>
     </div>
 </div>
 `;
+
+// ============================================================
+// Spike Injection: Domain-tailored metric callout pills
+// ============================================================
+function injectSpikes(html, domain, callback) {
+    const domainSpikes = {
+        Gaming:       ['🎮 CLTV +17% via gamified milestones', '⚡ 5Mn+ users/month acquired', '💰 ₹1000+ Cr budget optimized'],
+        SaaS:         ['📈 22% conversion lift', '🔁 32% lower marketing burn via ML', '🏦 ₹1000+ Cr budget managed'],
+        Fintech:      ['💳 22% checkout conversion lift', '🚀 5Mn+ users/month acquired', '📉 32% marketing burn reduced'],
+        Ecommerce:    ['🛒 22% offer-applied conversion lift', '📦 Supply chain abandonment reduced', '💰 ₹1000+ Cr budget managed'],
+        QuickCommerce:['⚡ Real-time cart interventions live', '📦 Supply chain abandonment reduced', '🚀 5Mn+ users/month via referral'],
+        Travel:       ['✈️ 22% conversion lift on checkout', '🔁 32% lower acquisition burn', '🌏 Cross-border platform expertise'],
+        Mobility:     ['🚗 Real-time supply-demand systems', '📉 CAC optimized by 23%', '💰 ₹1000+ Cr budget managed'],
+        HealthTech:   ['🏥 Compliance-driven product launches', '📈 17% retention lift', '🔒 Fraud-aware growth mechanics'],
+        EdTech:       ['📚 Gamified engagement → CLTV +17%', '🚀 100K+ platform installs in 90 days', '📊 ML-driven cohort targeting'],
+        Logistics:    ['📦 Supply chain abandonment reduced', '🗺️ Real-time dispatch interventions', '💰 ₹1000+ Cr budget optimized'],
+        BigTech:      ['⚙️ B.Tech CS + MBA dual pedigree', '📊 ML propensity models in prod', '📈 22% conversion lift at scale'],
+        Hyperlocal:   ['📍 City-level rollout expertise', '⚡ Real-time cart interventions', '🚀 5Mn+ users/month acquired'],
+        ContentSocial:['🔁 Viral referral loop → 5Mn+/month', '❤️ CLTV +17% via gamification', '📉 CAC reduced 23%'],
+        ProductOps:   ['🧪 ML propensity model in prod', '📊 ₹1000+ Cr budget with data targeting', '📈 32% lower marketing burn'],
+        InsurTech:    ['🔒 Risk & compliance product track', '📈 22% conversion lift', '💰 ₹1000+ Cr budget managed'],
+        PropTech:     ['🏠 End-to-end transaction journeys', '📈 22% conversion lift', '🚀 100K+ users acquired in 90 days'],
+        AgriTech:     ['🌾 Supply chain product expertise', '📊 Data-driven targeting models', '💰 ₹1000+ Cr budget managed'],
+        HRTech:       ['👥 Engagement loop design', '📈 17% CLTV lift', '🔁 ML-driven user cohorting'],
+        Web3Crypto:   ['🔐 Fraud detection systems built', '📊 ML propensity models', '⚡ 5Mn+ user acquisition engine'],
+        B2BCommerce:  ['🏢 ₹100 Cr/yr B2B portfolio managed', '📦 Merchant infra built from scratch', '📈 22% conversion lift'],
+    };
+    const spikes = domainSpikes[domain] || domainSpikes.Fintech;
+    const spikesHtml = `<div style="display:flex; justify-content:center; gap:8pt; flex-wrap:wrap; margin-top:4pt;">
+        ${spikes.map(s => `<span style="background:#f0f4ff; border:1px solid #c7d2fe; border-radius:3pt; padding:1.5pt 6pt; font-size:7.5pt; color:#3730a3; font-weight:600; white-space:nowrap;">${s}</span>`).join('')}
+    </div>`;
+    const updated = html.replace(
+        /<div id="resume-spikes"[^>]*><\/div>/,
+        `<div id="resume-spikes" style="margin-top:3pt;">${spikesHtml}</div>`
+    );
+    callback(updated);
+}
+
 
 // ============================================================
 // Settings Modal
@@ -192,52 +213,134 @@ function extractKeywords(text) {
 
 // Detect company name from JD text or URL
 function detectCompany(jdText, jdUrl) {
-    const combined = (jdText + ' ' + jdUrl).toLowerCase();
+    const urlLower = (jdUrl || '').toLowerCase();
+    const textLower = (jdText || '').toLowerCase();
+    const combined = textLower + ' ' + urlLower;
+
+    // --- STEP 1: ATS-specific URL pattern extraction (most reliable signal) ---
+    // Greenhouse: boards.greenhouse.io/companyslug/jobs/...
+    const greenhouseMatch = urlLower.match(/greenhouse\.io\/([a-z0-9_-]+)/);
+    if (greenhouseMatch && greenhouseMatch[1] && !['jobs','embed'].includes(greenhouseMatch[1])) {
+        return _slugToName(greenhouseMatch[1]);
+    }
+    // Lever: jobs.lever.co/companyslug/...
+    const leverMatch = urlLower.match(/lever\.co\/([a-z0-9_-]+)/);
+    if (leverMatch && leverMatch[1]) return _slugToName(leverMatch[1]);
+    // Workday: companyname.wd5.myworkdayjobs.com or similar
+    const workdayMatch = urlLower.match(/([a-z0-9-]+)\.wd\d+\.myworkdayjobs/);
+    if (workdayMatch && workdayMatch[1]) return _slugToName(workdayMatch[1]);
+    // iCIMS: careers-company.icims.com
+    const icimsMatch = urlLower.match(/careers[-.]([a-z0-9-]+)\.icims/);
+    if (icimsMatch && icimsMatch[1]) return _slugToName(icimsMatch[1]);
+    // SmartRecruiters: jobs.smartrecruiters.com/CompanyName/
+    const smartMatch = (jdUrl || '').match(/smartrecruiters\.com\/([A-Za-z0-9_-]+)/);
+    if (smartMatch && smartMatch[1]) return _slugToName(smartMatch[1]);
+    // Ashby: jobs.ashbyhq.com/companyname
+    const ashbyMatch = urlLower.match(/ashbyhq\.com\/([a-z0-9_-]+)/);
+    if (ashbyMatch && ashbyMatch[1]) return _slugToName(ashbyMatch[1]);
+    // Naukri: company name usually in URL path
+    const naukriMatch = urlLower.match(/naukri\.com\/([a-z0-9-]+-jobs)/);
+    if (naukriMatch && naukriMatch[1]) {
+        const slug = naukriMatch[1].replace(/-jobs$/, '');
+        return _slugToName(slug);
+    }
+    // LinkedIn company pages
+    const linkedinMatch = urlLower.match(/linkedin\.com\/company\/([a-z0-9_-]+)/);
+    if (linkedinMatch && linkedinMatch[1]) return _slugToName(linkedinMatch[1]);
+
+    // --- STEP 2: Hardcoded brand lookup in combined text ---
     const brands = [
         // Fintech & Payments
-        'phonepe','razorpay','paytm','groww','zerodha','cred','jupiter','fi','slice','bharatpe',
+        'phonepe','razorpay','paytm','groww','zerodha','cred','jupiter','fi money','slice','bharatpe',
         'stripe','square','plaid','revolut','wise','klarna','affirm','chime','robinhood','coinbase',
+        'cashfree','juspay','setu','m2p','epifi','freo','niyo','open money','ofbusiness',
         // E-commerce & Marketplace
-        'flipkart','amazon','meesho','myntra','nykaa','ajio','tata','jiomart','shopify','etsy',
+        'flipkart','amazon','meesho','myntra','nykaa','ajio','jiomart','shopify','etsy','pepperfry',
+        'lenskart','mamaearth','boat lifestyle','firstcry','purplle','bigbasket','urban company',
         // Food & Delivery
-        'swiggy','zomato','blinkit','zepto','dunzo','doordash','uber eats','instacart',
+        'swiggy','zomato','blinkit','zepto','dunzo','doordash','instacart','magicpin','thrive',
         // Ride & Mobility
-        'ola','uber','rapido','bounce','yulu',
+        'ola','uber','rapido','bounce','yulu','drivezy','wobot','log9',
         // SaaS & Enterprise
         'vyapar','zoho','freshworks','browserstack','postman','chargebee','leadsquared','clevertap',
         'salesforce','hubspot','notion','figma','canva','atlassian','slack','asana','monday',
+        'razorthink','sprinklr','appsmith','hasura','rudderstack','posthog','mixpanel','amplitude',
+        'segment','moengage','netcore','webengage','insider','apxor','capillary',
         // Gaming & Entertainment
-        'dream11','mpl','winzo','games24x7','nazara','skillz','roblox','epic','supercell','zynga',
+        'dream11','mpl','winzo','games24x7','nazara','skillz','roblox','epic games','supercell','zynga',
+        'riot games','electronic arts','activision','king','playtika','jam city','scopely',
         // Travel & Hospitality
-        'makemytrip','goibibo','oyo','cleartrip','ixigo','booking','airbnb','expedia','sabre','amadeus',
+        'makemytrip','goibibo','oyo','cleartrip','ixigo','booking.com','airbnb','expedia','sabre',
+        'amadeus','thomas cook','yatra','tripadvisor','agoda','fabhotels','treebo',
         // Social & Content
-        'sharechat','koo','dailyhunt','inmobi','truecaller','snap','tiktok','reddit','discord','linkedin',
+        'sharechat','koo','dailyhunt','inmobi','truecaller','snap','tiktok','reddit','discord',
+        'moj','josh','roposo','lokal','stage','pratilipi','frnd',
         // EdTech
-        'byju','unacademy','upgrad','vedantu','physicswallah','coursera','udemy','duolingo',
+        "byju's",'byju','unacademy','upgrad','vedantu','physics wallah','physicswallah',
+        'coursera','udemy','duolingo','eruditus','emeritus','great learning','scaler','lambda school',
         // HealthTech
-        'practo','pharmeasy','tata 1mg','healthkart','cure.fit','niramai',
+        'practo','pharmeasy','tata 1mg','healthkart','curefit','cult.fit','niramai','mfine',
+        'portea','lybrate','wellness forever','medplus','apollo247','bajaj health',
         // Logistics & Supply Chain
-        'delhivery','shiprocket','locus','rivigo','ecom express','fedex',
-        // Big Tech
-        'google','microsoft','meta','apple','netflix','spotify','twitter','openai','anthropic',
-        // Snabbit and other startups
-        'snabbit','gojek','grab','careem','bolt'
+        'delhivery','shiprocket','locus','rivigo','ecom express','fedex','bluedart','xpressbees',
+        'porter','shadowfax','borzo','loadshare','elasticrun',
+        // InsurTech
+        'policybazaar','coverfox','digit insurance','acko','go digit','turtlemint',
+        // PropTech
+        'housing.com','99acres','magicbricks','nestaway','nobroker','squareyards',
+        // AgriTech
+        'ninjacart','dehaat','agrostar','stellapps','cropin','farmart',
+        // HRTech
+        'darwinbox','greythr','springworks','keka','zimyo','pocket hrms',
+        // Big Tech & FAANG
+        'google','microsoft','meta','apple','netflix','spotify','openai','anthropic',
+        'amazon web services','aws','google cloud','azure','oracle','sap','ibm',
+        // Snabbit and startups
+        'snabbit','gojek','grab','careem','bolt','wolt','getir','gopuff','gorillas'
     ];
     for (const brand of brands) {
         if (combined.includes(brand)) {
-            // Handle multi-word brands
             return brand.split(' ').map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(' ');
         }
     }
-    // Try domain from non-job-board URLs
-    if (jdUrl && !jdUrl.includes('linkedin') && !jdUrl.includes('indeed') && !jdUrl.includes('naukri') && !jdUrl.includes('lever.co') && !jdUrl.includes('greenhouse')) {
+
+    // --- STEP 3: Regex pattern from JD text — "at CompanyName" or "join CompanyName" ---
+    const textPatterns = [
+        /\bat\s+([A-Z][A-Za-z0-9]+(?:\s[A-Z][A-Za-z0-9]+)?)\b/,
+        /\bjoin\s+([A-Z][A-Za-z0-9]+(?:\s[A-Z][A-Za-z0-9]+)?)\b/,
+        /\bwith\s+([A-Z][A-Za-z0-9]+(?:\s[A-Z][A-Za-z0-9]+)?)\b/,
+        /company[:\s]+([A-Z][A-Za-z0-9]+(?:\s[A-Z][A-Za-z0-9]+)?)/i,
+        /organization[:\s]+([A-Z][A-Za-z0-9]+(?:\s[A-Z][A-Za-z0-9]+)?)/i,
+    ];
+    // Common false-positives to skip
+    const skipWords = new Set(['the','our','your','this','that','us','you','we','a','an','be','is','are','has','have','will','can','may','who']);
+    for (const pattern of textPatterns) {
+        const m = (jdText || '').match(pattern);
+        if (m && m[1] && !skipWords.has(m[1].toLowerCase()) && m[1].length > 2 && m[1].length < 40) {
+            return m[1].trim();
+        }
+    }
+
+    // --- STEP 4: Domain from non-job-board URL as last resort ---
+    const JOB_BOARDS = ['linkedin','indeed','naukri','lever.co','greenhouse','smartrecruiters',
+        'workday','icims','ashbyhq','myworkdayjobs','taleo','bamboohr','recruitee','jobvite'];
+    const isJobBoard = JOB_BOARDS.some(b => urlLower.includes(b));
+    if (jdUrl && !isJobBoard) {
         try {
             const hostname = new URL(jdUrl).hostname;
-            const parts = hostname.split('.');
-            if (parts.length >= 2) return parts[parts.length - 2].charAt(0).toUpperCase() + parts[parts.length - 2].slice(1);
+            const parts = hostname.replace(/^www\./, '').split('.');
+            if (parts.length >= 1) return _slugToName(parts[0]);
         } catch(e) { /* ignore */ }
     }
     return null;
+}
+
+// Helper: convert a URL slug to a proper display name
+function _slugToName(slug) {
+    return slug
+        .replace(/[_-]+/g, ' ')
+        .replace(/\b\w/g, c => c.toUpperCase())
+        .trim();
 }
 
 // Detect domain category from JD text (weighted scoring for accuracy)
@@ -246,20 +349,68 @@ function detectDomain(jdText, companyName) {
 
     // Company-to-domain override for known brands
     const companyDomainMap = {
-        'phonepe': 'Fintech', 'razorpay': 'Fintech', 'paytm': 'Fintech', 'groww': 'Fintech',
-        'zerodha': 'Fintech', 'cred': 'Fintech', 'stripe': 'Fintech', 'plaid': 'Fintech',
-        'flipkart': 'Ecommerce', 'amazon': 'Ecommerce', 'meesho': 'Ecommerce', 'myntra': 'Ecommerce',
-        'shopify': 'Ecommerce', 'nykaa': 'Ecommerce',
-        'swiggy': 'QuickCommerce', 'zomato': 'QuickCommerce', 'blinkit': 'QuickCommerce',
-        'zepto': 'QuickCommerce', 'dunzo': 'QuickCommerce', 'instacart': 'QuickCommerce',
-        'ola': 'Mobility', 'uber': 'Mobility', 'rapido': 'Mobility',
-        'dream11': 'Gaming', 'mpl': 'Gaming', 'skillz': 'Gaming', 'winzo': 'Gaming',
-        'vyapar': 'SaaS', 'zoho': 'SaaS', 'freshworks': 'SaaS', 'salesforce': 'SaaS',
-        'makemytrip': 'Travel', 'oyo': 'Travel', 'booking': 'Travel', 'airbnb': 'Travel', 'sabre': 'Travel',
-        'byju': 'EdTech', 'unacademy': 'EdTech', 'coursera': 'EdTech', 'duolingo': 'EdTech',
-        'practo': 'HealthTech', 'pharmeasy': 'HealthTech',
-        'google': 'BigTech', 'microsoft': 'BigTech', 'meta': 'BigTech', 'apple': 'BigTech',
-        'snabbit': 'Hyperlocal', 'delhivery': 'Logistics', 'shiprocket': 'Logistics',
+        // Fintech
+        'phonepe':'Fintech','razorpay':'Fintech','paytm':'Fintech','groww':'Fintech',
+        'zerodha':'Fintech','cred':'Fintech','stripe':'Fintech','plaid':'Fintech',
+        'cashfree':'Fintech','juspay':'Fintech','setu':'Fintech','epifi':'Fintech',
+        'freo':'Fintech','niyo':'Fintech','jupiter':'Fintech','slice':'Fintech',
+        'bharatpe':'Fintech','revolut':'Fintech','wise':'Fintech','klarna':'Fintech',
+        'affirm':'Fintech','chime':'Fintech','robinhood':'Fintech','coinbase':'Fintech',
+        // Ecommerce
+        'flipkart':'Ecommerce','amazon':'Ecommerce','meesho':'Ecommerce','myntra':'Ecommerce',
+        'shopify':'Ecommerce','nykaa':'Ecommerce','ajio':'Ecommerce','lenskart':'Ecommerce',
+        'mamaearth':'Ecommerce','bigbasket':'Ecommerce','pepperfry':'Ecommerce','etsy':'Ecommerce',
+        // QuickCommerce
+        'swiggy':'QuickCommerce','zomato':'QuickCommerce','blinkit':'QuickCommerce',
+        'zepto':'QuickCommerce','dunzo':'QuickCommerce','instacart':'QuickCommerce',
+        'doordash':'QuickCommerce','wolt':'QuickCommerce','getir':'QuickCommerce','gopuff':'QuickCommerce',
+        // Mobility
+        'ola':'Mobility','uber':'Mobility','rapido':'Mobility','bounce':'Mobility','yulu':'Mobility',
+        'gojek':'Mobility','grab':'Mobility','careem':'Mobility','bolt':'Mobility',
+        // Gaming
+        'dream11':'Gaming','mpl':'Gaming','skillz':'Gaming','winzo':'Gaming','games24x7':'Gaming',
+        'nazara':'Gaming','roblox':'Gaming','supercell':'Gaming','zynga':'Gaming',
+        'riot games':'Gaming','electronic arts':'Gaming','activision':'Gaming','king':'Gaming',
+        'playtika':'Gaming','scopely':'Gaming',
+        // SaaS
+        'vyapar':'SaaS','zoho':'SaaS','freshworks':'SaaS','salesforce':'SaaS',
+        'hubspot':'SaaS','notion':'SaaS','atlassian':'SaaS','clevertap':'SaaS',
+        'moengage':'SaaS','webengage':'SaaS','netcore':'SaaS','amplitude':'SaaS',
+        'mixpanel':'SaaS','posthog':'SaaS','segment':'SaaS','chargebee':'SaaS',
+        'sprinklr':'SaaS','leadsquared':'SaaS',
+        // Travel
+        'makemytrip':'Travel','oyo':'Travel','airbnb':'Travel','sabre':'Travel',
+        'goibibo':'Travel','cleartrip':'Travel','ixigo':'Travel','expedia':'Travel',
+        'amadeus':'Travel','tripadvisor':'Travel','agoda':'Travel','fabhotels':'Travel',
+        // EdTech
+        'byju':'EdTech','unacademy':'EdTech','coursera':'EdTech','duolingo':'EdTech',
+        'upgrad':'EdTech','vedantu':'EdTech','physicswallah':'EdTech','scaler':'EdTech',
+        'eruditus':'EdTech','emeritus':'EdTech','great learning':'EdTech',
+        // HealthTech
+        'practo':'HealthTech','pharmeasy':'HealthTech','mfine':'HealthTech',
+        'curefit':'HealthTech','portea':'HealthTech','apollo247':'HealthTech',
+        // Logistics
+        'delhivery':'Logistics','shiprocket':'Logistics','xpressbees':'Logistics',
+        'porter':'Logistics','shadowfax':'Logistics','locus':'Logistics','rivigo':'Logistics',
+        // InsurTech
+        'policybazaar':'InsurTech','acko':'InsurTech','digit insurance':'InsurTech',
+        'coverfox':'InsurTech','turtlemint':'InsurTech',
+        // PropTech
+        'nobroker':'PropTech','housing.com':'PropTech','99acres':'PropTech',
+        'magicbricks':'PropTech','nestaway':'PropTech',
+        // HRTech
+        'darwinbox':'HRTech','greythr':'HRTech','springworks':'HRTech','keka':'HRTech',
+        // AgriTech
+        'ninjacart':'AgriTech','dehaat':'AgriTech','agrostar':'AgriTech','cropin':'AgriTech',
+        // BigTech
+        'google':'BigTech','microsoft':'BigTech','meta':'BigTech','apple':'BigTech',
+        'netflix':'BigTech','spotify':'ContentSocial','openai':'BigTech','anthropic':'BigTech',
+        // Hyperlocal
+        'snabbit':'Hyperlocal','urban company':'Hyperlocal','magicpin':'Hyperlocal',
+        // ContentSocial
+        'sharechat':'ContentSocial','koo':'ContentSocial','dailyhunt':'ContentSocial',
+        'truecaller':'ContentSocial','tiktok':'ContentSocial','discord':'ContentSocial',
+        'moj':'ContentSocial','josh':'ContentSocial','roposo':'ContentSocial',
     };
 
     if (companyName && companyDomainMap[companyName.toLowerCase()]) {
@@ -268,21 +419,63 @@ function detectDomain(jdText, companyName) {
 
     // Weighted keyword scoring
     const domainKeywords = {
-        Fintech: ['fintech','payments','banking','lending','credit','debit','upi','wallet','neobank','insurance','wealth','trading','investment','kyc','compliance','regulatory','aml','fraud detection','risk management','underwriting','collections','disbursement','emi','subvention','checkout','transaction'],
-        Ecommerce: ['ecommerce','e-commerce','marketplace','retail','seller','catalog','inventory','fulfillment','cart','checkout','logistics','warehouse','listing','sku','supply chain','merchandising','pricing','assortment','dropship'],
-        QuickCommerce: ['quick commerce','q-commerce','dark store','hyperlocal','delivery','grocery','last mile','order management','dispatch','rider','fleet','slot','express delivery','instant delivery','food delivery'],
-        SaaS: ['saas','b2b','enterprise','crm','erp','accounting','workflow','automation','dashboard','analytics platform','self-serve','onboarding','customer success','integration','api','platform','subscription','multi-tenant'],
-        Gaming: ['gaming','liveops','player','esport','in-game','virtual currency','matchmaking','leaderboard','tournament','guild','season pass','battle pass','engagement loop','retention','session depth','daily active','monetization loop'],
-        Travel: ['travel','hospitality','airline','booking','hotel','flight','itinerary','gds','ota','reservation','check-in','tourism','accommodation','experience platform'],
-        Mobility: ['ride','cab','driver','fleet','mobility','transport','route','eta','surge','pool','rental','scooter','bike','autonomous'],
-        HealthTech: ['health','medical','pharma','telemedicine','patient','clinical','diagnostic','wellness','fitness','mental health','healthcare','hospital','doctor','prescription','lab test'],
-        EdTech: ['edtech','education','learning','course','student','teacher','assessment','curriculum','lms','tutoring','certification','skill development','upskilling','cohort'],
-        Logistics: ['logistics','supply chain','warehouse','shipping','freight','tracking','courier','3pl','route optimization','demand planning','inventory management'],
-        BigTech: ['cloud','infrastructure','platform','operating system','search','advertising','machine learning','artificial intelligence','data center','developer tools','open source'],
-        Hyperlocal: ['hyperlocal','local services','on-demand','home services','urban','city','neighborhood','gig economy','service marketplace','task','errand'],
-        ContentSocial: ['social','content','creator','feed','engagement','viral','community','user generated','moderation','recommendation','algorithm','discovery','notification','retention loop'],
-        ProductOps: ['product operations','product ops','experimentation','feature flag','rollout','release management','product analytics','instrumentation','data pipeline','observability'],
+        Fintech: ['fintech','payments','banking','lending','credit','debit','upi','wallet','neobank',
+            'insurance policy','wealth management','trading','investment','kyc','compliance','regulatory',
+            'aml','fraud detection','risk management','underwriting','collections','disbursement',
+            'emi','subvention','checkout','transaction','remittance','forex','mutual fund'],
+        Ecommerce: ['ecommerce','e-commerce','marketplace','retail','seller','catalog','inventory',
+            'fulfillment','cart','checkout','listing','sku','merchandising','pricing','assortment',
+            'dropship','return','refund','seller onboarding','buyer','gmv'],
+        QuickCommerce: ['quick commerce','q-commerce','dark store','delivery','grocery','last mile',
+            'order management','dispatch','rider','fleet','slot','express delivery','instant delivery',
+            'food delivery','10 minute','hyperlocal delivery','pickup','aov'],
+        SaaS: ['saas','b2b','enterprise','crm','erp','workflow','automation','dashboard',
+            'self-serve','onboarding','customer success','integration','api','subscription',
+            'multi-tenant','mrr','arr','churn','nrr','expansion revenue','usage-based','freemium'],
+        Gaming: ['gaming','liveops','player','esport','in-game','virtual currency','matchmaking',
+            'leaderboard','tournament','guild','season pass','battle pass','engagement loop',
+            'session depth','daily active','monetization loop','dau','wau','mau','arpu',
+            'game economy','progression','real money gaming','fantasy'],
+        Travel: ['travel','hospitality','airline','hotel','flight','itinerary','gds','ota',
+            'reservation','check-in','tourism','accommodation','booking engine','property management',
+            'dynamic pricing','ancillary','loyalty program','visa','passport'],
+        Mobility: ['ride','cab','driver','fleet','mobility','transport','route','eta','surge',
+            'pool','rental','scooter','bike','autonomous','dispatch','ride hailing','two-wheeler'],
+        HealthTech: ['health','medical','pharma','telemedicine','patient','clinical','diagnostic',
+            'wellness','fitness','mental health','healthcare','hospital','doctor','prescription',
+            'lab test','ehr','emr','health record','insurance claim','pharmacy'],
+        EdTech: ['edtech','education','learning','course','student','teacher','assessment',
+            'curriculum','lms','tutoring','certification','skill development','upskilling',
+            'cohort','completion rate','learning outcome','instructor','campus'],
+        Logistics: ['logistics','supply chain','warehouse','shipping','freight','tracking',
+            'courier','3pl','route optimization','demand planning','inventory management',
+            'first mile','last mile','reverse logistics','manifest','pod'],
+        BigTech: ['cloud','infrastructure','developer platform','operating system','search engine',
+            'advertising platform','machine learning infrastructure','data center','developer tools',
+            'open source','api gateway','sdk','compute','storage','kubernetes'],
+        Hyperlocal: ['hyperlocal','local services','on-demand','home services','urban',
+            'gig economy','service marketplace','task','errand','doorstep','neighborhood'],
+        ContentSocial: ['social media','content platform','creator economy','feed','viral',
+            'community','user generated content','moderation','recommendation engine','algorithm',
+            'discovery','follower','engagement rate','creator monetization','short video','reels'],
+        ProductOps: ['product operations','product ops','experimentation','feature flag','rollout',
+            'release management','product analytics','instrumentation','data pipeline','observability',
+            'a/b testing','growth experimentation','metric framework'],
+        InsurTech: ['insurance','insurer','policy','premium','claim','underwrite','actuary',
+            'life insurance','health insurance','motor insurance','reinsurance','broker',
+            'term plan','endowment','ulip','loss ratio'],
+        PropTech: ['real estate','property','rental','tenant','landlord','listing','home buying',
+            'mortgage','co-living','co-working','property management','facility management','brokerage'],
+        AgriTech: ['agriculture','farmer','crop','agri','harvest','supply chain agri','input supply',
+            'precision farming','kisan','mandi','fpo','agri credit','soil','yield'],
+        HRTech: ['hrms','hris','payroll','attendance','leave management','performance review',
+            'employee engagement','talent acquisition','onboarding hr','workforce','appraisal','pms'],
+        Web3Crypto: ['web3','blockchain','nft','defi','dao','smart contract','crypto','token',
+            'wallet connect','layer 2','metaverse','protocol','on-chain','off-chain','staking'],
+        B2BCommerce: ['b2b commerce','trade','wholesale','procurement','purchase order','vendor',
+            'sourcing','rfq','invoice','gst','billing','accounts payable','accounts receivable'],
     };
+
 
     let bestDomain = 'Fintech';
     let bestScore = 0;
@@ -462,7 +655,13 @@ STRUCTURAL RULES:
 - Keep the EXACT same HTML structure and inline styles.
 - Do NOT add any new sections or remove existing ones.
 - Return ONLY the HTML. No markdown fences, no backticks, no explanation.
-- Every hyperlink must remain intact and functional.`;
+- Every hyperlink must remain intact and functional.
+
+ONE-PAGER CONSTRAINT (CRITICAL):
+- The final resume MUST fit on a single A4 page (max ~55-60 lines of content).
+- To achieve this: shorten the Professional Summary to 2 sentences max, keep each bullet to 1 line (max 15 words), keep Skills to 1 compact line per category, keep Education compact (1 line per entry).
+- Trim AI Projects and Key Achievements to 1 bullet each if needed to fit.
+- NEVER truncate metrics or contact info.`;
 
         const result = await callGemini(prompt);
         if (result && result.length > 500) {
@@ -478,7 +677,7 @@ STRUCTURAL RULES:
     if (!adapted && jdText) {
         addLog(`> [Agent 2] SYNTHESIZER: Applying ${domain} narrative positioning...`);
 
-        // Rewrite the summary based on domain — 14 categories
+        // Rewrite the summary based on domain — 20 categories
         const domainSummaries = {
             SaaS: `Results-oriented Senior Product Manager with 4+ years of experience scaling high-volume <strong>B2B SaaS platforms</strong> and enterprise workflow ecosystems. Expert at driving <strong>product-led growth</strong> through conversion funnel engineering and self-serve onboarding optimization, delivering 22% conversion lifts and 17% retention growth. Proven ability to manage ₹1000+ Cr budgets while building scalable multi-tenant infrastructure that drives long-term platform value.`,
             Gaming: `Engagement-first Senior Product Manager with 4+ years of experience scaling <strong>LiveOps-driven platforms</strong> and gamified engagement ecosystems. Expert at designing <strong>player retention mechanics</strong> and session-depth optimization, driving 22% conversion lifts and 17% CLTV growth through algorithmically cohorted user interventions. Managed ₹1000+ Cr budgets to optimize player acquisition, monetization loops, and platform-scale engagement depth.`,
@@ -494,6 +693,12 @@ STRUCTURAL RULES:
             Hyperlocal: `Builder-mindset Senior Product Manager with 4+ years of experience scaling <strong>high-frequency transactional platforms</strong> and hyperlocal service ecosystems. Expert at <strong>structuring ambiguous problem spaces into scalable product systems</strong>, driving 22% conversion lifts and 17% growth through rapid experimentation. Proven track record managing ₹1000+ Cr budgets while maintaining unit economics discipline across city-level rollouts.`,
             ContentSocial: `Growth-obsessed Senior Product Manager with 4+ years of experience scaling <strong>engagement-driven platforms</strong> and content ecosystems. Expert at designing <strong>viral acquisition loops, algorithmic content discovery, and retention-first product mechanics</strong>, driving 22% conversion lifts and 17% CLTV growth. Proven track record managing ₹1000+ Cr budgets to optimize creator-consumer flywheels at platform scale.`,
             ProductOps: `Systems-thinking Senior Product Manager with 4+ years of experience scaling <strong>high-volume platform operations</strong> and experimentation infrastructure. Expert at <strong>bringing structure to complex, ambiguous systems through data-driven frameworks and cross-functional alignment</strong>, driving 22% conversion lifts and 17% growth. Proven track record managing ₹1000+ Cr budgets with deep expertise in instrumentation, A/B testing, and release management.`,
+            InsurTech: `Risk-aware Senior Product Manager with 4+ years of experience scaling <strong>high-volume financial platforms</strong> and insurance-tech ecosystems. Expert at optimizing <strong>complex policy journeys, compliance-driven user flows, and trust-centric product mechanics</strong>, driving 22% conversion lifts and 17% growth. Proven track record managing ₹1000+ Cr budgets with deep expertise in regulated product environments and fraud-aware growth.`,
+            PropTech: `User-centric Senior Product Manager with 4+ years of experience scaling <strong>high-volume transactional platforms</strong> and property-tech ecosystems. Expert at <strong>streamlining high-stakes buyer/tenant journeys and marketplace matching logic</strong>, driving 22% conversion lifts and 17% growth. Proven track record managing ₹1000+ Cr budgets to optimize discovery, trust signals, and end-to-end transaction experiences.`,
+            AgriTech: `Impact-driven Senior Product Manager with 4+ years of experience scaling <strong>high-volume platform ecosystems</strong> serving rural and semi-urban users. Expert at <strong>building supply chain transparency, farmer-facing product journeys, and credit-linked digital workflows</strong>, driving 22% conversion lifts and 17% growth. Proven track record managing ₹1000+ Cr budgets with a strong eye for unit economics and behavior-led product design.`,
+            HRTech: `People-forward Senior Product Manager with 4+ years of experience scaling <strong>high-volume digital platforms</strong> and workforce-tech ecosystems. Expert at <strong>designing compliance-driven HRMS workflows, employee engagement loops, and performance management systems</strong>, driving 22% conversion lifts and 17% adoption growth. Proven track record managing ₹1000+ Cr budgets to align product delivery with enterprise-scale HR transformation.`,
+            Web3Crypto: `Boundary-pushing Senior Product Manager with 4+ years of experience scaling <strong>high-volume digital ecosystems</strong> and financial platforms. Expert at <strong>designing trust-first user journeys, on-chain product mechanics, and token-incentivized growth loops</strong>, bridging mainstream UX with decentralized infrastructure. Proven track record managing ₹1000+ Cr budgets with strong analytical rigor and rapid experimentation in ambiguous, high-stakes product environments.`,
+            B2BCommerce: `Enterprise-grade Senior Product Manager with 4+ years of experience scaling <strong>high-volume B2B platforms</strong> and commerce ecosystems. Expert at <strong>streamlining procurement workflows, vendor onboarding journeys, and invoice-to-cash product experiences</strong>, driving 22% conversion lifts and 17% efficiency gains. Proven track record managing ₹1000+ Cr budgets while aligning complex multi-stakeholder product requirements with measurable business outcomes.`,
         };
 
         const newSummary = domainSummaries[domain] || domainSummaries.Fintech;
@@ -502,6 +707,9 @@ STRUCTURAL RULES:
             `<p id="resume-summary" style="font-size: 9.5pt; line-height: 1.5; color: #333; text-align: justify;">${newSummary}</p>`
         );
     }
+
+    // ---- Always inject spikes (works for both Gemini-adapted and fallback paths) ----
+    injectSpikes(finalContent, domain, (updatedHtml) => { finalContent = updatedHtml; });
 
     // Render
     startBtn.disabled = false;
