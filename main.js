@@ -27,6 +27,9 @@ const resumeContent = document.getElementById('resume-content');
 const downloadBtn = document.getElementById('download-pdf');
 const downloadBtnDirect = document.getElementById('download-pdf-direct');
 const navDownload = document.getElementById('nav-download'); // Added back missing variable
+
+// Global: automation sets this before triggering download
+window.currentCompany = '';
 const refineBtn = document.getElementById('refine-btn');
 const refineInput = document.getElementById('refine-input');
 const profileText = document.getElementById('profile-text'); // Public mode only
@@ -838,7 +841,7 @@ async function downloadDirect() {
 
     const opt = {
         margin: [10, 12, 10, 12], // top, right, bottom, left in mm
-        filename: 'Ajay_Avaghade_Resume.pdf',
+        filename: `Ajay_Avaghade_${window.currentCompany || 'Resume'}.pdf`,
         image: { type: 'jpeg', quality: 0.98 },
         html2canvas: {
             scale: 2,
@@ -855,7 +858,11 @@ async function downloadDirect() {
 
     try {
         addLog('> [Agent 6] VALIDATOR: Rendering canvas...');
-        await html2pdf().set(opt).from(wrapper).save();
+        await html2pdf().set(opt).from(wrapper).toPdf().get('pdf').then(function(pdf) {
+            // Enforce single page — delete any overflow pages
+            const total = pdf.internal.getNumberOfPages();
+            for (let i = total; i > 1; i--) { pdf.deletePage(i); }
+        }).save();
         addLog('> SUCCESS: Resume PDF downloaded.');
     } catch (err) {
         addLog('> ERROR: PDF generation failed. Falling back to print dialog...');

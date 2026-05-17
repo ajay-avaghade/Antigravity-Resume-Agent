@@ -35,11 +35,15 @@ function updatePreview() {
 
 editor.addEventListener('input', updatePreview);
 
+// Global: set this before calling downloadPDF() for dynamic naming
+window.currentCompany = '';
+
 // PDF Download Logic
-async function downloadPDF() {
+async function downloadPDF(companyName) {
+    const co = companyName || window.currentCompany || 'Resume';
     const opt = {
         margin: 0,
-        filename: 'resume.pdf',
+        filename: `Ajay_Avaghade_${co}.pdf`,
         image: { type: 'jpeg', quality: 0.98 },
         html2canvas: { scale: 2, useCORS: true, letterRendering: true },
         jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' },
@@ -47,7 +51,11 @@ async function downloadPDF() {
     };
 
     try {
-        await html2pdf().set(opt).from(renderArea).save();
+        await html2pdf().set(opt).from(renderArea).toPdf().get('pdf').then(function(pdf) {
+            // Enforce single page — delete any overflow pages
+            const total = pdf.internal.getNumberOfPages();
+            for (let i = total; i > 1; i--) { pdf.deletePage(i); }
+        }).save();
     } catch (err) {
         console.error(err);
         window.print();
