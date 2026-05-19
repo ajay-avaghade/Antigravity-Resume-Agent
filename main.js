@@ -57,7 +57,7 @@ const masterResume = `
     <div style="margin-bottom: 12pt;">
         <h2 style="font-size: 9.5pt; border-bottom: 1pt solid #ccc; padding-bottom: 2pt; margin-bottom: 5pt; font-weight: bold; color: #1a1a1a; text-transform: uppercase; letter-spacing: 0.4px;">Professional Summary</h2>
         <p id="resume-summary" style="font-size: 9pt; line-height: 1.55; color: #333; text-align: justify; margin: 0;">
-            Impact-driven Senior Product Manager with 4+ years scaling high-volume fintech platforms and digital payment ecosystems at 500M+ transaction scale. Expert at transforming ambiguous growth problems into platform-level solutions — from ML-powered targeting to zero-to-one wealth-tech launches — driving 22% conversion lifts, 17% CLTV growth, and \u20b91000+ Cr budget efficiency. Unique duality of product strategy depth and risk/compliance fluency makes for outsized impact in regulated, high-stakes environments.
+            Growth &amp; Monetization PM with 4+ years building the commercial infrastructure that makes high-volume platforms sticky — offers, incentives, referrals, and ML-powered targeting — across both consumer (50M+ MAU) and merchant (5,000+ B2B) surfaces at PhonePe. Track record: 22% checkout conversion lift, 32% reduction in \u20b91000+ Cr marketing burn, 35% AOV uplift in Quick Commerce. VNIT CS + IIM Indore MBA with hands-on SQL and propensity modeling depth.
         </p>
     </div>
 
@@ -66,23 +66,23 @@ const masterResume = `
 
         <div style="margin-bottom: 9pt; page-break-inside: avoid;">
             <div style="display: flex; justify-content: space-between; font-weight: bold; font-size: 9.5pt; color: #1a1a1a; margin-bottom: 1pt;">
-                <span>PHONEPE &mdash; Product Manager &nbsp;<em style="font-weight:400; font-size:9pt;">(Engagement &amp; Growth)</em></span><span style="font-size:9pt; font-weight:400;">May 2023 &ndash; Present &nbsp;|&nbsp; Bangalore</span>
+                <span>PHONEPE &mdash; Product Manager &nbsp;<em style="font-weight:400; font-size:9pt;">(Consumer Offers &amp; Growth Platform)</em></span><span style="font-size:9pt; font-weight:400;">May 2023 &ndash; Present &nbsp;|&nbsp; Bangalore</span>
             </div>
             <ul style="font-size: 9pt; margin: 3pt 0 0 14pt; line-height: 1.5; color: #333; padding: 0;">
                 <li style="margin-bottom: 3pt;">Diagnosed fragmented offer discovery as the primary drop-off driver across 50M+ MAU; architected a unified offer platform spanning discovery, application, and post-transaction nudges — lifting <strong>offer-applied conversion by 22%</strong> and CLTV by 17%.</li>
                 <li style="margin-bottom: 3pt;">Identified that one-size-fits-all promotions were burning budget on low-intent users; led strategy to deploy Propensity-to-Transact ML models across a \u20b91000+ Cr annual marketing engine, cutting <strong>acquisition burn by 32%</strong> while sustaining double-digit YoY growth.</li>
                 <li style="margin-bottom: 3pt;">Recognized EMI as an untapped conversion lever for high-ticket categories; defined product &amp; commercial strategy for EMI subvention, enabling bank-funded zero-cost plans that drove <strong>14% uplift in high-intent checkout completion</strong>.</li>
-                <li style="margin-bottom: 0;">Observed high cart abandonment in Pincode (Quick Commerce) despite strong intent signals; designed a real-time incentive engine — freebies, fee-waivers, steal deals — contextually triggered at cart, <strong>meaningfully reducing abandonment</strong> and improving AOV.</li>
+                <li style="margin-bottom: 0;">Observed high cart abandonment in Pincode (Quick Commerce) despite strong intent signals; designed a real-time incentive engine — freebies, fee-waivers, steal deals — contextually triggered by cart value and delivery thresholds — driving a <strong>35% AOV uplift, 60% drop in cart abandonment</strong>, and 20% improvement in 30-day retention.</li>
             </ul>
         </div>
 
         <div style="margin-bottom: 9pt; page-break-inside: avoid;">
             <div style="display: flex; justify-content: space-between; font-weight: bold; font-size: 9.5pt; color: #1a1a1a; margin-bottom: 1pt;">
-                <span>PHONEPE &mdash; Associate Product Manager &nbsp;<em style="font-weight:400; font-size:9pt;">(Monetization &amp; Strategy)</em></span><span style="font-size:9pt; font-weight:400;">Apr 2022 &ndash; Apr 2023 &nbsp;|&nbsp; Bangalore</span>
+                <span>PHONEPE &mdash; Associate Product Manager &nbsp;<em style="font-weight:400; font-size:9pt;">(Third-Party Rewards &amp; Merchant Growth)</em></span><span style="font-size:9pt; font-weight:400;">Apr 2022 &ndash; Apr 2023 &nbsp;|&nbsp; Bangalore</span>
             </div>
             <ul style="font-size: 9pt; margin: 3pt 0 0 14pt; line-height: 1.5; color: #333; padding: 0;">
                 <li style="margin-bottom: 3pt;">Saw that referral programs across business units operated in silos with duplicate fraud vectors; built a multi-tenant referral platform with integrated fraud detection and feature-level hooks, acquiring <strong>5Mn+ users/month at 23% lower CAC</strong>.</li>
-                <li style="margin-bottom: 0;">Defined monetization strategy for a \u20b9100 Cr/yr portfolio; established scalable B2B revenue infrastructure — subscription tiers, transaction fees, settlement mechanics — enabling <strong>rapid merchant growth</strong> without marginal cost increase.</li>
+                <li style="margin-bottom: 0;">Owned the \u20b9100 Cr/yr third-party rewards portfolio; rebuilt distribution from a static bucket model to a dynamic marketplace ecosystem with ML-driven personalization — driving <strong>11% YoY revenue growth, 26% lift in user engagement</strong>, and 15% improvement in advertiser ROAS across 500+ brand partners.</li>
             </ul>
         </div>
 
